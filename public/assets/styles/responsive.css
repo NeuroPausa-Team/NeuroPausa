@@ -1,0 +1,716 @@
+/*VERSION PRINCIPAL ============================
+RESET RESPONSIVE
+============================ */
+img{
+    max-width:100%;
+    height:auto;
+}
+
+body{
+    overflow-x:hidden;
+}
+
+/* ============================
+LAPTOP GRANDE (1400px)
+============================ */
+@media screen and (max-width:1400px){
+
+    nav{
+        width:90%;
+        padding:20px 30px;
+    }
+
+    .hero,
+    .hero-proposito,
+    .hero-funciones,
+    .hero-recursos{
+        padding:50px 40px;
+        gap:40px;
+    }
+
+    .hero-texto h2,
+    .proposito-texto h2,
+    .funciones-texto h2,
+    .recursos-texto h2{
+        font-size: clamp(2rem, 5vw, 68px);
+    }
+
+    .hero-texto p,
+    .proposito-texto p,
+    .funciones-texto p,
+    .recursos-texto p{
+        font-size:24px;
+    }
+}
+
+/* ============================
+LAPTOP (1200px)
+============================ */
+@media screen and (max-width:1200px){
+
+    nav{
+        width:95%;
+        padding:18px 24px;
+    }
+
+    nav ul{
+        gap:20px;
+    }
+
+    .hero,
+    .hero-proposito,
+    .hero-funciones,
+    .hero-recursos{
+        gap:30px;
+    }
+
+    .hero-texto,
+    .proposito-texto,
+    .funciones-texto,
+    .recursos-texto{
+        width:100%;
+        max-width:100%;
+    }
+
+    .hero-texto h2,
+    .proposito-texto h2,
+    .funciones-texto h2,
+    .recursos-texto h2{
+        font-size:48px;
+    }
+
+    .contenedor-pilares,
+    .biblioteca-cards,
+    .funciones-grid{
+        justify-content:center;
+        gap:25px;
+    }
+
+    .fila-superior,
+    .fila-inferior{
+        flex-direction:column;
+    }
+
+    .fila-superior .Tarjeta,
+    .Articulos,
+    .Disenado{
+        width:100%;
+    }
+}
+/* ============================
+TABLET (992px)
+============================ */
+@media screen and (max-width:992px){
+
+    nav{
+        width:95%;
+        display:flex;
+        flex-direction:column;
+        gap:15px;
+        padding:18px;
+        border-radius:18px;
+    }
+
+    nav ul{
+        display:flex;
+        flex-wrap:wrap;
+        justify-content:center;
+        gap:15px;
+    }
+
+    nav ul li a{
+        font-size:16px;
+    }
+
+    .hero,
+    .hero-proposito,
+    .hero-funciones,
+    .hero-recursos{
+        display:flex;
+        flex-direction:column;
+        align-items:center;
+        text-align:center;
+        padding:40px 25px;
+        gap:30px;
+    }
+
+    .hero-texto,
+    .proposito-texto,
+    .funciones-texto,
+    .recursos-texto{
+        width:100%;
+        max-width:100%;
+    }
+
+    .proposito-imagen-contenedor,
+    .funciones-imagen,
+    .recursos-imagen,
+    .funcion-imagen{
+        width:100%;
+        max-width:100%;
+    }
+
+    .hero-texto h2,
+    .proposito-texto h2,
+    .funciones-texto h2,
+    .recursos-texto h2{
+        font-size:40px;
+        line-height:1.2;
+    }
+
+    .hero-texto p,
+    .proposito-texto p,
+    .funciones-texto p,
+    .recursos-texto p{
+        font-size:20px;
+        line-height:1.5;
+    }
+
+    .contenedor{
+        justify-content:center;
+        flex-wrap:wrap;
+        gap:15px;
+    }
+
+    .contenedor-pilares{
+        flex-direction:column;
+        align-items:center;
+    }
+
+    .tarjeta{
+        width:90%;
+        max-width:500px;
+        height:auto;
+    }
+
+    .estadisticas{
+        flex-direction:column;
+        align-items:center;
+        gap:20px;
+    }
+
+    .problema-item{
+        flex-direction:column;
+        align-items:center;
+        text-align:center;
+    }
+
+    .titulo-problema,
+    .titulo-valores{
+        font-size:42px;
+        text-align:center;
+    }
+
+    .descripcion-problema,
+    .descripcion-valores{
+        font-size:20px;
+        text-align:center;
+    }
+
+    .contenedor-valores{
+        flex-direction:column;
+        align-items:center;
+    }
+
+    .funcion-principal{
+        flex-direction:column;
+        text-align:center;
+    }
+
+    .tags-funcion{
+        justify-content:center;
+    }
+
+    .funciones-grid{
+        flex-direction:column;
+        align-items:center;
+    }
+
+    .mini-card{
+        width:90%;
+        max-width:400px;
+    }
+
+    .biblioteca-cards{
+        justify-content:center;
+    }
+
+    .biblioteca-card{
+        width:90%;
+        max-width:400px;
+    }
+
+    .footer-neuro{
+        flex-direction:column;
+        text-align:center;
+        gap:20px;
+    }
+}
+
+/* ============================
+TABLET PEQUEÑA (768px)
+============================ */
+@media screen and (max-width:768px){
+
+    nav{
+        position:static;
+        width:100%;
+        margin:0;
+        border-radius:0;
+        box-shadow:none;
+        padding:18px;
+    }
+
+    nav h1{
+        font-size:34px;
+        text-align:center;
+    }
+
+    nav ul{
+        gap:12px;
+    }
+
+    .hero-texto h2,
+    .proposito-texto h2,
+    .funciones-texto h2,
+    .recursos-texto h2{
+        font-size:34px;
+    }
+
+    .hero-texto p,
+    .proposito-texto p,
+    .funciones-texto p,
+    .recursos-texto p{
+        font-size:18px;
+    }
+
+    .LogoNeuroPausa img{
+        width:260px;
+        height:260px;
+    }
+
+    .imagen-proposito,
+    .imagen-funciones{
+        height:auto;
+    }
+
+    .funcion-info h2{
+        font-size:34px;
+    }
+
+    .funcion-info p{
+        font-size:18px;
+    }
+
+    .tags-funcion span{
+        font-size:16px;
+        padding:10px 14px;
+    }
+}
+/* ============================
+MOBILE (576px)
+============================ */
+@media screen and (max-width:576px){
+
+    nav{
+        padding:15px;
+    }
+
+    nav h1{
+        font-size:28px;
+    }
+
+    nav ul{
+        flex-direction:column;
+        align-items:center;
+        gap:10px;
+    }
+
+    nav button,
+    .btn-nav-cita{
+        width:180px;
+        height:45px;
+        font-size:14px;
+    }
+
+    .hero,
+    .hero-proposito,
+    .hero-funciones,
+    .hero-recursos{
+        padding:25px 15px;
+        gap:20px;
+    }
+
+    .hero-texto h2,
+    .proposito-texto h2,
+    .funciones-texto h2,
+    .recursos-texto h2{
+        font-size:28px;
+        line-height:1.25;
+    }
+
+    .hero-texto p,
+    .proposito-texto p,
+    .funciones-texto p,
+    .recursos-texto p{
+        font-size:16px;
+        line-height:1.5;
+    }
+
+    .contenedor{
+        flex-direction:column;
+        align-items:center;
+        gap:12px;
+    }
+
+    .btnIniciarsesion,
+    .btnRegistrase{
+        width:180px;
+        height:48px;
+        font-size:16px;
+    }
+
+    .LogoNeuroPausa img{
+        width:200px;
+        height:200px;
+    }
+
+    .titulo-bloq2{
+        font-size:32px;
+    }
+
+    .descripción{
+        font-size:18px;
+        padding:0 15px;
+    }
+
+    .tarjeta{
+        width:100%;
+        height:auto;
+        padding:25px 18px;
+    }
+
+    .tarjeta h3{
+        font-size:24px;
+    }
+
+    .tarjeta p{
+        font-size:15px;
+    }
+
+    .titulo-problema,
+    .titulo-valores{
+        font-size:30px;
+    }
+
+    .descripcion-problema,
+    .descripcion-valores{
+        font-size:16px;
+    }
+
+    .texto-item h4{
+        font-size:22px;
+    }
+
+    .texto-item p{
+        font-size:16px;
+    }
+
+    .card-valor{
+        width:100%;
+        min-height:auto;
+        padding:25px;
+    }
+
+    .card-valor h3{
+        font-size:24px;
+    }
+
+    .card-valor p{
+        font-size:16px;
+    }
+
+    .funcion-principal{
+        padding:20px 15px;
+    }
+
+    .funcion-info h2{
+        font-size:26px;
+    }
+
+    .funcion-info p{
+        font-size:15px;
+    }
+
+    .funcion-imagen img{
+        height:auto;
+    }
+
+    .tags-funcion{
+        gap:10px;
+    }
+
+    .tags-funcion span{
+        font-size:13px;
+        padding:8px 12px;
+    }
+
+    .mini-card{
+        width:100%;
+        max-width:280px;
+        height:auto;
+        padding:20px;
+    }
+
+    .mini-card h3{
+        font-size:22px;
+    }
+
+    .biblioteca-recursos h2{
+        font-size:30px;
+    }
+
+    .biblioteca-recursos > p{
+        font-size:16px;
+    }
+
+    .biblioteca-card{
+        width:100%;
+    }
+
+    .contenido-card h3{
+        font-size:22px;
+    }
+
+    .contenido-card p{
+        font-size:15px;
+    }
+
+    .tarjeta-registro{
+        width:95%;
+        padding:25px 20px;
+    }
+
+    .botones-cta{
+        flex-direction:column;
+    }
+
+    .footer-centro{
+        flex-wrap:wrap;
+        justify-content:center;
+        gap:10px;
+    }
+}
+
+/* ============================
+MOBILE PEQUEÑO (480px)
+============================ */
+@media screen and (max-width:480px){
+
+    nav h1{
+        font-size:24px;
+    }
+
+    .hero-texto h2,
+    .proposito-texto h2,
+    .funciones-texto h2,
+    .recursos-texto h2{
+        font-size:24px;
+    }
+
+    .hero-texto p,
+    .proposito-texto p,
+    .funciones-texto p,
+    .recursos-texto p{
+        font-size:14px;
+    }
+
+    .LogoNeuroPausa img{
+        width:170px;
+        height:170px;
+    }
+
+    .titulo-bloq2,
+    .titulo-problema,
+    .titulo-valores{
+        font-size:24px;
+    }
+}
+
+/* ============================
+MOBILE MINI (320px)
+============================ */
+@media screen and (max-width:320px){
+
+    nav{
+        padding:10px;
+    }
+
+    nav h1{
+        font-size:20px;
+    }
+
+    .hero-texto h2,
+    .proposito-texto h2,
+    .funciones-texto h2,
+    .recursos-texto h2{
+        font-size:20px;
+    }
+
+    .hero-texto p,
+    .proposito-texto p,
+    .funciones-texto p,
+    .recursos-texto p{
+        font-size:13px;
+    }
+
+    .btnIniciarsesion,
+    .btnRegistrase{
+        width:150px;
+        font-size:14px;
+    }
+
+    .LogoNeuroPausa img{
+        width:140px;
+        height:140px;
+    }
+}
+@media (max-width: 768px){
+    .fila-superior,
+    .fila-inferior{
+        flex-direction: column !important;
+    }
+
+    .fila-superior .Tarjeta,
+    .fila-inferior .Tarjeta,
+    .Tarjeta{
+        width: 100% !important;
+        height: auto !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        text-align: center !important;
+    }
+}
+@media (max-width:768px){
+    .Articulos,
+    .Disenado{
+        width:100% !important;
+        height:auto !important;
+        padding:25px !important;
+    }
+
+    .Articulos p,
+    .Disenado p{
+        font-size:16px !important;
+        line-height:1.6;
+    }
+}
+@media (max-width:1024px){
+    nav{
+        position: static;
+    }
+}
+@media (max-width:425px){
+    .hero-texto{
+        width:100%;
+    }
+
+    .hero-texto h2{
+        font-size:32px !important;
+    }
+
+    .hero-texto p{
+        font-size:18px !important;
+    }
+}
+@media screen and (max-width: 425px){
+
+    .hero{
+        padding: 20px 15px;
+        gap: 20px;
+    }
+
+    .hero-texto{
+        width: 100%;
+    }
+
+    .hero-texto h2{
+        font-size: 36px !important;
+        line-height: 1.2;
+    }
+
+    .hero-texto p{
+        font-size: 18px !important;
+        line-height: 1.5;
+    }
+
+    .LogoNeuroPausa{
+        width: 220px !important;
+        height: 220px !important;
+        margin: 0 auto;
+    }
+
+    .LogoNeuroPausa img{
+        width: 100%;
+        height: 100%;
+    }
+}
+@media screen and (min-width: 768px) and (max-width: 1024px){
+
+    nav{
+        width: 92%;
+        margin: 20px auto;
+        padding: 20px 30px;
+        border-radius: 24px;
+        background: white;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+    }
+
+    nav ul{
+        gap: 20px;
+    }
+
+    nav h1{
+        font-size: 48px;
+    }
+}
+@media screen and (max-width: 1024px){
+    .enlace-biblioteca{
+        margin-top: 25px !important;
+        display: block;
+    }
+}
+@media screen and (min-width: 1024px){
+
+    .hero{
+        min-height: 85vh;
+        align-items: center;
+    }
+
+    .separador{
+        margin-top: 80px;
+        margin-bottom: 0;
+    }
+}
+@media screen and (min-width: 1024px){
+
+    .LogoNeuroPausa{
+        width: 420px;
+        height: 420px;
+    }
+}
+@media screen and (min-width: 1440px){
+
+    .LogoNeuroPausa{
+        width: 500px;
+        height: 500px;
+    }
+
+    .hero{
+        padding: 60px 80px;
+    }
+}
+
+
+
+
