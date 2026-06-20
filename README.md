@@ -80,23 +80,23 @@ NeuroPausa ofrece:
 ---
 
 ## Tecnologías Utilizadas
-- HTML5 
+    - HTML5 
 <p align="center">
   <img src="public/assets/images/logoHTML5.png" width="70">
 </p>
-- CSS3  
+    - CSS3  
 <p align="center">
   <img src="public/assets/images/logoCSS.png" width="70">
 </p>
-- JavaScript  
+    - JavaScript  
 <p align="center">
   <img src="public/assets/images/logoJavascript.png" width="70">
 </p>
-- Git  
+    - Git  
 <p align="center">
   <img src="public/assets/images/LogoGit1.png" width="70">
 </p>
-- GitHub 
+    - GitHub 
 <p align="center">
   <img src="public/assets/images/GitHub.png" width="70">
 </p>  
