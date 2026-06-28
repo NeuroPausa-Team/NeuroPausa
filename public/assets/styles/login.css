@@ -1,0 +1,165 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, sans-serif;
+}
+
+body{
+    background:#e8e1dc;
+    min-height:100vh;
+}
+
+.login-container{
+    display:flex;
+    min-height:100vh;
+}
+
+.login-box{
+    width:50%;
+    background:#f8f4ef;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    padding:40px;
+}
+
+.logo-box{
+    text-align:center;
+    margin-bottom:30px;
+}
+
+.logo-box img{
+    width:160px;
+    height:160px;
+    object-fit:cover;
+    border-radius:30px;
+}
+
+.logo-box h1{
+    font-size:52px;
+    margin-top:20px;
+    color:#1f1f1f;
+}
+
+.logo-box p{
+    margin-top:10px;
+    color:#666;
+    font-size:20px;
+}
+
+.login-form{
+    width:100%;
+    max-width:450px;
+}
+
+.input-box{
+    margin-bottom:20px;
+}
+
+.input-box input{
+    width:100%;
+    padding:18px;
+    border:none;
+    border-radius:14px;
+    background:#ddd4cd;
+    font-size:18px;
+}
+
+.forgot{
+    display:block;
+    text-align:right;
+    margin-bottom:25px;
+    color:#666;
+    text-decoration:none;
+}
+
+.login-form button{
+    width:100%;
+    height:58px;
+    border:none;
+    border-radius:40px;
+    background:#7dc79a;
+    font-size:24px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.register{
+    text-align:center;
+    margin-top:25px;
+}
+
+.register a{
+    color:#34a853;
+    text-decoration:none;
+    font-weight:bold;
+}
+
+.login-side{
+    width:50%;
+    background-image:url('../images/Mujermenopausa1.png');
+    background-size:cover;
+    background-position:center;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+.overlay{
+    background:rgba(8,85,31,0.7);
+    padding:40px;
+    border-radius:20px;
+    color:white;
+    text-align:center;
+}
+
+.overlay h2{
+    font-size:48px;
+    margin-bottom:20px;
+}
+
+.overlay p{
+    font-size:20px;
+}
+/* ===== RESPONSIVE MOBILE ===== 
+*/
+@media (max-width:768px){
+
+    .login-container{
+        flex-direction:column;
+    }
+
+    .login-side{
+        display:none;
+    }
+
+    .login-box{
+        width:100%;
+        min-height:100vh;
+        padding:30px 20px;
+    }
+
+    .logo-box img{
+        width:120px;
+        height:120px;
+    }
+
+    .logo-box h1{
+        font-size:34px;
+    }
+
+    .logo-box p{
+        font-size:16px;
+    }
+
+    .login-form{
+        max-width:100%;
+    }
+
+    .login-form button{
+        font-size:20px;
+        height:54px;
+    }
+}

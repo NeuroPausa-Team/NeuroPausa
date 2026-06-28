@@ -438,30 +438,6 @@ nav button:hover{
     box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.15);
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 .boton-gris-flotante:hover {
     transform: translateY(-3px); 
     background-color: #A3A6A3; 
@@ -1457,25 +1433,64 @@ nav{
     margin-bottom:60px;
 }
 
+
+/* Slider Biblioteca */
+.slider-container{
+    position: relative;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    width:100%;
+    margin-top:30px;
+}
+
+
+.biblioteca-wrapper.dragging{
+    cursor:grabbing;
+    scroll-behavior:auto; /* mientras arrastras */
+}
+
+.biblioteca-wrapper::-webkit-scrollbar{
+    display:none;
+}
+
 .biblioteca-cards{
     display:flex;
-    gap:50px;
-    flex-wrap:wrap;
+    gap:25px;
+    width:max-content;
+    padding:10px 15px;
 }
+.biblioteca-wrapper{
+    width:100%;
+    overflow-x:auto;
+    overflow-y:hidden;
+    scroll-behavior:smooth;
+    scrollbar-width:none;
+
+    -webkit-overflow-scrolling: touch;
+    touch-action: pan-x;
+
+    cursor:grab;
+    scroll-snap-type:x mandatory;
+}
+
 
 .biblioteca-card{
     width:320px;
+    flex-shrink:0;
     background:white;
     border-radius:35px;
     overflow:hidden;
     box-shadow:0 12px 30px rgba(0,0,0,.08);
-    transition:.35s;
+    transition: transform .35s ease, box-shadow .35s ease;
+    scroll-snap-align:start;
 }
+
 
 .biblioteca-card:hover{
     transform:translateY(-10px);
+    box-shadow:0 18px 35px rgba(0,0,0,.12);
 }
-
 .biblioteca-card img{
     width:100%;
     height:240px;
@@ -1497,4 +1512,43 @@ nav{
     font-size:22px;
     line-height:1.5;
 }
+/* Botones slider */
+.slider-btn{
+    width:60px;
+    height:60px;
+    border:none;
+    border-radius:50%;
+    background:#08551f;
+    color:white;
+    font-size:28px;
+    cursor:pointer;
+    position:absolute;
+    z-index:5;
 
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    transition: all .3s ease;
+}
+
+.slider-btn:hover{
+    background:#0b6a27;
+    transform:scale(1.08);
+}
+
+.prev{
+    left:10px;
+}
+
+.next{
+    right:10px;
+} 
+/*Cambiar el nav en el celular*/
+.menu-toggle{
+    display:none;
+}
+/*Para carta de proposito +numeros estilo*/
+.stat-card h3{
+    transition: all .3s ease;
+}

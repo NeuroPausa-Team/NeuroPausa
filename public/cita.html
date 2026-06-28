@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agendar Cita - NeuroPausa</title>
+    <link rel="stylesheet" href="assets/styles/cita.css">
+</head>
+<body>
+
+<div class="cita-container">
+    <div class="cita-box">
+
+        <h1>Agendar cita</h1>
+        <p>Reserva una consulta con nuestros especialistas</p>
+
+        <form>
+
+            <input type="text" placeholder="Nombre completo" required>
+            <input type="number" placeholder="Edad" required>
+            <input type="email" placeholder="Correo electrónico" required>
+            <input type="tel" placeholder="Teléfono" required>
+
+            <select required>
+                <option value="">Tipo de cita</option>
+                <option>Virtual</option>
+                <option>Presencial</option>
+            </select>
+
+            <select>
+                <option value="">Sede (si es presencial)</option>
+                <option>San Isidro</option>
+                <option>Miraflores</option>
+                <option>Surco</option>
+                <option>Los Olivos</option>
+            </select>
+
+            <input type="text" placeholder="Dirección">
+            <input type="date">
+            <input type="time">
+
+            <textarea placeholder="Motivo de consulta"></textarea>
+
+            <button type="submit">Confirmar cita</button>
+
+        </form>
+
+    </div>
+</div>
+
+</body>
+</html>

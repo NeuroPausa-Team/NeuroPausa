@@ -1,0 +1,91 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    background:#e8e1dc;
+    font-family:Arial, sans-serif;
+}
+
+.cita-container{
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:40px 20px;
+}
+
+.cita-box{
+    width:700px;
+    background:#f5f2ef;
+    padding:40px;
+    border-radius:30px;
+    box-shadow:0 10px 30px rgba(0,0,0,0.12);
+}
+
+.cita-box h1{
+    font-size:48px;
+    color:#08551F;
+    margin-bottom:10px;
+    text-align:center;
+}
+
+.cita-box p{
+    text-align:center;
+    margin-bottom:30px;
+    color:#666;
+}
+
+form{
+    display:flex;
+    flex-direction:column;
+    gap:18px;
+}
+
+input, select, textarea{
+    width:100%;
+    padding:16px;
+    border:none;
+    border-radius:15px;
+    background:#ddd6d0;
+    font-size:16px;
+}
+
+textarea{
+    height:130px;
+    resize:none;
+}
+
+button{
+    height:55px;
+    border:none;
+    border-radius:30px;
+    background:#08551F;
+    color:white;
+    font-size:20px;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+button:hover{
+    transform:scale(1.02);
+    background:#0b6a27;
+}
+/*Responsive: */
+@media (max-width:768px){
+
+    .cita-box{
+        width:95%;
+        padding:25px;
+    }
+
+    .cita-box h1{
+        font-size:34px;
+    }
+
+    input, select, textarea{
+        font-size:15px;
+    }
+}
