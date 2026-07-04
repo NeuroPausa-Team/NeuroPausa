@@ -269,3 +269,62 @@ if(btnCita){
         window.location.href = "cita.html";
     });
 } 
+/*Funcionalidad para abrir el modal de información de Saber más*/
+
+const modal = document.getElementById("modalInfo");
+const btnSaberMas = document.querySelector(".btn-saber-mas");
+const closeModal = document.querySelector(".close-modal");
+
+btnSaberMas.addEventListener("click", () => {
+    modal.style.display = "flex";
+});
+
+closeModal.addEventListener("click", () => {
+    modal.style.display = "none";
+});
+
+window.addEventListener("click", (e) => {
+    if (e.target === modal) {
+        modal.style.display = "none";
+    }
+});
+/*Animacion al hacer scroll la app desing*/
+const animatedElements = document.querySelectorAll('.fade-up, .slide-up');
+
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if(entry.isIntersecting){
+            entry.target.classList.add('show');
+        }
+    });
+}, {
+    threshold: 0.2
+});
+
+animatedElements.forEach(el => observer.observe(el));
+/*Version final de slider tarjeta de recursos */
+const track = document.getElementById("sliderTrack");
+const prevBtn = document.querySelector(".prev");
+const nextBtn = document.querySelector(".next");
+
+if(track && prevBtn && nextBtn){
+
+    let currentIndex = 0;
+    const cards = document.querySelectorAll(".biblioteca-card");
+    const cardWidth = 380;
+    const visibleCards = 3;
+
+    nextBtn.addEventListener("click", () => {
+        if(currentIndex < cards.length - visibleCards){
+            currentIndex++;
+            track.style.transform = `translateX(-${currentIndex * cardWidth}px)`;
+        }
+    });
+
+    prevBtn.addEventListener("click", () => {
+        if(currentIndex > 0){
+            currentIndex--;
+            track.style.transform = `translateX(-${currentIndex * cardWidth}px)`;
+        }
+    });
+} 
