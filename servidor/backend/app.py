@@ -64,24 +64,33 @@ def enviar_bienvenida_paciente(correo_paciente, nombre_paciente):
 # ==========================================
 # CREACIÓN DE LA API (El puente con tu HTML)
 # ==========================================
+import traceback
+
 @app.route('/api/registrar', methods=['POST'])
 def registrar_paciente():
-    # Recibir los datos enviados desde JavaScript
-    datos = request.json
-    nombre = datos.get('nombre')
-    correo = datos.get('correo')
-    
-    # Aquí se conectara a futuro con SQL Server u Oracle para guardar los datos
-    # cursor.execute("INSERT INTO Pacientes...")
+    try:
+        # Recibir los datos enviados desde JavaScript
+        datos = request.json
+        nombre = datos.get('nombre')
+        correo = datos.get('correo')
+        
+        # Aquí se conectara a futuro con SQL Server u Oracle para guardar los datos
+        # cursor.execute("INSERT INTO Pacientes...")
 
-    # Enviar el correo
-    exito = enviar_bienvenida_paciente(correo, nombre)
+        # Enviar el correo
+        exito = enviar_bienvenida_paciente(correo, nombre)
+        
+        # Responderle a la página web
+        if exito:
+            return jsonify({"mensaje": "Registro exitoso y correo enviado"}), 200
+        else:
+            return jsonify({"error": "No se pudo enviar el correo"}), 500
 
-    # Responderle a la página web
-    if exito:
-        return jsonify({"mensaje": "Registro exitoso y correo enviado"}), 200
-    else:
-        return jsonify({"error": "No se pudo enviar el correo"}), 500
+    except Exception as e:
+        # Esto imprimirá el error exacto y completo en la consola de Render
+        print("ERROR CRITICO EN PYTHON:")
+        traceback.print_exc()
+        return jsonify({"error": str(e)}), 500
 
 import os
 if __name__ == '__main__':
