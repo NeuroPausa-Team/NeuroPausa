@@ -1,6 +1,7 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 import smtplib
+import os
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 
@@ -84,5 +85,5 @@ def registrar_paciente():
         return jsonify({"error": "No se pudo enviar el correo"}), 500
 
 if __name__ == '__main__':
-    # Arrancar el servidor en el puerto 5000
-    app.run(debug=True, port=5000)
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host="0.0.0.0", port=port, debug=False)
