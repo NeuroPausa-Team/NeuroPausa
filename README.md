@@ -18,17 +18,6 @@ La iniciativa nace con el propósito de ofrecer una solución digital de salud i
 
 A través del uso de inteligencia artificial, ejercicios de estimulación cognitiva basados en neuropsicología y un módulo de psicoeducación, buscamos fortalecer a las usuarias y facilitar el trabajo de los profesionales de la salud mediante un panel de control avanzado con historial exportable.
 
----
-
-## Autores
-
-- Jose Luis Arbañil Garrido — U20221G367  
-- Farid Elmer Camacho Albujar — U20241G288  
-- Gonzalo Sebastian Reategui Tello — U202423599  
-- Choquehuanca Vasquez Alejandro Samir — U202420249  
-- Hugo Alfredo Vega Vargas — U202416973  
-
----
 
 ## Segmento Objetivo
 
@@ -100,23 +89,7 @@ NeuroPausa ofrece:
 <p align="center">
   <img src="public/assets/images/GitHub.png" width="70">
 </p>  
----
 
-## Estructura del Proyecto
-
-```plaintext
-public/
- ├── assets/
- │   ├── images/
- │   ├── scripts/
- │   └── styles/
- ├── favicon.ico
- ├── index.html
- ├── funciones.html
- ├── proposito.html
- └── recursos.html
-```
-## Flujo de Trabajo Git
 
 El proyecto utiliza GitFlow para la gestión de versiones y trabajo colaborativo:
 
