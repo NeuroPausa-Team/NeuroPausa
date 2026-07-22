@@ -73,18 +73,19 @@ def registrar_paciente():
         nombre = datos.get('nombre')
         correo = datos.get('correo')
         
-        # Enviar el correo
+        # Intentar enviar el correo
         exito = enviar_bienvenida_paciente(correo, nombre)
         
         if exito:
             return jsonify({"mensaje": "Registro exitoso y correo enviado"}), 200
         else:
-            return jsonify({"error": "No se pudo enviar el correo"}), 500
+            return jsonify({"error": "La función enviar_bienvenida_paciente retornó falso"}), 500
 
     except Exception as e:
-        print("ERROR CRITICO EN PYTHON:")
-        traceback.print_exc()
-        return jsonify({"error": str(e)}), 500
+        # Esto captura el error exacto y lo devuelve a tu página web para que lo leas de inmediato
+        error_detallado = traceback.format_exc()
+        print("ERROR EN SERVIDOR:", error_detallado)
+        return jsonify({"error": str(e), "detalles": error_detallado}), 500
 
 import os
 if __name__ == '__main__':
