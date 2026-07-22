@@ -9,26 +9,28 @@
 <body>
 
     <div class="register-container">
-
         <div class="register-box">
-
             <img src="assets/images/ImagenNeuroPausaLogo.png" alt="Logo NeuroPausa" class="logo">
-
+            
             <h1>Crear cuenta</h1>
             <p>Empieza tu camino hacia el bienestar</p>
 
-            <form>
+            <!-- Agregamos el id="formulario-registro" aquí -->
+            <form id="formulario-registro">
 
                 <div class="input-box">
-                    <input type="text" placeholder="Nombre" required>
+                    <!-- Agregamos el id="nombre-input" aquí -->
+                    <input type="text" id="nombre-input" placeholder="Nombre" required>
                 </div>
 
                 <div class="input-box">
-                    <input type="text" placeholder="Apellido" required>
+                    <!-- Agregamos el id="apellido-input" aquí -->
+                    <input type="text" id="apellido-input" placeholder="Apellido" required>
                 </div>
 
                 <div class="input-box">
-                    <input type="email" placeholder="Correo electrónico" required>
+                    <!-- Agregamos el id="correo-input" aquí -->
+                    <input type="email" id="correo-input" placeholder="Correo electrónico" required>
                 </div>
 
                 <div class="input-box">
@@ -46,10 +48,56 @@
             <div class="extra-links">
                 <p>¿Ya tienes cuenta? <a href="login.html">Inicia sesión</a></p>
             </div>
-
         </div>
-
     </div>
+
+    <!-- codigo javascript para enviar al correo -->
+    <script>
+        document.getElementById('formulario-registro').addEventListener('submit', async function(event) {
+            // Evita que la página se recargue automáticamente
+            event.preventDefault();
+
+            // Obtenemos los valores de nombre y correo
+            const nombrePaciente = document.getElementById('nombre-input').value;
+            const correoPaciente = document.getElementById('correo-input').value;
+
+            // Cambiamos el texto del botón para que el usuario sepa que está cargando
+            const boton = document.querySelector('.register-btn');
+            const textoOriginal = boton.innerHTML;
+            boton.innerHTML = "Registrando...";
+            boton.disabled = true;
+
+            try {
+                // Enviar los datos a tu servidor Flask
+                const respuesta = await fetch('http://localhost:5000/api/registrar', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        nombre: nombrePaciente,
+                        correo: correoPaciente
+                    })
+                });
+
+                if (respuesta.ok) {
+                    alert("¡Registro exitoso! Revisa tu bandeja de entrada.");
+                    // Redirige automáticamente al inicio de sesión
+                    window.location.href = "login.html";
+                } else {
+                    alert("Hubo un problema con el registro.");
+                }
+
+            } catch (error) {
+                console.error("Error al conectar:", error);
+                alert("No se pudo conectar con el servidor. Verifica que Flask (app.py) esté corriendo en tu terminal.");
+            } finally {
+                // Restauramos el botón a la normalidad
+                boton.innerHTML = textoOriginal;
+                boton.disabled = false;
+            }
+        });
+    </script>
 
 </body>
 </html>
