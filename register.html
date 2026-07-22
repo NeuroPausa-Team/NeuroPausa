@@ -82,10 +82,11 @@
 
                 if (respuesta.ok) {
                     alert("¡Registro exitoso! Revisa tu bandeja de entrada.");
-                    // Redirige automáticamente al inicio de sesión
                     window.location.href = "login.html";
                 } else {
-                    alert("Hubo un problema con el registro.");
+                    const errorData = await respuesta.json();
+                    alert("Error del servidor: " + (errorData.error || "Desconocido"));
+                    console.error("Detalles:", errorData.detalles);
                 }
 
             } catch (error) {
