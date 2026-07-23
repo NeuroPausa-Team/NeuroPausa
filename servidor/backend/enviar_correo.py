@@ -1,19 +1,17 @@
-import smtplib
-from email.mime.text import MIMEText
-from email.mime.multipart import MIMEMultipart
+import os
+import sib_api_v3_sdk
+from sib_api_v3_sdk.rest import ApiException
 
 def enviar_bienvenida_paciente(correo_paciente, nombre_paciente):
-    # Configuración de tu cuenta
-    remitente = "neuropausa2@gmail.com"
-    password = "usgfquslqylccecx" 
+    # Configurar la API key de Brevo
+    configuration = sib_api_v3_sdk.Configuration()
+    configuration.api_key["api-key"] = os.getenv("BREVO_API_KEY")
 
-    # Crear el mensaje
-    mensaje = MIMEMultipart()
-    mensaje['From'] = remitente
-    mensaje['To'] = correo_paciente
-    mensaje['Subject'] = "¡Bienvenida a NeuroPausa!"
+    api_instance = sib_api_v3_sdk.TransactionalEmailsApi(
+        sib_api_v3_sdk.ApiClient(configuration)
+    )
 
-    # Diseño HTML del correo 
+    # El diseño HTML exacto que tenías preparado
     html = f"""
     <html>
     <body style="margin: 0; padding: 0; background-color: #F5F0E8; font-family: 'Open Sans', Arial, sans-serif;">
@@ -25,8 +23,7 @@ def enviar_bienvenida_paciente(correo_paciente, nombre_paciente):
                         <!-- CABECERA CON LOGO Y COLOR VERDE SALVIA -->
                         <tr>
                             <td style="background-color: #6B9E7E; text-align: center; padding: 30px;">
-                                <!-- Aquí puedes poner la ruta de tu logo alojado en internet -->
-                                <img src = "https://neuropausa-team.github.io/NeuroPausa/assets/images/LogoNeuroGitHub.png" width="100" style="margin-bottom: 10px;">
+                                <img src="https://neuropausa-team.github.io/NeuroPausa/assets/images/LogoNeuroGitHub.png" width="100" style="margin-bottom: 10px;">
                                 <h1 style="color: #FFFFFF; margin: 0; font-family: 'Montserrat', Arial, sans-serif; font-size: 28px;">NeuroPausa</h1>
                             </td>
                         </tr>
@@ -61,19 +58,27 @@ def enviar_bienvenida_paciente(correo_paciente, nombre_paciente):
     </html>
     """
 
-    # Adjuntamos el HTML al mensaje
-    mensaje.attach(MIMEText(html, 'html'))
+    # Crear el objeto de correo para Brevo
+    correo = sib_api_v3_sdk.SendSmtpEmail(
+        sender={
+            "name": "NeuroPausa",
+            "email": "neuropausa2@gmail.com"
+        },
+        to=[
+            {
+                "email": correo_paciente,
+                "name": nombre_paciente
+            }
+        ],
+        subject="¡Bienvenida a NeuroPausa!",
+        html_content=html
+    )
 
-    # Enviar el correo
+    # Enviar a través de la API HTTP de Brevo
     try:
-        servidor = smtplib.SMTP('smtp.gmail.com', 587)
-        servidor.starttls()
-        servidor.login(remitente, password)
-        servidor.send_message(mensaje)
-        servidor.quit()
+        api_instance.send_transac_email(correo)
         print(f"¡Correo de bienvenida enviado exitosamente a {correo_paciente}!")
-        
-    except Exception as e:
-        print(f"Error al enviar el correo: {e}")
-
-
+        return True
+    except ApiException as e:
+        print(f"Error al enviar el correo con Brevo: {e}")
+        return False

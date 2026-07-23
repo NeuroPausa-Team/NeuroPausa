@@ -51,7 +51,7 @@
         </div>
     </div>
 
-    <!-- codigo javascript para enviar al correo -->
+    <!-- CÓDIGO ACTUALIZADO: Envío de correo directo con Brevo API -->
     <script>
         document.getElementById('formulario-registro').addEventListener('submit', async function(event) {
             // Evita que la página se recargue automáticamente
@@ -68,30 +68,40 @@
             boton.disabled = true;
 
             try {
-                // Enviar los datos a tu servidor Flask
-                const respuesta = await fetch('https://neuropausa-backend.onrender.com/api/registrar', {
+                // Petición directa a la API de Brevo
+                const respuesta = await fetch('https://api.brevo.com/v3/smtp/email', {
                     method: 'POST',
                     headers: {
-                        'Content-Type': 'application/json'
+                        'accept': 'application/json',
+                        'api-key': 'PEGA_AQUI_TU_API_KEY_DE_BREVO', // <-- REEMPLAZA ESTO CON TU API KEY REAL DE BREVO
+                        'content-type': 'application/json'
                     },
                     body: JSON.stringify({
-                        nombre: nombrePaciente,
-                        correo: correoPaciente
+                        sender: {
+                            name: "NeuroPausa",
+                            email: "neuropausa2@gmail.com"
+                        },
+                        to: [{
+                            email: correoPaciente,
+                            name: nombrePaciente
+                        }],
+                        subject: "¡Bienvenido a NeuroPausa!",
+                        htmlContent: `<html><body><h1>¡Hola ${nombrePaciente}!</h1><p>Gracias por registrarte en NeuroPausa. Tu camino hacia el bienestar ha comenzado.</p></body></html>`
                     })
                 });
 
                 if (respuesta.ok) {
                     alert("¡Registro exitoso! Revisa tu bandeja de entrada.");
+                    // Redirige automáticamente al inicio de sesión
                     window.location.href = "login.html";
                 } else {
                     const errorData = await respuesta.json();
-                    alert("Error del servidor: " + (errorData.error || "Desconocido"));
-                    console.error("Detalles:", errorData.detalles);
+                    alert("Hubo un problema con el registro: " + (errorData.message || "Error desconocido"));
                 }
 
             } catch (error) {
                 console.error("Error al conectar:", error);
-                alert("No se pudo conectar con el servidor en la nube. Inténtalo más tarde.");
+                alert("No se pudo conectar con el servicio de correo.");
             } finally {
                 // Restauramos el botón a la normalidad
                 boton.innerHTML = textoOriginal;
