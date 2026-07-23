@@ -1,35 +1,27 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
-import smtplib
 import traceback
 import os
 
-from email.mime.text import MIMEText
-from email.mime.multipart import MIMEMultipart
+import sib_api_v3_sdk
+from sib_api_v3_sdk.rest import ApiException
 
 app = Flask(__name__)
 CORS(app)
 
 
 # ===========================================================
-# ENVÍO DE CORREO
+# ENVÍO DE CORREO CON BREVO
 # ===========================================================
 
 def enviar_bienvenida_paciente(correo_paciente, nombre_paciente):
 
-    remitente = "neuropausa2@gmail.com"
-    password = "usgfquslqylccecx"
+    configuration = sib_api_v3_sdk.Configuration()
+    configuration.api_key["api-key"] = os.getenv("BREVO_API_KEY")
 
-    print("====================================")
-    print("INICIANDO ENVÍO DE CORREO")
-    print("Destino:", correo_paciente)
-    print("Nombre :", nombre_paciente)
-    print("====================================")
-
-    mensaje = MIMEMultipart()
-    mensaje["From"] = remitente
-    mensaje["To"] = correo_paciente
-    mensaje["Subject"] = "¡Bienvenida a NeuroPausa!"
+    api_instance = sib_api_v3_sdk.TransactionalEmailsApi(
+        sib_api_v3_sdk.ApiClient(configuration)
+    )
 
     html = f"""
     <html>
@@ -62,10 +54,17 @@ def enviar_bienvenida_paciente(correo_paciente, nombre_paciente):
     <h2>¡Hola {nombre_paciente}!</h2>
 
     <p>
-    Tu registro fue exitoso.
+    Tu registro se ha completado exitosamente.
     </p>
 
-    <a href="https://neuropausa-team.github.io/NeuroPausa/index.html">
+    <a
+    href="https://neuropausa-team.github.io/NeuroPausa/index.html"
+    style="
+    background:#6B9E7E;
+    color:white;
+    padding:12px 20px;
+    text-decoration:none;
+    border-radius:5px;">
     Acceder a mi cuenta
     </a>
 
@@ -76,6 +75,7 @@ def enviar_bienvenida_paciente(correo_paciente, nombre_paciente):
     </table>
 
     </td>
+
     </tr>
     </table>
 
@@ -83,38 +83,37 @@ def enviar_bienvenida_paciente(correo_paciente, nombre_paciente):
     </html>
     """
 
-    mensaje.attach(MIMEText(html, "html"))
+    correo = sib_api_v3_sdk.SendSmtpEmail(
+
+        sender={
+            "name": "NeuroPausa",
+            "email": "neuropausa2@gmail.com"
+        },
+
+        to=[
+            {
+                "email": correo_paciente,
+                "name": nombre_paciente
+            }
+        ],
+
+        subject="¡Bienvenida a NeuroPausa!",
+
+        html_content=html
+
+    )
 
     try:
 
-        print("Conectando con Gmail...")
+        api_instance.send_transac_email(correo)
 
-        servidor = smtplib.SMTP("smtp.gmail.com", 587)
-
-        print("Conectado.")
-
-        servidor.starttls()
-
-        print("TLS iniciado.")
-
-        servidor.login(remitente, password)
-
-        print("Login correcto.")
-
-        servidor.send_message(mensaje)
-
-        print("Correo enviado correctamente.")
-
-        servidor.quit()
+        print("Correo enviado correctamente")
 
         return True
 
-    except Exception as e:
+    except ApiException as e:
 
-        print("====================================")
-        print("ERROR EN SMTP")
-        print(traceback.format_exc())
-        print("====================================")
+        print(e)
 
         return False
 
@@ -128,21 +127,12 @@ def registrar_paciente():
 
     try:
 
-        print("\n\n========== NUEVA PETICIÓN ==========")
-
         datos = request.get_json()
-
-        print("JSON recibido:", datos)
 
         nombre = datos.get("nombre")
         correo = datos.get("correo")
 
-        print("Nombre:", nombre)
-        print("Correo:", correo)
-
         exito = enviar_bienvenida_paciente(correo, nombre)
-
-        print("Resultado:", exito)
 
         if exito:
 
@@ -153,7 +143,7 @@ def registrar_paciente():
         else:
 
             return jsonify({
-                "mensaje":"Falló el envío del correo"
+                "mensaje":"No se pudo enviar el correo"
             }),500
 
     except Exception:
@@ -167,15 +157,15 @@ def registrar_paciente():
 
 @app.route("/")
 def home():
+
     return "Backend funcionando"
 
 
 if __name__ == "__main__":
 
-    port = int(os.environ.get("PORT", 5000))
+    port = int(os.environ.get("PORT",5000))
 
     app.run(
         host="0.0.0.0",
-        port=port,
-        debug=False
+        port=port
     )
