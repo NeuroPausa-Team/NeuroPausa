@@ -80,8 +80,8 @@
                     // Redirige automáticamente al inicio de sesión
                     window.location.href = "login.html";
                 } else {
-                    const errorData = await respuesta.json();
-                    alert("Hubo un problema con el registro: " + (errorData.message || "Error desconocido"));
+                const errorData = utils = await respuesta.json();
+                alert("Detalle del error: " + (errorData.error || errorData.mensaje || "Desconocido"));
                 }
 
             } catch (error) {

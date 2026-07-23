@@ -97,20 +97,50 @@ def registrar_paciente():
         correo = datos.get("correo")
 
         if not nombre or not correo:
-            return jsonify({"error": "Faltan campos obligatorios (nombre o correo)"}), 400
+            return jsonify({"error": "Faltan campos obligatorios"}), 400
 
-        exito = enviar_bienvenida_paciente(correo, nombre)
+        # Intentamos enviar el correo y capturamos cualquier fallo de Brevo
+        configuration = sib_api_v3_sdk.Configuration()
+        api_key = os.getenv("BREVO_API_KEY")
+        if not api_key:
+            return jsonify({"error": "Falta configurar la variable BREVO_API_KEY en Render"}), 500
+            
+        configuration.api_key["api-key"] = api_key
+        api_instance = sib_api_v3_sdk.TransactionalEmailsApi(sib_api_v3_sdk.ApiClient(configuration))
 
-        if exito:
-            return jsonify({"mensaje": "Registro exitoso"}), 200
-        else:
-            return jsonify({"mensaje": "No se pudo enviar el correo"}), 500
+        html = f"""
+        <html>
+        <body style="margin:0;padding:0;background:#F5F0E8;font-family:Arial">
+        <table width="100%"><tr><td align="center">
+        <table width="600" style="background:white;border-radius:10px">
+        <tr><td style="background:#6B9E7E;padding:30px;text-align:center">
+        <h1 style="color:white">NeuroPausa</h1></td></tr>
+        <tr><td style="padding:40px">
+        <h2>¡Hola {nombre}!</h2>
+        <p>Tu registro se ha completado exitosamente.</p>
+        </td></tr></table></td></tr></table>
+        </body></html>
+        """
 
-    except Exception:
-        print("ERROR CRÍTICO EN /api/registrar:")
-        print(traceback.format_exc())
-        return jsonify({"error": traceback.format_exc()}), 500
+        correo_obj = sib_api_v3_sdk.SendSmtpEmail(
+            sender={"name": "NeuroPausa", "email": "neuropausa2@gmail.com"},
+            to=[{"email": correo, "name": nombre}],
+            subject="¡Bienvenida a NeuroPausa!",
+            html_content=html
+        )
 
+        api_instance.send_transac_email(correo_obj)
+        return jsonify({"mensaje": "Registro exitoso"}), 200
+
+    except ApiException as e:
+        # AQUÍ ESTÁ EL TRUCO: Devolvemos el error exacto de Brevo a la pantalla
+        error_detallado = e.body if hasattr(e, 'body') else str(e)
+        print("Error ApiException:", error_detallado)
+        return jsonify({"error": f"Brevo API Error: {error_detallado}"}), 500
+
+    except Exception as ex:
+        print("Error General:", str(ex))
+        return jsonify({"error": f"Error interno: {str(ex)}"}), 500
 
 @app.route("/")
 def home():
