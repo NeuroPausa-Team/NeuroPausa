@@ -69,26 +69,11 @@
 
             try {
                 // Petición directa a la API de Brevo
-                const respuesta = await fetch('https://api.brevo.com/v3/smtp/email', {
-                    method: 'POST',
-                    headers: {
-                        'accept': 'application/json',
-                        'api-key': 'PEGA_AQUI_TU_API_KEY_DE_BREVO', // <-- REEMPLAZA ESTO CON TU API KEY REAL DE BREVO
-                        'content-type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        sender: {
-                            name: "NeuroPausa",
-                            email: "neuropausa2@gmail.com"
-                        },
-                        to: [{
-                            email: correoPaciente,
-                            name: nombrePaciente
-                        }],
-                        subject: "¡Bienvenido a NeuroPausa!",
-                        htmlContent: `<html><body><h1>¡Hola ${nombrePaciente}!</h1><p>Gracias por registrarte en NeuroPausa. Tu camino hacia el bienestar ha comenzado.</p></body></html>`
-                    })
-                });
+                const respuesta = await fetch('https://neuropausa-backend.onrender.com/api/registrar', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ nombre: nombrePaciente, correo: correoPaciente })
+            });
 
                 if (respuesta.ok) {
                     alert("¡Registro exitoso! Revisa tu bandeja de entrada.");
