@@ -328,3 +328,53 @@ if(track && prevBtn && nextBtn){
         }
     });
 } 
+/* ===========================================================
+LÓGICA PARA EL FORMULARIO DE ONBOARDING
+   =========================================================== */
+const formularioOnboarding = document.getElementById("formulario-onboarding"); // Asegúrate de que tu <form> en el HTML tenga este ID
+
+if (formularioOnboarding) {
+    formularioOnboarding.addEventListener("submit", async (e) => {
+        e.preventDefault(); // Evita que la página se recargue sola
+
+        // Captura los valores de tus campos (ajusta los selectores según los IDs o clases de tus inputs en el HTML)
+        const etapaSeleccionada = document.querySelector('input[name="etapa"]:checked')?.value || "Perimenopausa";
+        
+        // Ejemplo si tus síntomas son checkboxes seleccionados
+        const sintomasSeleccionados = Array.from(document.querySelectorAll('input[name="sintomas"]:checked'))
+            .map(checkbox => checkbox.value);
+
+        const queBuscasSeleccionado = document.querySelector('input[name="queBuscas"]:checked')?.value || "Comunidad de apoyo";
+
+        const datosOnboarding = {
+            etapa: etapaSeleccionada,
+            sintomas: sintomasSeleccionados.length > 0 ? sintomasSeleccionados : ["Cambios de ánimo"],
+            queBuscas: queBuscasSeleccionado
+        };
+
+        try {
+            const respuesta = await fetch("http://127.0.0.1:5000/api/completar-onboarding", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                credentials: "include", // <--- ESTO ES LO CLAVE PARA QUE VIAJE LA SESIÓN
+                body: JSON.stringify(datosOnboarding)
+            });
+
+            const resultado = await respuesta.json();
+
+            if (respuesta.ok) {
+                console.log("Onboarding guardado exitosamente:", resultado);
+                // Aquí puedes redirigir al usuario a la pantalla principal de tu app
+                // window.location.href = "index.html"; 
+            } else {
+                console.error("Error del servidor:", resultado.error);
+                alert("Error: " + resultado.error);
+            }
+        } catch (error) {
+            console.error("Error de red al conectar con el backend:", error);
+            alert("No se pudo conectar con el servidor.");
+        }
+    });
+}

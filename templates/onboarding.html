@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Completa tu perfil - NeuroPausa</title>
+    <link rel="stylesheet" href="../assets/styles/stylesonboarding.css">
+</head>
+<body>
+
+<div class="wizard-box">
+
+    <!-- PASO 1: ETAPA -->
+    <div class="paso activo" data-paso="1">
+        <p class="paso-label">Paso 1 de 3</p>
+        <h1>¿En qué etapa te encuentras?</h1>
+        <p class="subtitulo">Esto nos ayuda a mostrarte contenido y herramientas más relevantes.</p>
+
+        <label class="opcion">
+            <input type="radio" name="etapa" value="Premenopausia">
+            <strong>Premenopausia</strong>
+            <span>Ciclos aún regulares, primeros cambios sutiles</span>
+        </label>
+        <label class="opcion">
+            <input type="radio" name="etapa" value="Perimenopausia">
+            <strong>Perimenopausia</strong>
+            <span>Ciclos irregulares, síntomas más notorios</span>
+        </label>
+        <label class="opcion">
+            <input type="radio" name="etapa" value="Menopausia">
+            <strong>Menopausia</strong>
+            <span>12 meses o más sin período</span>
+        </label>
+        <label class="opcion">
+            <input type="radio" name="etapa" value="Posmenopausia">
+            <strong>Posmenopausia</strong>
+            <span>Etapa posterior, enfoque en bienestar continuo</span>
+        </label>
+        <label class="opcion">
+            <input type="radio" name="etapa" value="No estoy segura">
+            <strong>No estoy segura</strong>
+            <span>Prefiero descubrirlo con NeuroPausa</span>
+        </label>
+
+        <div class="botones">
+            <button class="btn-continuar btn-full" onclick="siguientePaso(1)">Continuar</button>
+        </div>
+    </div>
+
+    <!-- PASO 2: SÍNTOMAS -->
+    <div class="paso" data-paso="2">
+        <p class="paso-label">Paso 2 de 3</p>
+        <h1>¿Qué te gustaría gestionar mejor?</h1>
+        <p class="subtitulo">Selecciona todas las que apliquen. Puedes cambiarlas después.</p>
+
+        <label class="opcion">
+            <input type="checkbox" name="sintomas" value="Sofocos"> <strong>Sofocos</strong>
+        </label>
+        <label class="opcion">
+            <input type="checkbox" name="sintomas" value="Insomnio"> <strong>Insomnio</strong>
+        </label>
+        <label class="opcion">
+            <input type="checkbox" name="sintomas" value="Cambios de ánimo"> <strong>Cambios de ánimo</strong>
+        </label>
+        <label class="opcion">
+            <input type="checkbox" name="sintomas" value="Niebla mental"> <strong>Niebla mental</strong>
+        </label>
+        <label class="opcion">
+            <input type="checkbox" name="sintomas" value="Fatiga"> <strong>Fatiga</strong>
+        </label>
+        <label class="opcion">
+            <input type="checkbox" name="sintomas" value="Ansiedad"> <strong>Ansiedad</strong>
+        </label>
+
+        <div class="botones">
+            <button class="btn-atras" onclick="pasoAnterior(2)">Atrás</button>
+            <button class="btn-continuar" onclick="siguientePaso(2)">Continuar</button>
+        </div>
+    </div>
+
+    <!-- PASO 3: QUÉ BUSCAS -->
+    <div class="paso" data-paso="3">
+        <p class="paso-label">Paso 3 de 3</p>
+        <h1>¿Qué buscas en NeuroPausa?</h1>
+        <p class="subtitulo">Así priorizamos lo que ves primero en tu panel.</p>
+
+        <label class="opcion">
+            <input type="radio" name="queBuscas" value="Diario de síntomas inteligente"> <strong>Diario de síntomas inteligente</strong>
+        </label>
+        <label class="opcion">
+            <input type="radio" name="queBuscas" value="Acompañamiento profesional"> <strong>Acompañamiento profesional</strong>
+        </label>
+        <label class="opcion">
+            <input type="radio" name="queBuscas" value="Comunidad de apoyo"> <strong>Comunidad de apoyo</strong>
+        </label>
+        <label class="opcion">
+            <input type="radio" name="queBuscas" value="Artículos y guías"> <strong>Artículos y guías</strong>
+        </label>
+
+        <div class="botones">
+            <button class="btn-atras" onclick="pasoAnterior(3)">Atrás</button>
+            <button class="btn-continuar" onclick="siguientePaso(3)">Continuar</button>
+        </div>
+    </div>
+
+    <!-- PASO 4: CONFIRMAR -->
+    <div class="paso" data-paso="4">
+        <p class="paso-label">Revisa y confirma</p>
+        <h1>Así se verá tu perfil inicial</h1>
+
+        <div class="resumen-item"><span>Etapa</span><span id="resumen-etapa"></span></div>
+        <div class="resumen-item"><span>Áreas de interés</span><span id="resumen-sintomas"></span></div>
+        <div class="resumen-item"><span>Buscas en NeuroPausa</span><span id="resumen-buscas"></span></div>
+
+        <p id="mensaje-error"></p>
+
+        <div class="botones">
+            <button class="btn-atras" onclick="pasoAnterior(4)">Atrás</button>
+            <button class="btn-continuar" onclick="crearCuenta()">Crear mi cuenta</button>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    const API_URL = 'http://127.0.0.1:5000';
+
+    const respuestas = {
+        etapa: null,
+        sintomas: [],
+        queBuscas: null
+    };
+
+    document.querySelectorAll('.opcion').forEach(opcion => {
+        opcion.addEventListener('click', () => {
+            const input = opcion.querySelector('input');
+            if (input.type === 'radio') {
+                document.querySelectorAll(`input[name="${input.name}"]`).forEach(i => {
+                    i.closest('.opcion').classList.remove('seleccionada');
+                });
+                input.checked = true;
+                opcion.classList.add('seleccionada');
+            } else {
+                input.checked = !input.checked;
+                opcion.classList.toggle('seleccionada', input.checked);
+            }
+        });
+    });
+
+    function mostrarPaso(n) {
+        document.querySelectorAll('.paso').forEach(p => p.classList.remove('activo'));
+        document.querySelector(`.paso[data-paso="${n}"]`).classList.add('activo');
+    }
+
+    function siguientePaso(actual) {
+        if (actual === 1) {
+            const seleccion = document.querySelector('input[name="etapa"]:checked');
+            if (!seleccion) { alert("Selecciona una opción"); return; }
+            respuestas.etapa = seleccion.value;
+        }
+        if (actual === 2) {
+            respuestas.sintomas = Array.from(document.querySelectorAll('input[name="sintomas"]:checked')).map(i => i.value);
+        }
+        if (actual === 3) {
+            const seleccion = document.querySelector('input[name="queBuscas"]:checked');
+            if (!seleccion) { alert("Selecciona una opción"); return; }
+            respuestas.queBuscas = seleccion.value;
+
+            document.getElementById('resumen-etapa').textContent = respuestas.etapa;
+            document.getElementById('resumen-sintomas').textContent = respuestas.sintomas.join(', ') || 'Ninguno';
+            document.getElementById('resumen-buscas').textContent = respuestas.queBuscas;
+        }
+        mostrarPaso(actual + 1);
+    }
+
+    function pasoAnterior(actual) {
+        mostrarPaso(actual - 1);
+    }
+
+    async function crearCuenta() {
+        const errorMsg = document.getElementById('mensaje-error');
+        errorMsg.style.display = 'none';
+
+        try {
+            const respuesta = await fetch(`${API_URL}/api/completar-onboarding`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                credentials: 'include',
+                body: JSON.stringify(respuestas)
+            });
+
+            const data = await respuesta.json();
+
+            if (respuesta.ok) {
+        window.location.href =          "dashboard.html";
+            } else {
+                errorMsg.textContent = data.error || "Error al guardar tu perfil";
+                errorMsg.style.display = 'block';
+            }
+        } catch (error) {
+            console.error(error);
+            errorMsg.textContent = "No se pudo conectar con el servidor.";
+            errorMsg.style.display = 'block';
+        }
+    }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,179 @@
+* { box-sizing: border-box; }
+
+body { margin: 0; font-family: Arial, sans-serif; background: #EFEAE1; }
+
+.app-container { display: flex; min-height: 100vh; }
+
+.menu-toggle {
+    display: none;
+    position: fixed; top: 16px; left: 16px;
+    background: #1F3326; color: white;
+    padding: 8px 12px; border-radius: 8px;
+    cursor: pointer; z-index: 100; font-size: 20px;
+}
+
+.sidebar {
+    width: 220px; background: #1F3326; color: white;
+    padding: 30px 20px; display: flex; flex-direction: column; flex-shrink: 0;
+}
+
+.logo-sidebar {
+    font-family: 'Georgia', serif; font-size: 18px; font-weight: bold;
+    margin-bottom: 40px; display: flex; align-items: center; gap: 8px;
+}
+
+.dot { width: 8px; height: 8px; background: white; border-radius: 50%; }
+
+.menu-sidebar { display: flex; flex-direction: column; gap: 6px; flex: 1; }
+
+.menu-item { color: #C9D2CB; text-decoration: none; padding: 12px 14px; border-radius: 8px; font-size: 15px; }
+.menu-item:hover { background: rgba(255,255,255,0.08); }
+.menu-item.active { background: #35513F; color: white; font-weight: bold; }
+
+.btn-logout { background: none; border: none; color: #C9D2CB; text-align: left; padding: 12px 14px; cursor: pointer; font-size: 14px; }
+
+.contenido { flex: 1; padding: 40px; max-width: 900px; }
+
+.paso-label { color: #888; font-size: 14px; margin: 0; }
+
+h1, h2 { font-family: 'Georgia', serif; color: #2C3E50; margin: 4px 0 20px 0; }
+
+.subtitulo { color: #666; margin: 0 0 20px 0; font-size: 14px; }
+
+.filtros { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 24px; }
+
+.filtro-chip {
+    background: white; border: 1px solid #ddd; border-radius: 20px;
+    padding: 8px 18px; cursor: pointer; font-size: 14px; color: #555;
+}
+
+.filtro-chip.activo { background: #1F3326; color: white; border-color: #1F3326; }
+
+.doctores-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+.doctor-card {
+    background: white;
+    border-radius: 12px;
+    padding: 18px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.doctor-avatar {
+    width: 44px; height: 44px;
+    background: #E8F0E9;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+.doctor-info { flex: 1; }
+
+.doctor-nombre { font-weight: bold; color: #2C3E50; margin: 0; font-size: 15px; }
+.doctor-especialidad { color: #888; font-size: 13px; margin: 2px 0 0 0; }
+
+.btn-agendar {
+    background: #1F3326; color: white; border: none;
+    padding: 10px 16px; border-radius: 20px;
+    font-size: 13px; cursor: pointer; font-weight: bold;
+}
+
+.card {
+    background: #F1F5F1;
+    border-radius: 12px;
+    padding: 24px;
+}
+
+.label-seccion { display: block; font-weight: bold; color: #2C3E50; margin-bottom: 10px; }
+
+.modalidad-grid { display: flex; gap: 12px; }
+
+.modalidad-btn {
+    flex: 1; background: white; border: 1px solid #ddd;
+    border-radius: 8px; padding: 14px; cursor: pointer;
+    font-size: 14px; color: #555; font-family: Arial, sans-serif;
+}
+
+.modalidad-btn.seleccionado { border-color: #1F3326; font-weight: bold; color: #2C3E50; }
+
+.sede-item {
+    background: white;
+    border: 1px solid #eee;
+    border-radius: 8px;
+    padding: 12px;
+    margin-bottom: 8px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    font-size: 14px;
+    color: #2C3E50;
+}
+
+.sede-item span { color: #888; font-size: 12px; }
+.sede-item.seleccionado { border-color: #1F3326; background: #E8F0E9; }
+
+.horarios-grid { display: flex; flex-wrap: wrap; gap: 10px; }
+
+.horario-chip {
+    background: white; border: 1px solid #ddd; border-radius: 20px;
+    padding: 8px 16px; cursor: pointer; font-size: 13px; color: #555;
+}
+
+.horario-chip.seleccionado { background: #1F3326; color: white; border-color: #1F3326; }
+
+.btn-primario {
+    background: #1F3326; color: white; border: none;
+    padding: 14px 28px; border-radius: 30px; font-weight: bold;
+    cursor: pointer; font-size: 15px; margin-top: 20px; width: 100%;
+}
+
+.mensaje-error { color: #c0392b; display: none; margin-top: 12px; }
+.mensaje-exito { color: #2E7D32; display: none; margin-top: 12px; background: white; padding: 12px; border-radius: 8px; }
+
+@media (max-width: 768px) {
+    .menu-toggle { display: block; }
+    .sidebar { position: fixed; left: -240px; top: 0; bottom: 0; z-index: 90; transition: left 0.3s ease; }
+    .sidebar.active { left: 0; }
+    .contenido { padding: 80px 20px 40px 20px; max-width: 100%; }
+    .doctores-grid { grid-template-columns: 1fr; }
+    .modalidad-grid { flex-direction: column; }
+}
+.doctor-centro {
+    color: #999;
+    font-size: 11px;
+    margin: 2px 0 0 0;
+    font-style: italic;
+}
+.fecha-hora-grid {
+    display: flex;
+    gap: 16px;
+}
+
+.fecha-hora-grid .input-box {
+    flex: 1;
+}
+
+.fecha-hora-grid label {
+    display: block;
+    font-size: 13px;
+    color: #555;
+    margin-bottom: 6px;
+}
+
+.fecha-hora-grid input {
+    width: 100%;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    font-family: Arial, sans-serif;
+}
+
+@media (max-width: 768px) {
+    .fecha-hora-grid { flex-direction: column; }
+}

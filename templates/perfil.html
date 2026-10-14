@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfil - NeuroPausa</title>
+    <link rel="stylesheet" href="../assets/styles/stylesperfil.css">
+</head>
+<body>
+
+<div class="app-container">
+
+    <div class="menu-toggle" id="menuToggle">☰</div>
+
+    <aside class="sidebar" id="sidebar">
+        <div class="logo-sidebar"><span class="dot"></span> NeuroPausa</div>
+        <nav class="menu-sidebar">
+            <a href="dashboard.html" class="menu-item">Inicio</a>
+            <a href="diario.html" class="menu-item">Diario</a>
+            <a href="salud.html" class="menu-item">Salud</a>
+            <a href="especialistas.html" class="menu-item">Especialistas</a>
+            <a href="perfil.html" class="menu-item active">Perfil</a>
+        </nav>
+        <button id="btn-logout-sidebar" class="btn-logout">Cerrar sesión</button>
+    </aside>
+
+    <main class="contenido">
+        <p class="paso-label">Tu cuenta</p>
+        <h1>Perfil</h1>
+
+        <div class="card">
+            <div class="perfil-header">
+                <div class="avatar" id="avatar-iniciales">--</div>
+                <div class="perfil-info">
+                    <p class="perfil-nombre" id="perfil-nombre">Cargando...</p>
+                    <p class="perfil-correo" id="perfil-correo"></p>
+                    <span class="badge">Plan NeuroPausa+</span>
+                </div>
+            </div>
+
+            <div class="datos-grid">
+                <div class="dato-box">
+                    <p class="dato-label">Etapa</p>
+                    <p class="dato-valor" id="dato-etapa">--</p>
+                </div>
+                <div class="dato-box">
+                    <p class="dato-label">Miembro desde</p>
+                    <p class="dato-valor" id="dato-miembro">--</p>
+                </div>
+                <div class="dato-box">
+                    <p class="dato-label">Racha actual</p>
+                    <p class="dato-valor" id="dato-racha">--</p>
+                </div>
+            </div>
+
+            <!-- ACORDEÓN: AJUSTES (editar datos) -->
+            <div class="acordeon">
+                <button class="acordeon-header" onclick="toggleAcordeon('panel-ajustes')">
+                    <span>Ajustes</span>
+                    <span class="chevron">›</span>
+                </button>
+                <div class="acordeon-panel" id="panel-ajustes">
+                    <div class="input-box">
+                        <label>Nombre</label>
+                        <input type="text" id="edit-nombre">
+                    </div>
+                    <div class="input-box">
+                        <label>Apellidos</label>
+                        <input type="text" id="edit-apellidos">
+                    </div>
+                    <div class="input-box">
+                        <label>Teléfono</label>
+                        <input type="text" id="edit-telefono">
+                    </div>
+                    <div class="input-box">
+                        <label>Dirección</label>
+                        <input type="text" id="edit-direccion">
+                    </div>
+                    <p id="edit-error" class="mensaje-error"></p>
+                    <p id="edit-exito" class="mensaje-exito"></p>
+                    <button class="btn-primario" onclick="guardarCambios()">Guardar cambios</button>
+                </div>
+            </div>
+
+            <!-- ACORDEÓN: NOTIFICACIONES -->
+            <div class="acordeon">
+                <button class="acordeon-header" onclick="toggleAcordeon('panel-notif')">
+                    <span>Notificaciones</span>
+                    <span class="chevron">›</span>
+                </button>
+                <div class="acordeon-panel" id="panel-notif">
+                    <p class="texto-simple">Próximamente podrás configurar recordatorios para tu diario y citas.</p>
+                </div>
+            </div>
+
+            <!-- ACORDEÓN: PRIVACIDAD -->
+            <div class="acordeon">
+                <button class="acordeon-header" onclick="toggleAcordeon('panel-privacidad')">
+                    <span>Privacidad</span>
+                    <span class="chevron">›</span>
+                </button>
+                <div class="acordeon-panel" id="panel-privacidad">
+                    <p class="texto-simple">Tus datos de salud son confidenciales y solo se usan para personalizar tu experiencia en NeuroPausa.</p>
+                </div>
+            </div>
+
+            <!-- ACORDEÓN: AYUDA -->
+            <div class="acordeon">
+                <button class="acordeon-header" onclick="toggleAcordeon('panel-ayuda')">
+                    <span>Ayuda y soporte</span>
+                    <span class="chevron">›</span>
+                </button>
+                <div class="acordeon-panel" id="panel-ayuda">
+                    <p class="texto-simple">¿Necesitas ayuda? Escríbenos a soporte@neuropausa.com</p>
+                </div>
+            </div>
+
+            <button class="btn-logout-danger" id="btn-logout-card">Cerrar sesión</button>
+        </div>
+
+        <div class="card">
+            <p class="ia-label">● Recomendaciones IA</p>
+            <p class="label-seccion">Cómo usamos IA en tu panel</p>
+
+            <div class="toggle-fila">
+                <span>Recibir sugerencias diarias personalizadas</span>
+                <label class="switch">
+                    <input type="checkbox" checked>
+                    <span class="slider-toggle"></span>
+                </label>
+            </div>
+            <div class="toggle-fila">
+                <span>Incluir mis registros del diario en el análisis</span>
+                <label class="switch">
+                    <input type="checkbox" checked>
+                    <span class="slider-toggle"></span>
+                </label>
+            </div>
+            <div class="toggle-fila">
+                <span>Recibir alertas si hay un patrón inusual</span>
+                <label class="switch">
+                    <input type="checkbox" checked>
+                    <span class="slider-toggle"></span>
+                </label>
+            </div>
+        </div>
+    </main>
+
+</div>
+
+<script>
+    const API_URL = 'http://127.0.0.1:5000';
+
+    async function init() {
+        try {
+            const respuesta = await fetch(`${API_URL}/api/perfil-datos`, { credentials: 'include' });
+            if (!respuesta.ok) { window.location.href = "login.html"; return; }
+
+            const data = await respuesta.json();
+
+            document.getElementById('perfil-nombre').textContent = `${data.nombre} ${data.apellidos}`.trim();
+            document.getElementById('perfil-correo').textContent = data.correo;
+            document.getElementById('dato-etapa').textContent = data.etapa;
+            document.getElementById('dato-miembro').textContent = data.miembroDesde;
+            document.getElementById('dato-racha').textContent = `${data.racha} días`;
+
+            const iniciales = (data.nombre?.[0] || '') + (data.apellidos?.[0] || '');
+            document.getElementById('avatar-iniciales').textContent = iniciales.toUpperCase() || 'U';
+
+            document.getElementById('edit-nombre').value = data.nombre || '';
+            document.getElementById('edit-apellidos').value = data.apellidos || '';
+            document.getElementById('edit-telefono').value = data.telefono || '';
+            document.getElementById('edit-direccion').value = data.direccion || '';
+
+        } catch (error) {
+            console.error(error);
+            window.location.href = "login.html";
+        }
+    }
+
+    function toggleAcordeon(id) {
+        const panel = document.getElementById(id);
+        panel.classList.toggle('abierto');
+    }
+
+    async function guardarCambios() {
+        const errorMsg = document.getElementById('edit-error');
+        const exitoMsg = document.getElementById('edit-exito');
+        errorMsg.style.display = 'none';
+        exitoMsg.style.display = 'none';
+
+        const nombre = document.getElementById('edit-nombre').value;
+        const apellidos = document.getElementById('edit-apellidos').value;
+        const telefono = document.getElementById('edit-telefono').value;
+        const direccion = document.getElementById('edit-direccion').value;
+
+        try {
+            const respuesta = await fetch(`${API_URL}/api/actualizar-perfil`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                credentials: 'include',
+                body: JSON.stringify({ nombre, apellidos, telefono, direccion })
+            });
+
+            const data = await respuesta.json();
+
+            if (respuesta.ok) {
+                exitoMsg.textContent = "¡Cambios guardados!";
+                exitoMsg.style.display = 'block';
+                init(); // refresca nombre/iniciales
+            } else {
+                errorMsg.textContent = data.error || "Error al guardar";
+                errorMsg.style.display = 'block';
+            }
+        } catch (error) {
+            errorMsg.textContent = "No se pudo conectar con el servidor.";
+            errorMsg.style.display = 'block';
+        }
+    }
+
+    async function cerrarSesion() {
+        await fetch(`${API_URL}/api/logout`, { method: 'POST', credentials: 'include' });
+        window.location.href = "login.html";
+    }
+
+    document.getElementById('btn-logout-sidebar').addEventListener('click', cerrarSesion);
+    document.getElementById('btn-logout-card').addEventListener('click', cerrarSesion);
+
+    document.getElementById('menuToggle').addEventListener('click', () => {
+        document.getElementById('sidebar').classList.toggle('active');
+    });
+
+    init();
+</script>
+
+</body>
+</html>

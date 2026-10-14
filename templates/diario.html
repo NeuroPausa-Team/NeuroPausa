@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diario - NeuroPausa</title>
+    <link rel="stylesheet" href="../assets/styles/stylesdiario.css">
+</head>
+<body>
+
+<div class="app-container">
+
+    <div class="menu-toggle" id="menuToggle">☰</div>
+
+    <aside class="sidebar" id="sidebar">
+        <div class="logo-sidebar"><span class="dot"></span> NeuroPausa</div>
+        <nav class="menu-sidebar">
+            <a href="dashboard.html" class="menu-item">Inicio</a>
+            <a href="diario.html" class="menu-item active">Diario</a>
+            <a href="salud.html" class="menu-item">Salud</a>
+            <a href="especialistas.html" class="menu-item">Especialistas</a>
+            <a href="perfil.html" class="menu-item">Perfil</a>
+        </nav>
+        <button id="btn-logout" class="btn-logout">Cerrar sesión</button>
+    </aside>
+
+    <main class="contenido">
+
+        <!-- GATE: pide DNI si no tiene perfil -->
+        <div id="gate-perfil" class="card" style="display:none;">
+            <h1>Antes de continuar</h1>
+            <p class="subtitulo">Necesitamos algunos datos básicos para habilitar tu diario de síntomas.</p>
+
+            <div class="input-box">
+                <label>DNI</label>
+                <input type="text" id="dni-input" maxlength="8" placeholder="8 dígitos">
+            </div>
+            <div class="input-box">
+                <label>Edad</label>
+                <input type="number" id="edad-input" placeholder="Edad">
+            </div>
+            <div class="input-box">
+                <label>Dirección (opcional)</label>
+                <input type="text" id="direccion-input" placeholder="Dirección">
+            </div>
+            <div class="input-box">
+                <label>Teléfono (opcional)</label>
+                <input type="text" id="telefono-input" placeholder="Teléfono">
+            </div>
+
+            <p id="gate-error" class="mensaje-error"></p>
+
+            <button class="btn-primario" onclick="guardarPerfilBasico()">Continuar</button>
+        </div>
+
+        <!-- FORMULARIO DEL DIARIO -->
+        <div id="form-diario" style="display:none;">
+            <p class="paso-label">Diario de síntomas</p>
+            <h1>¿Cómo te sientes hoy?</h1>
+
+            <div class="card">
+                <label class="label-seccion">Tu energía general</label>
+                <div class="energia-grid">
+                    <button type="button" class="energia-btn" data-valor="Difícil" onclick="seleccionarEnergia(this)">
+                        <span class="energia-dot"></span> Difícil
+                    </button>
+                    <button type="button" class="energia-btn" data-valor="Regular" onclick="seleccionarEnergia(this)">
+                        <span class="energia-dot"></span> Regular
+                    </button>
+                    <button type="button" class="energia-btn" data-valor="Bien" onclick="seleccionarEnergia(this)">
+                        <span class="energia-dot"></span> Bien
+                    </button>
+                </div>
+
+                <label class="label-seccion" style="margin-top:24px;">Síntomas de hoy</label>
+                <div class="chips-grid" id="chips-sintomas"></div>
+
+                <label class="label-seccion" style="margin-top:24px;">Notas (opcional)</label>
+                <textarea id="comentarios-input" placeholder="Cuéntanos algo más sobre tu día..."></textarea>
+
+                <p id="diario-error" class="mensaje-error"></p>
+                <p id="diario-exito" class="mensaje-exito"></p>
+
+                <button class="btn-primario" onclick="guardarDiario()">Guardar registro</button>
+
+                <div class="ia-box">
+                    <p class="ia-label">● Tu asistente IA sugiere</p>
+                    <p class="ia-texto">Llevar un registro constante te ayuda a identificar patrones en tus síntomas con el tiempo.</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <label class="label-seccion">Registros recientes</label>
+                <div id="lista-registros"></div>
+            </div>
+        </div>
+
+    </main>
+</div>
+
+<script>
+    const API_URL = 'http://127.0.0.1:5000';
+    let catalogoSintomas = [];
+    let energiaSeleccionada = null;
+    let sintomasSeleccionados = new Set();
+
+    async function init() {
+        try {
+            const resUsuario = await fetch(`${API_URL}/api/usuario-actual`, { credentials: 'include' });
+            if (!resUsuario.ok) { window.location.href = "login.html"; return; }
+
+            const resEstado = await fetch(`${API_URL}/api/estado-perfil`, { credentials: 'include' });
+            const estado = await resEstado.json();
+
+            if (!estado.tienePerfil) {
+                document.getElementById('gate-perfil').style.display = 'block';
+            } else {
+                await cargarFormularioDiario();
+                await cargarRegistrosRecientes();
+            }
+        } catch (error) {
+            console.error(error);
+            window.location.href = "login.html";
+        }
+    }
+
+    async function guardarPerfilBasico() {
+        const errorMsg = document.getElementById('gate-error');
+        errorMsg.style.display = 'none';
+
+        const dni = document.getElementById('dni-input').value;
+        const edad = document.getElementById('edad-input').value;
+        const direccion = document.getElementById('direccion-input').value;
+        const telefono = document.getElementById('telefono-input').value;
+
+        try {
+            const respuesta = await fetch(`${API_URL}/api/completar-perfil-basico`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                credentials: 'include',
+                body: JSON.stringify({ dni, edad, direccion, telefono })
+            });
+
+            const data = await respuesta.json();
+
+            if (respuesta.ok) {
+                document.getElementById('gate-perfil').style.display = 'none';
+                await cargarFormularioDiario();
+                await cargarRegistrosRecientes();
+            } else {
+                errorMsg.textContent = data.error || "Error al guardar";
+                errorMsg.style.display = 'block';
+            }
+        } catch (error) {
+            errorMsg.textContent = "No se pudo conectar con el servidor.";
+            errorMsg.style.display = 'block';
+        }
+    }
+
+    async function cargarFormularioDiario() {
+        const respuesta = await fetch(`${API_URL}/api/catalogo-sintomas`, { credentials: 'include' });
+        catalogoSintomas = await respuesta.json();
+
+        const contenedor = document.getElementById('chips-sintomas');
+        contenedor.innerHTML = '';
+
+        catalogoSintomas.forEach(s => {
+            const chip = document.createElement('button');
+            chip.type = 'button';
+            chip.className = 'chip';
+            chip.textContent = s.nombre;
+            chip.dataset.id = s.id;
+            chip.onclick = () => toggleChip(chip, s.id);
+            contenedor.appendChild(chip);
+        });
+
+        document.getElementById('form-diario').style.display = 'block';
+    }
+
+    function seleccionarEnergia(btn) {
+        document.querySelectorAll('.energia-btn').forEach(b => b.classList.remove('seleccionado'));
+        btn.classList.add('seleccionado');
+        energiaSeleccionada = btn.dataset.valor;
+    }
+
+    function toggleChip(chip, id) {
+        if (sintomasSeleccionados.has(id)) {
+            sintomasSeleccionados.delete(id);
+            chip.classList.remove('seleccionado');
+        } else {
+            sintomasSeleccionados.add(id);
+            chip.classList.add('seleccionado');
+        }
+    }
+
+    async function guardarDiario() {
+        const errorMsg = document.getElementById('diario-error');
+        const exitoMsg = document.getElementById('diario-exito');
+        errorMsg.style.display = 'none';
+        exitoMsg.style.display = 'none';
+
+        if (!energiaSeleccionada) {
+            errorMsg.textContent = "Selecciona tu nivel de energía";
+            errorMsg.style.display = 'block';
+            return;
+        }
+
+        const comentarios = document.getElementById('comentarios-input').value;
+        const sintomas = Array.from(sintomasSeleccionados).map(id => ({ idCatSintoma: parseInt(id), intensidad: 3 }));
+
+        try {
+            const respuesta = await fetch(`${API_URL}/api/registrar-diario`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                credentials: 'include',
+                body: JSON.stringify({ energia: energiaSeleccionada, comentarios, sintomas })
+            });
+
+            const data = await respuesta.json();
+
+            if (respuesta.ok) {
+                exitoMsg.textContent = "¡Registro guardado! Gracias por compartir cómo te sientes.";
+                exitoMsg.style.display = 'block';
+
+                // Reset del formulario
+                document.querySelectorAll('.energia-btn').forEach(b => b.classList.remove('seleccionado'));
+                document.querySelectorAll('.chip').forEach(c => c.classList.remove('seleccionado'));
+                energiaSeleccionada = null;
+                sintomasSeleccionados.clear();
+                document.getElementById('comentarios-input').value = '';
+
+                await cargarRegistrosRecientes();
+            } else {
+                errorMsg.textContent = data.error || "Error al guardar el registro";
+                errorMsg.style.display = 'block';
+            }
+        } catch (error) {
+            errorMsg.textContent = "No se pudo conectar con el servidor.";
+            errorMsg.style.display = 'block';
+        }
+    }
+
+    async function cargarRegistrosRecientes() {
+        try {
+            const respuesta = await fetch(`${API_URL}/api/diario-reciente`, { credentials: 'include' });
+            const registros = await respuesta.json();
+
+            const contenedor = document.getElementById('lista-registros');
+            contenedor.innerHTML = '';
+
+            if (registros.length === 0) {
+                contenedor.innerHTML = '<p class="sin-registros">Aún no tienes registros. ¡Empieza hoy!</p>';
+                return;
+            }
+
+            registros.forEach(r => {
+                const div = document.createElement('div');
+                div.className = 'registro-item';
+                div.innerHTML = `
+                    <span>${r.energia} · ${r.sintomas}</span>
+                    <span class="registro-fecha">${r.fecha}</span>
+                `;
+                contenedor.appendChild(div);
+            });
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+    document.getElementById('btn-logout').addEventListener('click', async () => {
+        await fetch(`${API_URL}/api/logout`, { method: 'POST', credentials: 'include' });
+        window.location.href = "login.html";
+    });
+
+    document.getElementById('menuToggle').addEventListener('click', () => {
+        document.getElementById('sidebar').classList.toggle('active');
+    });
+
+    init();
+</script>
+
+</body>
+</html>

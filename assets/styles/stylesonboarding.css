@@ -1,0 +1,128 @@
+body {
+    font-family: 'Georgia', serif;
+    background: #F5F0E8;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    padding: 40px 20px;
+}
+
+.wizard-box {
+    background: white;
+    max-width: 600px;
+    width: 100%;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+}
+
+.paso-label {
+    color: #888;
+    font-size: 14px;
+    font-family: Arial, sans-serif;
+}
+
+h1 {
+    color: #2C3E50;
+    margin-top: 5px;
+}
+
+p.subtitulo {
+    color: #666;
+    font-family: Arial, sans-serif;
+}
+
+.opcion {
+    display: block;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 16px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    font-family: Arial, sans-serif;
+}
+
+.opcion.seleccionada {
+    background: #E8F0E9;
+    border-color: #6B9E7E;
+}
+
+.opcion strong {
+    display: block;
+    color: #2C3E50;
+}
+
+.opcion span {
+    color: #777;
+    font-size: 14px;
+}
+
+.opcion input {
+    display: none;
+}
+
+.botones {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 30px;
+}
+
+button {
+    font-family: Arial, sans-serif;
+    font-weight: bold;
+    padding: 14px 28px;
+    border-radius: 30px;
+    border: none;
+    cursor: pointer;
+    font-size: 15px;
+}
+
+.btn-atras {
+    background: #eee;
+    color: #333;
+}
+
+.btn-continuar {
+    background: #2C3E2C;
+    color: white;
+    flex: 1;
+    margin-left: 12px;
+}
+
+.btn-full {
+    margin-left: 0;
+    width: 100%;
+}
+
+.paso {
+    display: none;
+}
+
+.paso.activo {
+    display: block;
+}
+
+#mensaje-error {
+    color: red;
+    font-family: Arial, sans-serif;
+    display: none;
+    margin-top: 10px;
+}
+
+.resumen-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px solid #eee;
+    font-family: Arial, sans-serif;
+}
+
+.resumen-item span:first-child {
+    color: #888;
+}
+
+.resumen-item span:last-child {
+    color: #2C3E50;
+    font-weight: bold;
+    text-align: right;
+}

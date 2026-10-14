@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - NeuroPausa</title>
+    <link rel="stylesheet" href="../assets/styles/login.css">
+</head>
+<body>
+
+<div class="login-container">
+
+    <!-- Lado izquierdo -->
+    <div class="login-box">
+
+        <div class="logo-box">
+            <img src="../assets/images/ImagenNeuroPausaLogo.png" alt="NeuroPausa">
+            <h1>NeuroPausa</h1>
+            <p>Acompañándote en tu transición hacia el bienestar</p>
+        </div>
+
+        <form id="formulario-login" class="login-form">
+            <div class="input-box">
+                <input type="email" id="correo-input" placeholder="Email" required>
+            </div>
+
+            <div class="input-box">
+                <input type="password" id="password-input" placeholder="Contraseña" required>
+            </div>
+
+            <p id="mensaje-error" style="color: red; display: none;"></p>
+
+            <a href="#" class="forgot">¿Olvidaste tu contraseña?</a>
+
+            <button type="submit">Iniciar sesión</button>
+
+            <div class="register">
+                ¿No tienes cuenta?
+                <a href="register.html">Regístrate</a>
+            </div>
+        </form>
+
+    </div>
+
+    <!-- Lado derecho desktop -->
+    <div class="login-side">
+        <div class="overlay">
+            <h2>Bienvenida a NeuroPausa</h2>
+            <p>Tu espacio seguro para bienestar hormonal, emocional y mental.</p>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    // URL del backend: cambia esto según dónde estés probando
+    const API_URL = 'http://127.0.0.1:5000';
+    // const API_URL = 'https://neuropausa-backend.onrender.com'; // producción
+
+    document.getElementById('formulario-login').addEventListener('submit', async function(event) {
+        event.preventDefault();
+
+        const errorMsg = document.getElementById('mensaje-error');
+        errorMsg.style.display = 'none';
+
+        const correo = document.getElementById('correo-input').value;
+        const password = document.getElementById('password-input').value;
+
+        const boton = document.querySelector('.login-form button[type="submit"]');
+        const textoOriginal = boton.innerHTML;
+        boton.innerHTML = "Iniciando sesión...";
+        boton.disabled = true;
+
+
+        try {
+            const respuesta = await fetch(`${API_URL}/api/login`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                credentials: 'include', // necesario para que la sesión (cookie) se guarde
+                body: JSON.stringify({ correo, password })
+            });
+
+            const data = await respuesta.json();
+
+if (respuesta.ok) {
+    if (!data.onboardingCompleto) {
+        window.location.href = "onboarding.html";
+    } else {
+        window.location.href = "dashboard.html";
+    }
+} else {
+    errorMsg.textContent = data.error || "Error al iniciar sesión";
+    errorMsg.style.display = 'block';
+}
+
+        } catch (error) {
+            console.error("Error al conectar:", error);
+            errorMsg.textContent = "No se pudo conectar con el servidor.";
+            errorMsg.style.display = 'block';
+        } finally {
+            boton.innerHTML = textoOriginal;
+            boton.disabled = false;
+        }
+    });
+</script>
+
+</body>
+</html>

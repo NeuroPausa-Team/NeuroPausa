@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Salud - NeuroPausa</title>
+    <link rel="stylesheet" href="../assets/styles/stylessalud.css">
+</head>
+<body>
+
+<div class="app-container">
+
+    <div class="menu-toggle" id="menuToggle">☰</div>
+
+    <aside class="sidebar" id="sidebar">
+        <div class="logo-sidebar"><span class="dot"></span> NeuroPausa</div>
+        <nav class="menu-sidebar">
+            <a href="dashboard.html" class="menu-item">Inicio</a>
+            <a href="diario.html" class="menu-item">Diario</a>
+            <a href="salud.html" class="menu-item active">Salud</a>
+            <a href="especialistas.html" class="menu-item">Especialistas</a>
+            <a href="perfil.html" class="menu-item">Perfil</a>
+        </nav>
+        <button id="btn-logout" class="btn-logout">Cerrar sesión</button>
+    </aside>
+
+    <main class="contenido">
+        <p class="paso-label">Tus indicadores</p>
+        <h1>Salud de esta semana</h1>
+
+        <div class="tarjetas-resumen">
+            <div class="tarjeta">
+                <p class="tarjeta-label">Días registrados</p>
+                <p class="tarjeta-valor" id="dias-registrados">-- / 7</p>
+            </div>
+            <div class="tarjeta">
+                <p class="tarjeta-label">Calidad de sueño</p>
+                <p class="tarjeta-valor" id="calidad-sueno">--</p>
+            </div>
+            <div class="tarjeta">
+                <p class="tarjeta-label">Nivel de energía</p>
+                <p class="tarjeta-valor" id="nivel-energia">--</p>
+            </div>
+        </div>
+
+        <div class="card">
+            <label class="label-seccion">Bienestar general — últimos 7 días</label>
+            <div class="grafico-barras" id="grafico-bienestar"></div>
+        </div>
+
+        <div class="card">
+            <label class="label-seccion">Síntomas registrados esta semana</label>
+            <div id="lista-sintomas-salud"></div>
+        </div>
+    </main>
+
+</div>
+
+<script>
+    const API_URL = 'http://127.0.0.1:5000';
+
+    async function init() {
+        try {
+            const resUsuario = await fetch(`${API_URL}/api/usuario-actual`, { credentials: 'include' });
+            if (!resUsuario.ok) { window.location.href = "login.html"; return; }
+
+            const respuesta = await fetch(`${API_URL}/api/indicadores-salud`, { credentials: 'include' });
+            const data = await respuesta.json();
+
+            document.getElementById('dias-registrados').textContent = `${data.diasRegistrados} / 7`;
+            document.getElementById('calidad-sueno').textContent = data.calidadSueno;
+            document.getElementById('nivel-energia').textContent = data.energia;
+
+            // Gráfico de barras
+            const contenedorGrafico = document.getElementById('grafico-bienestar');
+            contenedorGrafico.innerHTML = '';
+            const maxValor = 5;
+
+            data.bienestarSemana.forEach(dia => {
+                const alturaPorcentaje = (dia.valor / maxValor) * 100;
+                const barra = document.createElement('div');
+                barra.className = 'barra-dia';
+                barra.innerHTML = `
+                    <div class="barra-visual" style="height:${Math.max(alturaPorcentaje, 4)}%;"></div>
+                    <span class="barra-label">${dia.dia}</span>
+                `;
+                contenedorGrafico.appendChild(barra);
+            });
+
+            // Lista de síntomas
+            const contenedorSintomas = document.getElementById('lista-sintomas-salud');
+            contenedorSintomas.innerHTML = '';
+
+            if (data.sintomas.length === 0) {
+                contenedorSintomas.innerHTML = '<p class="sin-registros">Aún no hay suficientes registros esta semana.</p>';
+            } else {
+                data.sintomas.forEach(s => {
+                    const div = document.createElement('div');
+                    div.className = 'sintoma-fila';
+                    div.innerHTML = `
+                        <div class="sintoma-encabezado">
+                            <span>${s.nombre}</span>
+                            <span>${s.porcentaje}%</span>
+                        </div>
+                        <div class="barra-progreso">
+                            <div class="barra-progreso-relleno" style="width:${s.porcentaje}%;"></div>
+                        </div>
+                    `;
+                    contenedorSintomas.appendChild(div);
+                });
+            }
+
+        } catch (error) {
+            console.error(error);
+            window.location.href = "login.html";
+        }
+    }
+
+    document.getElementById('btn-logout').addEventListener('click', async () => {
+        await fetch(`${API_URL}/api/logout`, { method: 'POST', credentials: 'include' });
+        window.location.href = "login.html";
+    });
+
+    document.getElementById('menuToggle').addEventListener('click', () => {
+        document.getElementById('sidebar').classList.toggle('active');
+    });
+
+    init();
+</script>
+
+</body>
+</html>

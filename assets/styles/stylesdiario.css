@@ -1,0 +1,267 @@
+* { box-sizing: border-box; }
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #EFEAE1;
+}
+
+.app-container { display: flex; min-height: 100vh; }
+
+.menu-toggle {
+    display: none;
+    position: fixed;
+    top: 16px; left: 16px;
+    background: #1F3326;
+    color: white;
+    padding: 8px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    z-index: 100;
+    font-size: 20px;
+}
+
+.sidebar {
+    width: 220px;
+    background: #1F3326;
+    color: white;
+    padding: 30px 20px;
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0;
+}
+
+.logo-sidebar {
+    font-family: 'Georgia', serif;
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 40px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.dot { width: 8px; height: 8px; background: white; border-radius: 50%; }
+
+.menu-sidebar { display: flex; flex-direction: column; gap: 6px; flex: 1; }
+
+.menu-item {
+    color: #C9D2CB;
+    text-decoration: none;
+    padding: 12px 14px;
+    border-radius: 8px;
+    font-size: 15px;
+}
+
+.menu-item:hover { background: rgba(255,255,255,0.08); }
+.menu-item.active { background: #35513F; color: white; font-weight: bold; }
+
+.btn-logout {
+    background: none;
+    border: none;
+    color: #C9D2CB;
+    text-align: left;
+    padding: 12px 14px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.contenido { flex: 1; padding: 40px; max-width: 700px; }
+
+.paso-label { color: #888; font-size: 14px; margin: 0; }
+
+h1 {
+    font-family: 'Georgia', serif;
+    color: #2C3E50;
+    margin: 4px 0 24px 0;
+}
+
+.subtitulo { color: #666; margin: 0 0 24px 0; }
+
+.card {
+    background: white;
+    border-radius: 12px;
+    padding: 24px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.label-seccion {
+    display: block;
+    font-weight: bold;
+    color: #2C3E50;
+    margin-bottom: 12px;
+}
+
+/* ENERGÍA */
+.energia-grid {
+    display: flex;
+    gap: 12px;
+}
+
+.energia-btn {
+    flex: 1;
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 18px 10px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    font-family: Arial, sans-serif;
+    color: #555;
+}
+
+.energia-dot {
+    width: 16px; height: 16px;
+    border-radius: 50%;
+    background: #ddd;
+    display: block;
+}
+
+.energia-btn.seleccionado {
+    background: #E8F0E9;
+    border-color: #6B9E7E;
+    color: #2C3E50;
+    font-weight: bold;
+}
+
+.energia-btn.seleccionado .energia-dot {
+    background: #1F3326;
+}
+
+/* CHIPS DE SÍNTOMAS */
+.chips-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.chip {
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 20px;
+    padding: 8px 16px;
+    cursor: pointer;
+    font-size: 14px;
+    color: #555;
+    font-family: Arial, sans-serif;
+}
+
+.chip.seleccionado {
+    background: #1F3326;
+    color: white;
+    border-color: #1F3326;
+}
+
+textarea {
+    width: 100%;
+    min-height: 80px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 12px;
+    font-family: Arial, sans-serif;
+    resize: vertical;
+    margin-top: 8px;
+}
+
+.btn-primario {
+    background: #1F3326;
+    color: white;
+    border: none;
+    padding: 14px 28px;
+    border-radius: 30px;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 15px;
+    width: 100%;
+    margin-top: 20px;
+}
+
+.ia-box {
+    background: #F1F5F1;
+    border-radius: 10px;
+    padding: 16px;
+    margin-top: 20px;
+}
+
+.ia-label {
+    font-size: 13px;
+    font-weight: bold;
+    color: #4A7A5A;
+    margin: 0 0 6px 0;
+}
+
+.ia-texto {
+    font-size: 14px;
+    color: #555;
+    margin: 0;
+}
+
+/* REGISTROS RECIENTES */
+.registro-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 12px 0;
+    border-bottom: 1px solid #eee;
+    color: #2C3E50;
+    font-size: 14px;
+}
+
+.registro-fecha { color: #999; }
+
+.sin-registros { color: #999; font-size: 14px; }
+
+/* GATE DE PERFIL */
+.input-box { margin-bottom: 16px; }
+
+.input-box label {
+    display: block;
+    color: #555;
+    font-size: 14px;
+    margin-bottom: 6px;
+}
+
+.input-box input {
+    width: 100%;
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    font-family: Arial, sans-serif;
+}
+
+.mensaje-error {
+    color: #c0392b;
+    display: none;
+    margin-top: 12px;
+}
+
+.mensaje-exito {
+    color: #2E7D32;
+    display: none;
+    margin-top: 12px;
+}
+
+/* ============ RESPONSIVE ============ */
+@media (max-width: 768px) {
+    .menu-toggle { display: block; }
+
+    .sidebar {
+        position: fixed;
+        left: -240px;
+        top: 0; bottom: 0;
+        z-index: 90;
+        transition: left 0.3s ease;
+    }
+
+    .sidebar.active { left: 0; }
+
+    .contenido {
+        padding: 80px 20px 40px 20px;
+        max-width: 100%;
+    }
+
+    .energia-grid { flex-direction: column; }
+}

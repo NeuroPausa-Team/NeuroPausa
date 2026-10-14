@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Especialistas - NeuroPausa</title>
+    <link rel="stylesheet" href="../assets/styles/stylesespecialistas.css">
+</head>
+<body>
+
+<div class="app-container">
+
+    <div class="menu-toggle" id="menuToggle">☰</div>
+
+    <aside class="sidebar" id="sidebar">
+        <div class="logo-sidebar"><span class="dot"></span> NeuroPausa</div>
+        <nav class="menu-sidebar">
+            <a href="dashboard.html" class="menu-item">Inicio</a>
+            <a href="diario.html" class="menu-item">Diario</a>
+            <a href="salud.html" class="menu-item">Salud</a>
+            <a href="especialistas.html" class="menu-item active">Especialistas</a>
+            <a href="perfil.html" class="menu-item">Perfil</a>
+        </nav>
+        <button id="btn-logout" class="btn-logout">Cerrar sesión</button>
+    </aside>
+
+    <main class="contenido">
+        <p class="paso-label">Atención profesional</p>
+        <h1>Especialistas</h1>
+
+        <div class="filtros" id="filtros-especialidad">
+            <button class="filtro-chip activo" data-id="">Todas</button>
+        </div>
+
+        <div class="doctores-grid" id="doctores-grid"></div>
+
+        <div class="card" id="panel-agendar" style="display:none;">
+            <h2 id="agendar-titulo">Agendar cita</h2>
+            <p class="subtitulo" id="agendar-subtitulo"></p>
+
+            <label class="label-seccion">Modalidad</label>
+            <div class="modalidad-grid">
+                <button type="button" class="modalidad-btn" data-valor="Presencial" onclick="seleccionarModalidad(this)">Presencial</button>
+                <button type="button" class="modalidad-btn" data-valor="Virtual" onclick="seleccionarModalidad(this)">Virtual</button>
+            </div>
+
+            <div id="sedes-box">
+                <label class="label-seccion" style="margin-top:20px;">Elige una clínica</label>
+                <div id="lista-sedes"></div>
+            </div>
+
+            <label class="label-seccion" style="margin-top:20px;">Elige fecha y hora</label>
+            <div class="fecha-hora-grid">
+            <div class="input-box">
+                    <label>Fecha</label>
+                    <input type="date" id="fecha-cita-input">
+            </div>
+        <div class="input-box">
+        <label>Hora</label>
+        <input type="time" id="hora-cita-input">
+    </div>
+</div>
+<p id="horario-error" class="mensaje-error"></p>    
+
+            <p id="cita-error" class="mensaje-error"></p>
+            <p id="cita-exito" class="mensaje-exito"></p>
+
+            <button class="btn-primario" onclick="confirmarCita()">Confirmar cita</button>
+        </div>
+    </main>
+
+</div>
+
+<script>
+    const API_URL = 'http://127.0.0.1:5000';
+
+    let doctorSeleccionado = null;
+    let modalidadSeleccionada = null;
+    let sedeSeleccionada = null;
+    let horarioSeleccionado = null; // { label, fechaHoraISO }
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+    async function init() {
+        try {
+            const resUsuario = await fetch(`${API_URL}/api/usuario-actual`, { credentials: 'include' });
+            if (!resUsuario.ok) { window.location.href = "login.html"; return; }
+
+            await cargarEspecialidades();
+            await cargarDoctores();
+            await cargarSedes();
+        } catch (error) {
+            console.error(error);
+            window.location.href = "login.html";
+        }
+    }
+
+    async function cargarEspecialidades() {
+        const respuesta = await fetch(`${API_URL}/api/especialidades`, { credentials: 'include' });
+        const especialidades = await respuesta.json();
+
+        const contenedor = document.getElementById('filtros-especialidad');
+        especialidades.forEach(e => {
+            const btn = document.createElement('button');
+            btn.className = 'filtro-chip';
+            btn.textContent = e.nombre;
+            btn.dataset.id = e.id;
+            btn.onclick = () => filtrarPorEspecialidad(e.id, btn);
+            contenedor.appendChild(btn);
+        });
+
+        contenedor.querySelector('.filtro-chip').onclick = () => filtrarPorEspecialidad('', contenedor.querySelector('.filtro-chip'));
+    }
+
+    function filtrarPorEspecialidad(id, btnClickeado) {
+        document.querySelectorAll('.filtro-chip').forEach(b => b.classList.remove('activo'));
+        btnClickeado.classList.add('activo');
+        cargarDoctores(id);
+    }
+
+    async function cargarDoctores(idEspecialidad = '') {
+        const url = idEspecialidad ? `${API_URL}/api/especialistas?especialidad=${idEspecialidad}` : `${API_URL}/api/especialistas`;
+        const respuesta = await fetch(url, { credentials: 'include' });
+        const doctores = await respuesta.json();
+
+        const grid = document.getElementById('doctores-grid');
+        grid.innerHTML = '';
+
+        doctores.forEach(d => {
+            const card = document.createElement('div');
+            card.className = 'doctor-card';
+            card.innerHTML = `
+            <div class="doctor-avatar"></div>
+            <div class="doctor-info">
+            <p class="doctor-nombre">${d.nombre}</p>
+            <p class="doctor-especialidad">${d.especialidad}</p>
+            ${d.centroAfiliado ? `<p class="doctor-centro">También atiende en ${d.centroAfiliado}</p>` : ''}
+            </div>
+            <button class="btn-agendar">Agendar cita</button>
+        `;
+        card.querySelector('.btn-agendar').onclick = () => abrirPanelAgendar(d);
+        grid.appendChild(card);
+        });
+    }
+
+    async function cargarSedes() {
+        const respuesta = await fetch(`${API_URL}/api/sedes`, { credentials: 'include' });
+        window.sedesDisponibles = await respuesta.json();
+    }
+
+    function abrirPanelAgendar(doctor) {
+    doctorSeleccionado = doctor;
+    modalidadSeleccionada = null;
+    sedeSeleccionada = null;
+
+    document.getElementById('agendar-titulo').textContent = `Agendar cita con ${doctor.nombre}`;
+    document.getElementById('agendar-subtitulo').textContent = `${doctor.especialidad} · elige cómo quieres tu cita`;
+
+    document.querySelectorAll('.modalidad-btn').forEach(b => b.classList.remove('seleccionado'));
+    document.getElementById('cita-error').style.display = 'none';
+    document.getElementById('cita-exito').style.display = 'none';
+    document.getElementById('horario-error').style.display = 'none';
+
+    // Restringir fecha mínima a hoy
+    const hoy = new Date();
+    const fechaMinima = hoy.toISOString().split('T')[0];
+    const fechaInput = document.getElementById('fecha-cita-input');
+    fechaInput.min = fechaMinima;
+    fechaInput.value = '';
+    document.getElementById('hora-cita-input').value = '';
+
+    renderSedes();
+
+    document.getElementById('panel-agendar').style.display = 'block';
+    document.getElementById('panel-agendar').scrollIntoView({ behavior: 'smooth' });
+}
+
+function validarFechaHora() {
+    const errorMsg = document.getElementById('horario-error');
+    errorMsg.style.display = 'none';
+
+    const fechaStr = document.getElementById('fecha-cita-input').value;
+    const horaStr = document.getElementById('hora-cita-input').value;
+
+    if (!fechaStr || !horaStr) {
+        errorMsg.textContent = "Selecciona fecha y hora";
+        errorMsg.style.display = 'block';
+        return null;
+    }
+
+    const fechaHoraElegida = new Date(`${fechaStr}T${horaStr}:00`);
+    const ahora = new Date();
+
+    if (fechaHoraElegida <= ahora) {
+        errorMsg.textContent = "No puedes elegir una fecha u hora que ya pasó";
+        errorMsg.style.display = 'block';
+        return null;
+    }
+
+    return fechaHoraElegida.toISOString();
+}
+
+    function seleccionarModalidad(btn) {
+        document.querySelectorAll('.modalidad-btn').forEach(b => b.classList.remove('seleccionado'));
+        btn.classList.add('seleccionado');
+        modalidadSeleccionada = btn.dataset.valor;
+        document.getElementById('sedes-box').style.display = modalidadSeleccionada === 'Presencial' ? 'block' : 'none';
+    }
+
+    function renderSedes() {
+        const contenedor = document.getElementById('lista-sedes');
+        contenedor.innerHTML = '';
+        (window.sedesDisponibles || []).forEach(s => {
+            const div = document.createElement('div');
+            div.className = 'sede-item';
+            div.innerHTML = `<strong>${s.nombre}</strong><span>${s.direccion}</span>`;
+            div.onclick = () => {
+                document.querySelectorAll('.sede-item').forEach(el => el.classList.remove('seleccionado'));
+                div.classList.add('seleccionado');
+                sedeSeleccionada = s.id;
+            };
+            contenedor.appendChild(div);
+        });
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+    async function confirmarCita() {
+    const errorMsg = document.getElementById('cita-error');
+    const exitoMsg = document.getElementById('cita-exito');
+    errorMsg.style.display = 'none';
+    exitoMsg.style.display = 'none';
+
+    if (!modalidadSeleccionada) {
+        errorMsg.textContent = "Selecciona una modalidad";
+        errorMsg.style.display = 'block';
+        return;
+    }
+    if (modalidadSeleccionada === 'Presencial' && !sedeSeleccionada) {
+        errorMsg.textContent = "Selecciona una clínica";
+        errorMsg.style.display = 'block';
+        return;
+    }
+
+    const fechaHoraISO = validarFechaHora();
+    if (!fechaHoraISO) return;
+
+    try {
+        const respuesta = await fetch(`${API_URL}/api/agendar-cita`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            credentials: 'include',
+            body: JSON.stringify({
+                dniDoctor: doctorSeleccionado.dni,
+                modalidad: modalidadSeleccionada,
+                idSede: sedeSeleccionada,
+                fechaHora: fechaHoraISO
+            })
+        });
+
+        const data = await respuesta.json();
+
+        if (respuesta.ok) {
+            const fechaLegible = new Date(fechaHoraISO).toLocaleString('es-PE', { dateStyle: 'medium', timeStyle: 'short' });
+            exitoMsg.textContent = `Cita confirmada para ${fechaLegible}. Modalidad ${modalidadSeleccionada}.`;
+            exitoMsg.style.display = 'block';
+        } else {
+            errorMsg.textContent = data.error || "Error al agendar la cita";
+            errorMsg.style.display = 'block';
+        }
+    } catch (error) {
+        errorMsg.textContent = "No se pudo conectar con el servidor.";
+        errorMsg.style.display = 'block';
+    }
+}
+
+
+    document.getElementById('btn-logout').addEventListener('click', async () => {
+        await fetch(`${API_URL}/api/logout`, { method: 'POST', credentials: 'include' });
+        window.location.href = "login.html";
+    });
+
+    document.getElementById('menuToggle').addEventListener('click', () => {
+        document.getElementById('sidebar').classList.toggle('active');
+    });
+
+    init();
+</script>
+
+</body>
+</html>

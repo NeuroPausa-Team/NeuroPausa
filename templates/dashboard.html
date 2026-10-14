@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inicio - NeuroPausa</title>
+    <link rel="stylesheet" href="../assets/styles/stylesdashboard.css">
+</head>
+<body>
+
+<div class="dashboard-container">
+
+    <div class="menu-toggle" id="menuToggle">☰</div>
+    <!-- SIDEBAR -->
+    <aside class="sidebar" id = "sidebar">
+        <div class="logo-sidebar">
+            <span class="dot"></span> NeuroPausa
+        </div>
+
+        <nav class="menu-sidebar">
+            <a href="dashboard.html" class="menu-item active">Inicio</a>
+            <a href="diario.html" class="menu-item">Diario</a>
+            <a href="salud.html" class="menu-item">Salud</a>
+            <a href="especialistas.html" class="menu-item">Especialistas</a>
+            <a href="perfil.html" class="menu-item">Perfil</a>
+        </nav>
+
+        <button id="btn-logout" class="btn-logout">Cerrar sesión</button>
+    </aside>
+
+    <!-- CONTENIDO PRINCIPAL -->
+    <main class="contenido">
+        <p class="saludo-chico">Hola de nuevo</p>
+        <h1 id="nombre-usuario">Bienvenida...</h1>
+
+        <div class="tarjetas-resumen">
+            <div class="tarjeta">
+                <p class="tarjeta-label">Racha de registro</p>
+                <p class="tarjeta-valor">-- días</p>
+            </div>
+            <div class="tarjeta">
+                <p class="tarjeta-label">Síntoma más frecuente</p>
+                <p class="tarjeta-valor">--</p>
+            </div>
+            <div class="tarjeta">
+                <p class="tarjeta-label">Próximo chequeo</p>
+                <p class="tarjeta-valor">--</p>
+            </div>
+        </div>
+
+        <div class="acciones-box">
+            <p class="acciones-titulo">Qué te gustaría hacer hoy</p>
+            <div class="acciones-grid">
+                <a href="diario.html" class="accion-card">
+                    <strong>Registrar cómo me siento</strong>
+                    <span>Toma 2 minutos</span>
+                </a>
+                <a href="salud.html" class="accion-card">
+                    <strong>Ver mis indicadores</strong>
+                    <span>Resumen de la semana</span>
+                </a>
+                <a href="#" class="accion-card">
+                    <strong>Explorar artículos</strong>
+                    <span>Según tu etapa</span>
+                </a>
+            </div>
+        </div>
+        <div class="planes-box">
+    <p class="planes-titulo">Elige tu plan</p>
+    <div class="planes-grid">
+        <div class="plan-card">
+            <p class="plan-nombre">Free</p>
+            <p class="plan-precio">S/ 0</p>
+            <ul class="plan-beneficios">
+                <li>Diario de síntomas</li>
+                <li>Indicadores de salud</li>
+                <li>Agendar citas</li>
+            </ul>
+            <button class="btn-plan-activo" disabled>Plan actual</button>
+        </div>
+        <div class="plan-card destacado">
+            <span class="plan-badge">Popular</span>
+            <p class="plan-nombre">Premium</p>
+            <p class="plan-precio">S/ 9.90 <span>/mes</span></p>
+            <ul class="plan-beneficios">
+                <li>Todo lo del plan Free</li>
+                <li>Sugerencias de IA personalizadas</li>
+                <li>Plan semanal generado por IA</li>
+                <li>Próximo chequeo inteligente</li>
+            </ul>
+            <button class="btn-plan-upgrade">Actualizar a Premium</button>
+        </div>
+        <div class="plan-card">
+            <p class="plan-nombre">Premium Anual</p>
+            <p class="plan-precio">S/ 99.90 <span>/año</span></p>
+            <p class="plan-ahorro">Ahorra 2 meses</p>
+            <ul class="plan-beneficios">
+                <li>Todo lo del plan Premium</li>
+                <li>Facturación única anual</li>
+            </ul>
+            <button class="btn-plan-upgrade">Actualizar a Premium</button>
+        </div>
+    </div>
+</div>
+
+    </main>
+
+</div>
+<script>
+    const API_URL = 'http://127.0.0.1:5000';
+
+    async function cargarUsuario() {
+        try {
+            const respuesta = await fetch(`${API_URL}/api/usuario-actual`, {
+                method: 'GET',
+                credentials: 'include'
+            });
+
+            if (!respuesta.ok) {
+                window.location.href = "login.html";
+                return;
+            }
+
+            const data = await respuesta.json();
+            document.getElementById('nombre-usuario').textContent = `Bienvenida, ${data.nombre}`;
+
+        } catch (error) {
+            console.error("Error al cargar usuario:", error);
+            window.location.href = "login.html";
+        }
+    }
+
+    async function cargarResumen() {
+        try {
+            const respuesta = await fetch(`${API_URL}/api/resumen-inicio`, { credentials: 'include' });
+            const data = await respuesta.json();
+
+            document.querySelectorAll('.tarjeta-valor')[0].textContent = `${data.racha} días`;
+            document.querySelectorAll('.tarjeta-valor')[1].textContent = data.sintomaFrecuente;
+        } catch (error) {
+            console.error("Error al cargar resumen:", error);
+        }
+    }
+
+    document.getElementById('btn-logout').addEventListener('click', async () => {
+        try {
+            await fetch(`${API_URL}/api/logout`, {
+                method: 'POST',
+                credentials: 'include'
+            });
+        } catch (error) {
+            console.error(error);
+        } finally {
+            window.location.href = "login.html";
+        }
+    });
+
+    document.getElementById('menuToggle').addEventListener('click', () => {
+        document.getElementById('sidebar').classList.toggle('active');
+    });
+
+    cargarUsuario();
+    cargarResumen();
+</script>
+
+</body>
+</html>
