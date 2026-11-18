@@ -1,6 +1,6 @@
 # Variables de entorno y secretos (NUNCA subir a GitHub)
 .env
-servidor/backend/.env
+backend/.env
 
 # Python cache
 __pycache__/

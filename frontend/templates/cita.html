@@ -8,14 +8,24 @@
 </head>
 <body>
 
-<div class="cita-container">
-    <div class="cita-box">
+<div class="cita-container" style="padding: clamp(1rem, 3vw, 2.5rem);">
+    <div class="cita-box" style="max-width: clamp(320px, 90vw, 560px); width: 100%;">
+
+        <a href="index.html" style="display:inline-flex; align-items:center; gap:6px; color:#08551F; text-decoration:none; font-weight:600; font-size:0.95rem; margin-bottom:1rem;">
+            ← Volver al inicio
+        </a>
 
         <h1>Agendar cita</h1>
-        <p>Reserva una consulta con nuestros especialistas</p>
+        <p>Reserva una consulta con nuestros especialistas en un espacio seguro y confidencial.</p>
+
+        <div style="background:#f5f2ed; border-left:4px solid #6B9E7E; padding:12px 14px; border-radius:8px; margin: 14px 0 20px 0; font-size:0.9rem; color:#4f4a45; line-height:1.45;">
+            <strong>¿Qué incluye tu consulta?</strong><br>
+            • Duración aproximada de 30 a 45 minutos.<br>
+            • Atención en ginecología, psicología, nutrición o endocrinología.<br>
+            • Modalidad <strong>Presencial</strong> (Lima) o <strong>Virtual</strong> desde casa.
+        </div>
 
         <form>
-
             <input type="text" placeholder="Nombre completo" required>
             <input type="number" placeholder="Edad" required>
             <input type="email" placeholder="Correo electrónico" required>
@@ -39,10 +49,9 @@
             <input type="date">
             <input type="time">
 
-            <textarea placeholder="Motivo de consulta"></textarea>
+            <textarea placeholder="Motivo de consulta o síntomas principales"></textarea>
 
             <button type="submit">Confirmar cita</button>
-
         </form>
 
     </div>

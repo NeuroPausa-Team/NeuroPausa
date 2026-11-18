@@ -10,7 +10,7 @@ import datetime
 import sib_api_v3_sdk
 from sib_api_v3_sdk.rest import ApiException
 
-sys.path.append(os.path.join(os.path.dirname(__file__), '..', '..'))
+sys.path.append(os.path.dirname(__file__))
 from database.conexion import get_connection
 
 from dotenv import load_dotenv
