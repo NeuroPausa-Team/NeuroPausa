@@ -33,7 +33,7 @@
                     <input type="password" id="password-input" placeholder="Contraseña" required>
                 </div>
 
-                <ul id="password-rules" style="list-style:none; padding:0; margin:6px 0 12px 0; font-size:12px; text-align:left; color:#666;">
+                <ul id="password-rules" style="display:none; list-style:none; padding:8px 12px; margin:4px 0 12px 0; font-size:12px; text-align:left; color:#666; background:#f8f9fa; border-radius:8px;">
                     <li id="rule-len">• Mínimo 8 caracteres</li>
                     <li id="rule-upper">• Al menos una letra mayúscula</li>
                     <li id="rule-num">• Al menos un número</li>
@@ -61,7 +61,12 @@
         // const API_URL = 'https://neuropausa-backend.onrender.com'; // producción
 
         const passwordInput = document.getElementById('password-input');
+        const passwordRules = document.getElementById('password-rules');
+        passwordInput.addEventListener('focus', () => {
+            passwordRules.style.display = 'block';
+        });
         passwordInput.addEventListener('input', () => {
+            passwordRules.style.display = 'block';
             const val = passwordInput.value;
             document.getElementById('rule-len').style.color = val.length >= 8 ? '#2e7d32' : '#c62828';
             document.getElementById('rule-upper').style.color = /[A-Z]/.test(val) ? '#2e7d32' : '#c62828';

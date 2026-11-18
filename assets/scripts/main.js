@@ -304,32 +304,6 @@ const observer = new IntersectionObserver((entries) => {
 });
 
 animatedElements.forEach(el => observer.observe(el));
-/*Version final de slider tarjeta de recursos */
-const track = document.getElementById("sliderTrack");
-const prevBtn = document.querySelector(".prev");
-const nextBtn = document.querySelector(".next");
-
-if(track && prevBtn && nextBtn){
-
-    let currentIndex = 0;
-    const cards = document.querySelectorAll(".biblioteca-card");
-    const cardWidth = 380;
-    const visibleCards = 3;
-
-    nextBtn.addEventListener("click", () => {
-        if(currentIndex < cards.length - visibleCards){
-            currentIndex++;
-            track.style.transform = `translateX(-${currentIndex * cardWidth}px)`;
-        }
-    });
-
-    prevBtn.addEventListener("click", () => {
-        if(currentIndex > 0){
-            currentIndex--;
-            track.style.transform = `translateX(-${currentIndex * cardWidth}px)`;
-        }
-    });
-} 
 /* ===========================================================
 LÓGICA PARA EL FORMULARIO DE ONBOARDING
    =========================================================== */
