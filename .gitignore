@@ -1,0 +1,15 @@
+# Variables de entorno y secretos (NUNCA subir a GitHub)
+.env
+servidor/backend/.env
+
+# Python cache
+__pycache__/
+*.py[cod]
+
+# Entornos virtuales
+.venv/
+venv/
+
+# Visual Studio / VS Code
+.vs/
+database/.vs/
