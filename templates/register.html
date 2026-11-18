@@ -33,6 +33,12 @@
                     <input type="password" id="password-input" placeholder="Contraseña" required>
                 </div>
 
+                <ul id="password-rules" style="list-style:none; padding:0; margin:6px 0 12px 0; font-size:12px; text-align:left; color:#666;">
+                    <li id="rule-len">• Mínimo 8 caracteres</li>
+                    <li id="rule-upper">• Al menos una letra mayúscula</li>
+                    <li id="rule-num">• Al menos un número</li>
+                </ul>
+
                 <div class="input-box">
                     <input type="password" id="confirmar-password-input" placeholder="Confirmar contraseña" required>
                 </div>
@@ -54,6 +60,14 @@
         const API_URL = 'http://127.0.0.1:5000';
         // const API_URL = 'https://neuropausa-backend.onrender.com'; // producción
 
+        const passwordInput = document.getElementById('password-input');
+        passwordInput.addEventListener('input', () => {
+            const val = passwordInput.value;
+            document.getElementById('rule-len').style.color = val.length >= 8 ? '#2e7d32' : '#c62828';
+            document.getElementById('rule-upper').style.color = /[A-Z]/.test(val) ? '#2e7d32' : '#c62828';
+            document.getElementById('rule-num').style.color = /[0-9]/.test(val) ? '#2e7d32' : '#c62828';
+        });
+
         document.getElementById('formulario-registro').addEventListener('submit', async function(event) {
             event.preventDefault();
 
@@ -73,8 +87,8 @@
                 return;
             }
 
-            if (password.length < 6) {
-                errorMsg.textContent = "La contraseña debe tener al menos 6 caracteres";
+            if (password.length < 8 || !/[A-Z]/.test(password) || !/[0-9]/.test(password)) {
+                errorMsg.textContent = "La contraseña debe tener al menos 8 caracteres, una mayúscula y un número";
                 errorMsg.style.display = 'block';
                 return;
             }

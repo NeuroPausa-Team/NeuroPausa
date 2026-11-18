@@ -130,8 +130,8 @@ def registrar_paciente():
         if password != confirm_password:
             return jsonify({"error": "Las contraseñas no coinciden"}), 400
 
-        if len(password) < 6:
-            return jsonify({"error": "La contraseña debe tener al menos 6 caracteres"}), 400
+        if len(password) < 8 or not any(c.isupper() for c in password) or not any(c.isdigit() for c in password):
+            return jsonify({"error": "La contraseña debe tener al menos 8 caracteres, una mayúscula y un número"}), 400
 
         conn = get_connection()
         cursor = conn.cursor()
