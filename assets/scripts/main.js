@@ -44,16 +44,16 @@ window.addEventListener("load", () => {
 
 // IMÁGENES HÁBITOS
 const imagenesHabitos = [
-    "assets/images/Hidratacion.jfif",
-    "assets/images/Sueno1.jpg"
+    "../assets/images/Hidratacion.jfif",
+    "../assets/images/Sueno1.jpg"
 ];
 
 // IMÁGENES EMOCIONES
 
 const imagenesEmociones = [
-    "assets/images/AnimoFeliz.jpg",
-    "assets/images/Animotriste.jpg",
-    "assets/images/Animoenojado.jpg"
+    "../assets/images/AnimoFeliz.jpg",
+    "../assets/images/Animotriste.jpg",
+    "../assets/images/Animoenojado.jpg"
 ];
 
 // HIDRATACIÓN Y SUEÑO
@@ -275,19 +275,21 @@ const modal = document.getElementById("modalInfo");
 const btnSaberMas = document.querySelector(".btn-saber-mas");
 const closeModal = document.querySelector(".close-modal");
 
-btnSaberMas.addEventListener("click", () => {
-    modal.style.display = "flex";
-});
+if (modal && btnSaberMas && closeModal) {
+    btnSaberMas.addEventListener("click", () => {
+        modal.style.display = "flex";
+    });
 
-closeModal.addEventListener("click", () => {
-    modal.style.display = "none";
-});
-
-window.addEventListener("click", (e) => {
-    if (e.target === modal) {
+    closeModal.addEventListener("click", () => {
         modal.style.display = "none";
-    }
-});
+    });
+
+    window.addEventListener("click", (e) => {
+        if (e.target === modal) {
+            modal.style.display = "none";
+        }
+    });
+}
 /*Animacion al hacer scroll la app desing*/
 const animatedElements = document.querySelectorAll('.fade-up, .slide-up');
 
