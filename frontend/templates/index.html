@@ -152,7 +152,7 @@
                 Accede a guías prácticas, lecturas validadas por profesionales y herramientas interactivas
                 diseñadas para brindarte claridad, calma y el respaldo que necesitas en tu día a día.
             </p>
-            <a href="#" class="enlace-biblioteca">Explorar biblioteca <span class="flecha">→</span></a>
+            <a href="#biblioteca-preview" class="enlace-biblioteca">Explorar biblioteca <span class="flecha">→</span></a>
         </div>
 
         <div class="Tarjeta Disenado">
@@ -204,6 +204,39 @@
             <h3 style="color:#08551F; margin-bottom:0.5rem; font-size:1.15rem;">Bienestar integral</h3>
             <p style="color:#5f5a55; font-size:0.95rem; line-height:1.5;">Registrar tus síntomas, cuidar tu descanso y contar con apoyo médico profesional te devuelve el control.</p>
         </div>
+    </div>
+</section>
+
+<section id="biblioteca-preview" style="max-width:1100px; margin: clamp(2rem, 5vw, 4rem) auto; padding: clamp(1.5rem, 4vw, 2.5rem) clamp(1rem, 4vw, 2rem); background:#ffffff; border-radius:24px; box-shadow:0 8px 28px rgba(0,0,0,0.05);">
+    <div style="display:flex; justify-content:space-between; align-items:flex-end; flex-wrap:wrap; gap:1rem; margin-bottom:1.5rem;">
+        <div>
+            <span style="display:inline-block; background:#e8f5e9; color:#08551F; font-size:0.8rem; font-weight:700; padding:4px 12px; border-radius:20px; margin-bottom:0.5rem;">BIBLIOTECA DE PSICOEDUCACIÓN</span>
+            <h2 style="color:#451313; font-size:clamp(1.5rem, 2.8vw, 2.2rem); margin:0;">Lecturas recomendadas para ti</h2>
+        </div>
+        <a href="recursos.html" style="background:#08551F; color:#fff; text-decoration:none; padding:10px 20px; border-radius:25px; font-size:0.9rem; font-weight:600;">Ver todos los artículos →</a>
+    </div>
+    <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: clamp(1rem, 2vw, 1.5rem);">
+        <article style="background:#f9f7f4; border-radius:16px; overflow:hidden; border:1px solid #ece6de;">
+            <img src="../assets/images/perimenopausia.jpg.png" alt="Perimenopausia" style="width:100%; height:160px; object-fit:cover; display:block;">
+            <div style="padding:1.2rem;">
+                <h3 style="color:#08551F; font-size:1.05rem; margin-bottom:0.4rem;">¿Qué es la perimenopausia?</h3>
+                <p style="color:#5f5a55; font-size:0.9rem; line-height:1.45;">Identifica los primeros cambios hormonales y cómo prepararte con calma.</p>
+            </div>
+        </article>
+        <article style="background:#f9f7f4; border-radius:16px; overflow:hidden; border:1px solid #ece6de;">
+            <img src="../assets/images/buensuenio.jpeg" alt="Mejorar el sueño" style="width:100%; height:160px; object-fit:cover; display:block;">
+            <div style="padding:1.2rem;">
+                <h3 style="color:#08551F; font-size:1.05rem; margin-bottom:0.4rem;">Cómo mejorar tu sueño</h3>
+                <p style="color:#5f5a55; font-size:0.9rem; line-height:1.45;">Hábitos simples para reducir el insomnio y recuperar tu energía diaria.</p>
+            </div>
+        </article>
+        <article style="background:#f9f7f4; border-radius:16px; overflow:hidden; border:1px solid #ece6de;">
+            <img src="../assets/images/manejoestres.jpg" alt="Manejo del estrés" style="width:100%; height:160px; object-fit:cover; display:block;">
+            <div style="padding:1.2rem;">
+                <h3 style="color:#08551F; font-size:1.05rem; margin-bottom:0.4rem;">Manejo del estrés y ansiedad</h3>
+                <p style="color:#5f5a55; font-size:0.9rem; line-height:1.45;">Técnicas prácticas para cuidar tu bienestar emocional cada día.</p>
+            </div>
+        </article>
     </div>
 </section>
 
@@ -391,10 +424,10 @@
         </div>
 
         <div class="footer-centro">
-            <a href="#">Privacidad</a>
-            <a href="#">Términos</a>
-            <a href="#">Contacto</a>
-            <a href="#">Recursos</a>
+            <a href="#" onclick="abrirInfoFooter('privacidad'); return false;">Privacidad</a>
+            <a href="#" onclick="abrirInfoFooter('terminos'); return false;">Términos</a>
+            <a href="#" onclick="abrirInfoFooter('contacto'); return false;">Contacto</a>
+            <a href="recursos.html">Recursos</a>
         </div>
 
         <div class="footer-derecha">
@@ -409,6 +442,36 @@
     </footer>
 
 </div>
+<div id="modalFooterInfo" class="modal" style="display:none;">
+    <div class="modal-content">
+        <span class="close-modal" onclick="document.getElementById('modalFooterInfo').style.display='none'">&times;</span>
+        <h2 id="footer-modal-titulo"></h2>
+        <p id="footer-modal-texto" style="line-height:1.6; color:#555; margin-top:12px;"></p>
+    </div>
+</div>
+<script>
+function abrirInfoFooter(tipo) {
+    const info = {
+        privacidad: {
+            titulo: "Política de Privacidad",
+            texto: "En NeuroPausa protegemos tu información personal y tus registros diarios de salud. Tus datos nunca se venden ni se comparten con terceros sin tu autorización explícita."
+        },
+        terminos: {
+            titulo: "Términos de Uso",
+            texto: "NeuroPausa es una plataforma de acompañamiento y bienestar integral. La información y herramientas ofrecidas complementan, pero no reemplazan, una consulta médica profesional."
+        },
+        contacto: {
+            titulo: "Contacto",
+            texto: "¿Tienes dudas o sugerencias? Escríbenos a equipo_n@neuropausa.com o llámanos al +51 999 999 999. Estamos en Lima, Perú (UPC)."
+        }
+    };
+    const item = info[tipo];
+    if (!item) return;
+    document.getElementById('footer-modal-titulo').textContent = item.titulo;
+    document.getElementById('footer-modal-texto').textContent = item.texto;
+    document.getElementById('modalFooterInfo').style.display = 'flex';
+}
+</script>
 <script src="../assets/scripts/main.js"></script>
 
 </body>
