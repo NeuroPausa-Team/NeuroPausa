@@ -136,12 +136,12 @@ def registrar_paciente():
         conn = get_connection()
         cursor = conn.cursor()
 
-        cursor.execute("SELECT IdUsuario FROM Usuario WHERE Correo = ?", (correo,))
+        cursor.execute("SELECT IdUsuario FROM Usuario WHERE Correo = %s", (correo,))
         if cursor.fetchone():
             conn.close()
             return jsonify({"error": "Este correo ya está registrado"}), 400
 
-        cursor.execute("SELECT IdRol FROM Rol WHERE NombreRol = ?", ("Paciente",))
+        cursor.execute("SELECT IdRol FROM Rol WHERE NombreRol = %s", ("Paciente",))
         rol_row = cursor.fetchone()
         if not rol_row:
             conn.close()
@@ -150,7 +150,7 @@ def registrar_paciente():
 
         password_hash = generate_password_hash(password)
         cursor.execute(
-            "INSERT INTO Usuario (IdRol, Correo, PasswordHash, Nombre, Apellidos) VALUES (?, ?, ?, ?, ?)",
+            "INSERT INTO Usuario (IdRol, Correo, PasswordHash, Nombre, Apellidos) VALUES (%s, %s, %s, %s, %s)",
             (id_rol, correo, password_hash, nombre, apellidos)
         )
         conn.commit()
@@ -184,7 +184,7 @@ def login():
         cursor = conn.cursor()
 
         cursor.execute(
-            "SELECT IdUsuario, PasswordHash, Nombre, OnboardingCompleto FROM Usuario WHERE Correo = ?",
+            "SELECT IdUsuario, PasswordHash, Nombre, OnboardingCompleto FROM Usuario WHERE Correo = %s",
             (correo,)
         )
         usuario = cursor.fetchone()
@@ -241,8 +241,8 @@ def completar_onboarding():
         cursor = conn.cursor()
         cursor.execute(
             """UPDATE Usuario 
-            SET Etapa = ?, SintomasInteres = ?, QueBuscas = ?, OnboardingCompleto = 1
-            WHERE IdUsuario = ?""",
+            SET Etapa = %s, SintomasInteres = %s, QueBuscas = %s, OnboardingCompleto = TRUE
+            WHERE IdUsuario = %s""",
             (etapa, sintomas_texto, que_buscas, session['user_id'])
         )
         conn.commit()
@@ -281,7 +281,7 @@ def estado_perfil():
 
     conn = get_connection()
     cursor = conn.cursor()
-    cursor.execute("SELECT DNIPaciente FROM Paciente WHERE IdUsuario = ?", (session['user_id'],))
+    cursor.execute("SELECT DNIPaciente FROM Paciente WHERE IdUsuario = %s", (session['user_id'],))
     fila = cursor.fetchone()
     conn.close()
 
@@ -313,18 +313,18 @@ def completar_perfil_basico():
         conn = get_connection()
         cursor = conn.cursor()
 
-        cursor.execute("SELECT Nombre, Apellidos FROM Usuario WHERE IdUsuario = ?", (session['user_id'],))
+        cursor.execute("SELECT Nombre, Apellidos FROM Usuario WHERE IdUsuario = %s", (session['user_id'],))
         usuario_row = cursor.fetchone()
         nombre, apellidos = usuario_row[0], usuario_row[1]
 
-        cursor.execute("SELECT DNIPaciente FROM Paciente WHERE DNIPaciente = ?", (dni,))
+        cursor.execute("SELECT DNIPaciente FROM Paciente WHERE DNIPaciente = %s", (dni,))
         if cursor.fetchone():
             conn.close()
             return jsonify({"error": "Este DNI ya está registrado"}), 400
 
         cursor.execute(
             """INSERT INTO Paciente (DNIPaciente, IdUsuario, Nombre, Apellidos, Edad, Direccion, Telefono)
-               VALUES (?, ?, ?, ?, ?, ?, ?)""",
+               VALUES (%s, %s, %s, %s, %s, %s, %s)""",
             (dni, session['user_id'], nombre, apellidos, edad, direccion, telefono)
         )
         conn.commit()
@@ -367,7 +367,7 @@ def registrar_diario():
         conn = get_connection()
         cursor = conn.cursor()
 
-        cursor.execute("SELECT DNIPaciente FROM Paciente WHERE IdUsuario = ?", (session['user_id'],))
+        cursor.execute("SELECT DNIPaciente FROM Paciente WHERE IdUsuario = %s", (session['user_id'],))
         paciente_row = cursor.fetchone()
         if not paciente_row:
             conn.close()
@@ -388,8 +388,8 @@ def registrar_diario():
 
         cursor.execute(
             """INSERT INTO DiarioSintoma (DNIPaciente, FechaRegistro, CalidadSueno, ComentariosGenerales)
-               OUTPUT INSERTED.IdDiario
-               VALUES (?, CAST(GETDATE() AS DATE), ?, ?)""",
+               VALUES (%s, CURRENT_DATE, %s, %s)
+               RETURNING IdDiario""",
             (dni_paciente, calidad_sueno, comentarios)
         )
         id_diario = cursor.fetchone()[0]
@@ -397,7 +397,7 @@ def registrar_diario():
         for s in sintomas:
             cursor.execute(
                 """INSERT INTO DetalleDiarioSintoma (IdDiario, IdCatSintoma, Nivelinternsidad)
-                   VALUES (?, ?, ?)""",
+                   VALUES (%s, %s, %s)""",
                 (id_diario, s["idCatSintoma"], s["intensidad"])
             )
 
@@ -425,7 +425,7 @@ def diario_reciente():
         conn = get_connection()
         cursor = conn.cursor()
 
-        cursor.execute("SELECT DNIPaciente FROM Paciente WHERE IdUsuario = ?", (session['user_id'],))
+        cursor.execute("SELECT DNIPaciente FROM Paciente WHERE IdUsuario = %s", (session['user_id'],))
         paciente_row = cursor.fetchone()
         if not paciente_row:
             conn.close()
@@ -434,7 +434,7 @@ def diario_reciente():
 
         cursor.execute(
             """
-            SELECT TOP 5
+            SELECT
                 d.IdDiario,
                 d.FechaRegistro,
                 d.CalidadSueno,
@@ -442,9 +442,10 @@ def diario_reciente():
             FROM DiarioSintoma d
             LEFT JOIN DetalleDiarioSintoma dd ON dd.IdDiario = d.IdDiario
             LEFT JOIN CatlogoSintoma c ON c.IdCatSintoma = dd.IdCatSintoma
-            WHERE d.DNIPaciente = ?
+            WHERE d.DNIPaciente = %s
             GROUP BY d.IdDiario, d.FechaRegistro, d.CalidadSueno
             ORDER BY d.FechaRegistro DESC, d.IdDiario DESC
+            LIMIT 5
             """,
             (dni_paciente,)
         )
@@ -481,7 +482,7 @@ def indicadores_salud():
         conn = get_connection()
         cursor = conn.cursor()
 
-        cursor.execute("SELECT DNIPaciente FROM Paciente WHERE IdUsuario = ?", (session['user_id'],))
+        cursor.execute("SELECT DNIPaciente FROM Paciente WHERE IdUsuario = %s", (session['user_id'],))
         paciente_row = cursor.fetchone()
         if not paciente_row:
             conn.close()
@@ -497,10 +498,10 @@ def indicadores_salud():
         # --- Promedio por día (últimos 7 días) ---
         cursor.execute(
             """
-            SELECT CAST(FechaRegistro AS DATE) AS Fecha, AVG(CAST(CalidadSueno AS FLOAT)) AS Promedio
+            SELECT FechaRegistro::date AS Fecha, AVG(CAST(CalidadSueno AS FLOAT)) AS Promedio
             FROM DiarioSintoma
-            WHERE DNIPaciente = ? AND FechaRegistro >= DATEADD(day, -6, CAST(GETDATE() AS DATE))
-            GROUP BY CAST(FechaRegistro AS DATE)
+            WHERE DNIPaciente = %s AND FechaRegistro >= CURRENT_DATE - INTERVAL '6 days'
+            GROUP BY FechaRegistro::date
             """,
             (dni_paciente,)
         )
@@ -545,9 +546,10 @@ def indicadores_salud():
             FROM DetalleDiarioSintoma dd
             JOIN CatlogoSintoma c ON c.IdCatSintoma = dd.IdCatSintoma
             JOIN DiarioSintoma d ON d.IdDiario = dd.IdDiario
-            WHERE d.DNIPaciente = ? AND d.FechaRegistro >= DATEADD(day, -6, CAST(GETDATE() AS DATE))
+            WHERE d.DNIPaciente = %s AND d.FechaRegistro >= CURRENT_DATE - INTERVAL '6 days'
             GROUP BY c.NombreSintoma
             ORDER BY Cantidad DESC
+            LIMIT 1
             """,
             (dni_paciente,)
         )
@@ -556,7 +558,7 @@ def indicadores_salud():
         cursor.execute(
             """
             SELECT COUNT(DISTINCT IdDiario) FROM DiarioSintoma
-            WHERE DNIPaciente = ? AND FechaRegistro >= DATEADD(day, -6, CAST(GETDATE() AS DATE))
+            WHERE DNIPaciente = %s AND FechaRegistro >= CURRENT_DATE - INTERVAL '6 days'
             """,
             (dni_paciente,)
         )
@@ -598,7 +600,7 @@ def perfil_datos():
         cursor = conn.cursor()
 
         cursor.execute(
-            "SELECT Nombre, Apellidos, Correo, Etapa, FechaRegistro FROM Usuario WHERE IdUsuario = ?",
+            "SELECT Nombre, Apellidos, Correo, Etapa, FechaRegistro FROM Usuario WHERE IdUsuario = %s",
             (session['user_id'],)
         )
         u = cursor.fetchone()
@@ -606,7 +608,7 @@ def perfil_datos():
 
         # Buscar datos de Paciente si ya completó su perfil
         cursor.execute(
-            "SELECT DNIPaciente, Telefono, Direccion FROM Paciente WHERE IdUsuario = ?",
+            "SELECT DNIPaciente, Telefono, Direccion FROM Paciente WHERE IdUsuario = %s",
             (session['user_id'],)
         )
         p = cursor.fetchone()
@@ -618,8 +620,8 @@ def perfil_datos():
         racha = 0
         if dni_paciente:
             cursor.execute(
-                """SELECT DISTINCT CAST(FechaRegistro AS DATE) AS Fecha
-                FROM DiarioSintoma WHERE DNIPaciente = ?
+                """SELECT DISTINCT FechaRegistro::date AS Fecha
+                FROM DiarioSintoma WHERE DNIPaciente = %s
                 ORDER BY Fecha DESC""",
                 (dni_paciente,)
             )
@@ -674,15 +676,15 @@ def actualizar_perfil():
         cursor = conn.cursor()
 
         cursor.execute(
-            "UPDATE Usuario SET Nombre = ?, Apellidos = ? WHERE IdUsuario = ?",
+            "UPDATE Usuario SET Nombre = %s, Apellidos = %s WHERE IdUsuario = %s",
             (nombre, apellidos, session['user_id'])
         )
 
-        cursor.execute("SELECT DNIPaciente FROM Paciente WHERE IdUsuario = ?", (session['user_id'],))
+        cursor.execute("SELECT DNIPaciente FROM Paciente WHERE IdUsuario = %s", (session['user_id'],))
         p = cursor.fetchone()
         if p:
             cursor.execute(
-                "UPDATE Paciente SET Nombre = ?, Apellidos = ?, Telefono = ?, Direccion = ? WHERE IdUsuario = ?",
+                "UPDATE Paciente SET Nombre = %s, Apellidos = %s, Telefono = %s, Direccion = %s WHERE IdUsuario = %s",
                 (nombre, apellidos, telefono, direccion, session['user_id'])
             )
 
@@ -731,7 +733,7 @@ def especialistas():
     """
     params = ()
     if id_especialidad:
-        query += " WHERE de.IdEspecialidad = ?"
+        query += " WHERE de.IdEspecialidad = %s"
         params = (id_especialidad,)
 
     cursor.execute(query, params)
@@ -774,7 +776,7 @@ def agendar_cita():
         conn = get_connection()
         cursor = conn.cursor()
 
-        cursor.execute("SELECT DNIPaciente FROM Paciente WHERE IdUsuario = ?", (session['user_id'],))
+        cursor.execute("SELECT DNIPaciente FROM Paciente WHERE IdUsuario = %s", (session['user_id'],))
         paciente_row = cursor.fetchone()
         if not paciente_row:
             conn.close()
@@ -805,7 +807,7 @@ def agendar_cita():
 
         cursor.execute(
             """INSERT INTO Cita (DNIPaciente, DNIDoctor, IdSede, FechaHoraCita, TipoCita, Estado)
-            VALUES (?, ?, ?, ?, ?, 'Programada')""",
+            VALUES (%s, %s, %s, %s, %s, 'Programada')""",
             (dni_paciente, dni_doctor, id_sede if modalidad == "Presencial" else None, fecha_hora, modalidad)
         )
         conn.commit()
@@ -831,7 +833,7 @@ def resumen_inicio():
         conn = get_connection()
         cursor = conn.cursor()
 
-        cursor.execute("SELECT DNIPaciente FROM Paciente WHERE IdUsuario = ?", (session['user_id'],))
+        cursor.execute("SELECT DNIPaciente FROM Paciente WHERE IdUsuario = %s", (session['user_id'],))
         p = cursor.fetchone()
 
         if not p:
@@ -842,8 +844,8 @@ def resumen_inicio():
 
         # Racha (días consecutivos)
         cursor.execute(
-            """SELECT DISTINCT CAST(FechaRegistro AS DATE) AS Fecha
-            FROM DiarioSintoma WHERE DNIPaciente = ?
+            """SELECT DISTINCT FechaRegistro::date AS Fecha
+            FROM DiarioSintoma WHERE DNIPaciente = %s
             ORDER BY Fecha DESC""",
             (dni_paciente,)
         )
@@ -860,13 +862,14 @@ def resumen_inicio():
         # Síntoma más frecuente (histórico, no solo la semana)
         cursor.execute(
             """
-            SELECT TOP 1 c.NombreSintoma, COUNT(*) AS Cantidad
+            SELECT c.NombreSintoma, COUNT(*) AS Cantidad
             FROM DetalleDiarioSintoma dd
             JOIN CatlogoSintoma c ON c.IdCatSintoma = dd.IdCatSintoma
             JOIN DiarioSintoma d ON d.IdDiario = dd.IdDiario
-            WHERE d.DNIPaciente = ?
+            WHERE d.DNIPaciente = %s
             GROUP BY c.NombreSintoma
             ORDER BY Cantidad DESC
+            LIMIT 1
             """,
             (dni_paciente,)
         )
