@@ -97,3 +97,28 @@ main → rama principal del proyecto
 develop → rama de integración
 feature/responsive-fixes → ramas para nuevas funcionalidades
 gh-pages → rama de despliegue para GitHub Pages
+
+---
+
+## Arquitectura y Estructura del Proyecto
+
+- `templates/`: Vistas HTML públicas (`index.html`, `proposito.html`, `funciones.html`, `recursos.html`, `cita.html`) y aplicación privada (`login.html`, `register.html`, `onboarding.html`, `dashboard.html`, `diario.html`, `salud.html`, `especialistas.html`, `perfil.html`).
+- `assets/`: Hojas de estilo CSS (`styles/`), lógica de interfaz (`scripts/main.js`) y recursos gráficos (`images/`).
+- `database/`: Módulo de conexión a PostgreSQL / Supabase (`conexion.py`) mediante `psycopg2` y variables de entorno.
+- `servidor/backend/`: API REST en Flask (`app.py`) para autenticación, diario de síntomas, indicadores semanales, citas médicas y envío de correos transaccionales con Brevo.
+
+## Configuración y Ejecución Local
+
+1. Instalar dependencias del backend:
+   ```bash
+   pip install -r servidor/backend/requirements.txt
+   ```
+2. Configurar `servidor/backend/.env` con `DATABASE_URL` (Supabase), `SECRET_KEY` y `BREVO_API_KEY`.
+3. Probar la conexión a la base de datos:
+   ```bash
+   python test_conexion.py
+   ```
+4. Iniciar el servidor Flask:
+   ```bash
+   python servidor/backend/app.py
+   ```
