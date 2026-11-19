@@ -1,238 +1,226 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../assets/styles/styles.css"> 
+    <!-- SEO y redes sociales (Open Graph / Twitter Card) -->
+    <meta name="description" content="Conoce el propósito de NeuroPausa: bienestar digital con rigor científico, empatía y accesibilidad para mujeres en transición menopáusica.">
+    <meta name="theme-color" content="#08551F">
+    <meta property="og:title" content="Propósito - NeuroPausa">
+    <meta property="og:description" content="Combinamos neurociencia, empatía y diseño centrado en la mujer para acompañar la menopausia.">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="../assets/images/Mujermenopausa1.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <link rel="stylesheet" href="../assets/styles/styles.css">
     <link rel="stylesheet" href="../assets/styles/responsive.css">
-    
     <title>Propósito - NeuroPausa</title>
 </head>
 <body>
 
-<nav>
-    <div class="logo">
-        <a href="index.html">
-            <h1><strong>NeuroPausa</strong></h1>
-        </a>
-    </div>
-    <div class="menu-toggle">☰</div>
-    <ul>
-        <li><a href="index.html">Inicio</a></li>
-        <li><a href="proposito.html" class="activo">Propósito</a></li>
-        <li><a href="funciones.html">Funciones</a></li>
-        <li><a href="recursos.html">Recursos</a></li>
-    </ul>
+<a href="#contenido-principal" class="skip-link">Saltar al contenido</a>
 
-    <button id = "btnCita">Agendar cita</button>
-</nav>
+<header>
+    <nav aria-label="Navegación principal">
+        <div class="logo">
+            <a href="index.html"><strong>NeuroPausa</strong></a>
+        </div>
+        <button type="button" class="menu-toggle" aria-label="Abrir menú de navegación" aria-expanded="false" aria-controls="menu-principal">☰</button>
+        <ul id="menu-principal">
+            <li><a href="index.html">Inicio</a></li>
+            <li><a href="proposito.html" class="activo" aria-current="page">Propósito</a></li>
+            <li><a href="funciones.html">Funciones</a></li>
+            <li><a href="recursos.html">Recursos</a></li>
+        </ul>
+        <div style="display:flex; align-items:center; gap:0.5rem;">
+            <button id="btnModoOscuro" type="button" aria-label="Alternar modo de bajo estímulo" title="Modo bajo estímulo" style="min-width:44px; min-height:44px; border-radius:50%; border:1px solid #ccc; background:#fff; color:#333; cursor:pointer;">🌙</button>
+            <button id="btnCita" type="button">Reserva una orientación</button>
+        </div>
+    </nav>
+</header>
 
-<div class="hero-proposito">
+<main id="contenido-principal">
+    <section class="hero-proposito">
+        <div class="proposito-texto">
+            <h1>La menopausia merece atención real</h1>
+            <p>
+                NeuroPausa nació porque millones de mujeres atraviesan una de las transiciones más complejas de su vida sin información clara, sin apoyo profesional accesible y sin herramientas diseñadas para ellas.
+            </p>
+            <p>
+                Combinamos neurociencia, empatía y diseño centrado en la mujer para cerrar esa brecha.
+            </p>
+        </div>
 
-    <div class="proposito-texto">
-        <h2>La menospausia merece atención real</h2>
+        <div class="proposito-imagen-contenedor">
+            <!-- TODO: Renombrar Mujermenopausa1.png a proposito-acompanamiento.png -->
+            <img class="imagen-proposito" src="../assets/images/Mujermenopausa1.png" alt="Mujer serena recibiendo acompañamiento integral durante la menopausia" width="480" height="400">
+        </div>
+    </section>
 
-        <p> 
-            NeuroPausa nació proque millones de mujeres atraviesan una de las transmiciones más complejas de su vida sin información clara, sin apoyo profesional accesible y sin herramientas diseñadas para ellas. 
+    <hr class="separador">
+
+    <section class="problema-neuropausa" aria-labelledby="titulo-problema">
+        <div class="estadisticas">
+            <div class="stat-card animar">
+                <h2 id="stat1" data-target="51" data-suffix="%">51%</h2>
+                <p>de la población mundial experimenta la menopausia en algún momento de su vida</p>
+                <!-- TODO: verificar cifra y fuente -->
+                <small><a href="https://www.who.int/" target="_blank" rel="noopener noreferrer">Fuente: OMS</a></small>
+            </div>
+
+            <div class="stat-card animar">
+                <h2 id="stat2" data-target="34" data-suffix="+">34+</h2>
+                <p>síntomas distintos documentados científicamente</p>
+                <!-- TODO: verificar cifra y fuente -->
+                <small><a href="https://www.menopause.org/" target="_blank" rel="noopener noreferrer">Fuente: NAMS</a></small>
+            </div>
+
+            <div class="stat-card animar">
+                <h2 id="stat3" data-target="4" data-suffix="–8 años">4–8 años</h2>
+                <p>dura en promedio la transición perimenopáusica</p>
+                <!-- TODO: verificar cifra y fuente -->
+                <small><a href="https://www.who.int/" target="_blank" rel="noopener noreferrer">Fuente: OMS</a></small>
+            </div>
+        </div>
+
+        <span class="etiqueta-problema animar">EL PROBLEMA</span>
+        <h2 id="titulo-problema" class="titulo-problema animar">¿Por qué existe NeuroPausa?</h2>
+        <p class="descripcion-problema animar">
+            Según estudios clínicos, muchas mujeres reciben menos de 5 minutos de atención médica sobre este tema. El estigma social y la falta de herramientas accesibles dejan a millones navegando solas.
         </p>
 
-        <p>
-            Combinamos neurociencia, empatía y diseño centrado en la mujer para cerrar esa brecha. 
-        </p>
-    </div>
-
-    <div class="proposito-imagen-contenedor">
-        <img class="imagen-proposito" src="../assets/images/Mujermenopausa1.png" alt="Proposito NeuroPausa">
-    </div>
-
-</div>
-
-<br>
-
-<hr class="separador">
-
-<section class="problema-neuropausa">
-
-    <div class="estadisticas">
-
-        <div class="stat-card animar">
-            <h3 id = "stat1">0%</h3>
-            <p>de la población mundial experimenta la menopausia</p>
+        <div class="problema-item animar">
+            <div class="numero-problema" aria-hidden="true">1</div>
+            <div class="texto-item">
+                <h3>Desinformación generalizada</h3>
+                <p>Los mitos sobre la menopausia generan miedo innecesario. Ofrecemos contenido basado en evidencia científica actualizada, revisada por profesionales de la salud.</p>
+                <p><strong>Cómo lo resolvemos:</strong> <a href="funciones.html#psicoeducacion">Explora nuestra biblioteca validada</a>.</p>
+            </div>
         </div>
 
-        <div class="stat-card animar">
-            <h3 id = "stat2">0+</h3>
-            <p>síntomas distintos documentados científicamente</p>
+        <div class="problema-item animar">
+            <div class="numero-problema" aria-hidden="true">2</div>
+            <div class="texto-item">
+                <h3>Falta de seguimiento continuo</h3>
+                <p>Los síntomas cambian día a día. NeuroPausa permite registrar, visualizar y compartir esa evolución con tu médico.</p>
+                <p><strong>Cómo lo resolvemos:</strong> <a href="funciones.html#diario">Conoce el diario de síntomas inteligente</a>.</p>
+            </div>
         </div>
 
-        <div class="stat-card animar">
-            <h3 id = "stat3">0</h3>
-            <p>dura en promedio la transición perimenopáusica</p>
+        <div class="problema-item animar">
+            <div class="numero-problema" aria-hidden="true">3</div>
+            <div class="texto-item">
+                <h3>Apps que ignoran la fatiga visual</h3>
+                <p>La mayoría de aplicaciones ignoran que la niebla mental y el cansancio son síntomas reales. NeuroPausa fue diseñada desde cero para ser usable incluso en los días más difíciles.</p>
+                <p><strong>Cómo lo resolvemos:</strong> <a href="funciones.html#accesibilidad">Descubre nuestro diseño de bajo estímulo</a>.</p>
+            </div>
         </div>
+    </section>
 
-    </div>
+    <hr class="separador">
 
-    <span class="etiqueta-problema animar">
-        EL PROBLEMA
-    </span>
+    <section class="valores-neuropausa" aria-labelledby="titulo-valores">
+        <span class="etiqueta-valores">NUESTROS VALORES</span>
+        <h2 id="titulo-valores" class="titulo-valores">Lo que nos guía</h2>
+        <p class="descripcion-valores">Cada decisión de diseño, cada contenido y cada función pasa por estos tres filtros.</p>
 
-    <h2 class="titulo-problema animar">
-        ¿Por qué existe NeuroPausa?
-    </h2>
-
-    <p class="descripcion-problema animar">
-        Muchas mujeres reciben menos de 5 minutos de atención médica sobre este tema.
-        El estigma social y la falta de herramientas accesibles dejan a millones
-        navegando solas.
-    </p>
-
-    <div class="problema-item animar">
-
-        <div class="numero-problema">
-            1
-        </div>
-
-        <div class="texto-item">
-            <h4>Desinformación generalizada</h4>
-
-            <p>
-                Los mitos sobre la menopausia generan miedo innecesario.
-                Ofrecemos contenido basado en evidencia científica actualizada,
-                revisada por profesionales de la salud.
-            </p>
-        </div>
-
-    </div>
-
-    <div class="problema-item animar">
-
-        <div class="numero-problema">
-            2
-        </div>
-
-        <div class="texto-item">
-            <h4>Falta de seguimiento continuo</h4>
-
-            <p>
-                Los síntomas cambian día a día. NeuroPausa permite registrar,
-                visualizar y compartir esa evolución con el médico.
-            </p>
-        </div>
-
-    </div>
-
-    <div class="problema-item animar">
-
-        <div class="numero-problema">
-            3
-        </div>
-
-        <div class="texto-item">
-            <h4>Diseño que no considera la fatiga visual</h4>
-
-            <p>
-                La mayoría de apps ignoran que la niebla mental y el cansancio
-                son síntomas reales. NeuroPausa fue diseñada desde cero para
-                ser usable incluso en los peores días.
-            </p>
-        </div>
-
-    </div>
-
-</section>
-
-<hr class="separador">
-
-<section class="valores-neuropausa">
-    
-    <span class="etiqueta-valores">
-        NUESTROS VALORES
-    </span>
-
-    <h2 class="titulo-valores">
-        Lo que nos guía
-    </h2>
-
-    <p class="descripcion-valores">
-        Cada decisión de diseño, cada contenido y cada función pasa por estos tres filtros.
-    </p>
-
-    <div class="contenedor-valores">
-
-        <div class="card-valor animar">
-            <div class="icono-valor">
-                <img src="../assets/images/imagen1.1h4.png" alt="Empatía">
+        <div class="contenedor-valores">
+            <div class="card-valor animar">
+                <div class="icono-valor">
+                    <!-- TODO: Renombrar imagen1.1h4.png a valor-empatia.png -->
+                    <img src="../assets/images/imagen1.1h4.png" alt="Ilustración de empatía y escucha activa" loading="lazy" width="120" height="120">
+                </div>
+                <h3>Empatía radical</h3>
+                <p>No asumimos. Escuchamos. Cada funcionalidad fue co-diseñada con mujeres que están viviendo esta transición ahora mismo.</p>
             </div>
 
-            <h3>Empatía radical</h3>
-
-            <p>
-                No asumimos. Escuchamos. Cada funcionalidad fue co-diseñada
-                con mujeres que están viviendo esta transición ahora mismo.
-            </p>
-        </div>
-
-        <div class="card-valor animar">
-            <div class="icono-valor">
-                <img src="../assets/images/imagen1.2h4.jpg" alt="Rigor científico">
+            <div class="card-valor animar">
+                <div class="icono-valor">
+                    <!-- TODO: Renombrar imagen1.2h4.jpg a valor-rigor-cientifico.jpg -->
+                    <img src="../assets/images/imagen1.2h4.jpg" alt="Ilustración de rigor científico y respaldo médico" loading="lazy" width="120" height="120">
+                </div>
+                <h3>Rigor científico</h3>
+                <p>Toda información clínica es revisada por ginecólogos y neurólogos. Nunca publicamos contenido sin respaldo en evidencia.</p>
             </div>
 
-            <h3>Rigor científico</h3>
-
-            <p>
-                Toda información clínica es revisada por ginecólogos y neurólogos.
-                Nunca publicamos contenido sin respaldo en evidencia.
-            </p>
-        </div>
-
-        <div class="card-valor animar">
-            <div class="icono-valor">
-                <img src="../assets/images/imagen1.3h4.png" alt="Privacidad">
+            <div class="card-valor animar">
+                <div class="icono-valor">
+                    <!-- TODO: Renombrar imagen1.3h4.png a valor-privacidad.png -->
+                    <img src="../assets/images/imagen1.3h4.png" alt="Escudo simbolizando privacidad y resguardo de datos" loading="lazy" width="120" height="120">
+                </div>
+                <h3>Privacidad primero</h3>
+                <p>Tus datos de salud son tuyos. Nunca vendemos información personal. <a href="privacidad.html">Lee nuestra Política de privacidad</a>.</p>
             </div>
-
-            <h3>Privacidad primero</h3>
-
-            <p>
-                Tus datos de salud son tuyos. Nunca vendemos información personal.
-                El acceso médico requiere autorización explícita.
-            </p>
         </div>
+    </section>
 
-    </div>
-            
-</section>
+    <!-- Comité científico / Revisión profesional -->
+    <section class="comite-cientifico" style="max-width:1100px; margin:3rem auto; padding:0 1.25rem;" aria-labelledby="titulo-comite">
+        <h2 id="titulo-comite" style="color:#08551F; text-align:center; margin-bottom:1.5rem;">Comité científico y revisión profesional</h2>
+        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(240px, 1fr)); gap:1.5rem;">
+            <!-- TODO: Reemplazar con datos reales del comité -->
+            <article class="card-valor" style="padding:1.5rem; background:#fff; border-radius:16px;">
+                <h3>Dra. Ana Rojas (Placeholder)</h3>
+                <p><strong>Ginecología y Climaterio</strong></p>
+                <p>CMP: 00000 · Revisión clínica</p>
+            </article>
+            <article class="card-valor" style="padding:1.5rem; background:#fff; border-radius:16px;">
+                <h3>Dr. Jorge Paz (Placeholder)</h3>
+                <p><strong>Neuropsicología</strong></p>
+                <p>CMP: 00000 · Estimulación cognitiva</p>
+            </article>
+            <article class="card-valor" style="padding:1.5rem; background:#fff; border-radius:16px;">
+                <h3>Lic. Lucía Medina (Placeholder)</h3>
+                <p><strong>Psicología Clínica</strong></p>
+                <p>CPsP: 00000 · Bienestar emocional</p>
+            </article>
+        </div>
+    </section>
+
+    <!-- Testimonio de co-diseño -->
+    <section style="max-width:800px; margin:2.5rem auto; padding:1.5rem; background:#f7f5f2; border-left:4px solid #08551F; border-radius:12px;">
+        <!-- TODO: Reemplazar con testimonio real de participante -->
+        <blockquote style="margin:0; font-style:italic; color:#333; line-height:1.6;">
+            “Por fin una herramienta que no me abruma en los días de niebla mental y me ayuda a explicarle a mi doctora cómo me he sentido.”
+        </blockquote>
+        <p style="margin-top:0.5rem; font-weight:600; color:#08551F;">— Participante del taller de co-diseño, Lima (Placeholder)</p>
+    </section>
+
+    <!-- CTA final -->
+    <section style="text-align:center; max-width:750px; margin:3rem auto; padding:2rem 1.25rem; background:#fff; border-radius:20px;">
+        <h2 style="color:#451313;">Da el siguiente paso hacia tu bienestar</h2>
+        <p style="margin:0.75rem 0 1.5rem; color:#4f4a45;">Descubre herramientas pensadas para acompañarte con calma y claridad.</p>
+        <a href="funciones.html" class="btnIniciarsesion" style="display:inline-flex; align-items:center; justify-content:center; text-decoration:none; padding:0 1.5rem;">Conoce las funciones</a>
+    </section>
+
+    <!-- Aviso médico obligatorio -->
+    <aside role="note" aria-label="Aviso médico" style="max-width:900px; margin:2rem auto; padding:1rem 1.25rem; background:#f5f2ed; border-radius:10px; font-size:0.9rem; color:#444; text-align:center;">
+        NeuroPausa brinda información y herramientas de seguimiento; no reemplaza la consulta médica ni el diagnóstico de un profesional de la salud.
+    </aside>
+</main>
 
 <footer class="footer-neuro">
-
     <div class="footer-izquierda">
         <h4 class="footer-logo">NeuroPausa</h4>
-        <p class="footer-p">
-            2026 NeuroPausa. Startup Peruana (Universidad Peruana de Ciencias Aplicadas).
-        </p>
+        <p class="footer-p">© 2026 NeuroPausa. Startup Peruana (Universidad Peruana de Ciencias Aplicadas).</p>
     </div>
 
     <div class="footer-centro">
-        <a href="#">Privacidad</a>
-        <a href="#">Términos</a>
-        <a href="#">Contacto</a>
-        <a href="#">Recursos</a>
+        <a href="privacidad.html">Privacidad</a>
+        <a href="terminos.html">Términos</a>
+        <a href="contacto.html">Contacto</a>
+        <a href="recursos.html">Recursos</a>
     </div>
 
     <div class="footer-derecha">
-
-        <button class="btn-icon-footer">
-            <img src="../assets/images/compartir.png" alt="compartir" class="img-icon-footer">
+        <button type="button" class="btn-icon-footer" aria-label="Compartir NeuroPausa">
+            <img src="../assets/images/compartir.png" alt="" class="img-icon-footer" width="24" height="24">
         </button>
-
-        <button class="btn-icon-footer">
-            <img src="../assets/images/Correo.png" alt="correo" class="img-icon-footer">
+        <button type="button" class="btn-icon-footer" aria-label="Enviar correo a NeuroPausa">
+            <img src="../assets/images/Correo.png" alt="" class="img-icon-footer" width="24" height="24">
         </button>
-
     </div>
-
 </footer>
 
 <script src="../assets/scripts/main.js"></script>
-
 </body>
 </html>

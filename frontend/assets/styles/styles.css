@@ -8,6 +8,50 @@
 
 body{
     background:#e8e1dc;
+    font-size: 16px;
+    line-height: 1.6;
+}
+
+/* Accesibilidad: Enlace para saltar al contenido y focus visible */
+.skip-link{
+    position: absolute;
+    left: -9999px;
+    top: 0;
+    background: #08551F;
+    color: #fff;
+    padding: 10px 16px;
+    z-index: 1000;
+    border-radius: 0 0 8px 0;
+    text-decoration: none;
+    font-weight: 600;
+}
+.skip-link:focus{
+    left: 0;
+}
+:focus-visible{
+    outline: 3px solid #08551F;
+    outline-offset: 3px;
+}
+
+/* Animación suave para elementos */
+@keyframes flotarSuave{
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-6px); }
+}
+
+/* Modo oscuro / bajo estímulo */
+body.modo-oscuro{
+    background: #1a1d1a;
+    color: #e6e3de;
+}
+body.modo-oscuro nav,
+body.modo-oscuro .card-valor,
+body.modo-oscuro .stat-card{
+    background: #252925;
+    color: #e6e3de;
+}
+body.modo-oscuro a{
+    color: #9be0ad;
 }
 h1{
 color:#08551F; 

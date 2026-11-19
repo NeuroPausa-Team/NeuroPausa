@@ -194,9 +194,25 @@ wrapper.addEventListener("touchmove", (e) => {
 const menuToggle = document.querySelector(".menu-toggle");
 const nav = document.querySelector("nav");
 
-if(menuToggle && nav){
+if (menuToggle && nav) {
     menuToggle.addEventListener("click", () => {
-        nav.classList.toggle("active");
+        const abierto = nav.classList.toggle("active");
+        menuToggle.setAttribute("aria-expanded", String(abierto));
+    });
+    document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape" && nav.classList.contains("active")) {
+            nav.classList.remove("active");
+            menuToggle.setAttribute("aria-expanded", "false");
+            menuToggle.focus();
+        }
+    });
+}
+
+// Modo oscuro / bajo estímulo
+const btnModoOscuro = document.getElementById("btnModoOscuro");
+if (btnModoOscuro) {
+    btnModoOscuro.addEventListener("click", () => {
+        document.body.classList.toggle("modo-oscuro");
     });
 }
 /*FUNCION DE ANIMAR NUMEROS EN PROPOSITO:*/ 
@@ -231,10 +247,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
             if (entry.isIntersecting && !animated) {
                 animated = true;
+                const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+                if (reduceMotion) return; // Respeta prefers-reduced-motion manteniendo los valores finales del HTML
 
                 animateValue("stat1", 0, 51, 1800, "%");
                 animateValue("stat2", 0, 34, 1800, "+");
-                animateValue("stat3", 0, 7, 1800, " años");
+                animateValue("stat3", 0, 4, 1800, "–8 años");
             }
 
         });
