@@ -1507,12 +1507,13 @@ nav{
 
 .biblioteca-wrapper{
     width: 100%;
-    max-width: 1300px;
+    max-width: 1260px;
     overflow-x: auto;
     overflow-y: hidden !important;
     scroll-behavior: smooth;
+    scroll-snap-type: x mandatory;
     scrollbar-width: none;
-    padding: 20px 12px;
+    padding: 20px 6px;
 }
 .biblioteca-wrapper::-webkit-scrollbar{
     display: none;
@@ -1525,9 +1526,10 @@ nav{
     gap: 28px;
 }
 .biblioteca-card{
-    min-width: clamp(290px, 30vw, 370px);
-    max-width: clamp(290px, 30vw, 370px);
-    flex-shrink: 0;
+    flex: 0 0 calc((100% - 56px) / 3);
+    min-width: calc((100% - 56px) / 3);
+    max-width: calc((100% - 56px) / 3);
+    scroll-snap-align: start;
     background:white;
     border-radius:28px;
     overflow:hidden;

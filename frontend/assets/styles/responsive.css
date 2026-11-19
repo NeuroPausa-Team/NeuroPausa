@@ -236,8 +236,10 @@ TABLET (992px)
     }
 
     .biblioteca-card{
-        width:90%;
-        max-width:400px;
+        flex: 0 0 100% !important;
+        min-width: 100% !important;
+        max-width: 100% !important;
+        scroll-snap-align: center;
     }
 
     .footer-neuro{
@@ -777,8 +779,9 @@ MOBILE MINI (320px)
     }
 
     .biblioteca-card{
-        min-width:260px;
-        max-width:260px;
+        flex: 0 0 100% !important;
+        min-width: 100% !important;
+        max-width: 100% !important;
     }
 
     .biblioteca-card img{
@@ -910,21 +913,47 @@ MOBILE MINI (320px)
     }
 }
 /*Responsive de mobile tarjetas de recursos 2.0*/
+@media screen and (max-width: 1100px) and (min-width: 769px){
+    .biblioteca-cards{
+        gap: 24px;
+    }
+    .biblioteca-card{
+        flex: 0 0 calc((100% - 24px) / 2) !important;
+        min-width: calc((100% - 24px) / 2) !important;
+        max-width: calc((100% - 24px) / 2) !important;
+    }
+}
+
 @media screen and (max-width:768px){
+
+    .biblioteca-recursos{
+        padding: 40px 16px !important;
+    }
+
+    .slider-container{
+        padding: 0 !important;
+    }
 
     .biblioteca-wrapper{
         width:100%;
         overflow-x:auto;
-        padding-bottom:10px;
+        padding: 12px 0 18px 0 !important;
     }
 
     .biblioteca-cards{
         transform:none !important;
+        gap: 16px !important;
     }
 
     .biblioteca-card{
-        min-width:280px;
-        max-width:280px;
+        flex: 0 0 100% !important;
+        min-width: 100% !important;
+        max-width: 100% !important;
+        scroll-snap-align: center;
+    }
+
+    .contenido-card{
+        padding: 20px 18px !important;
     }
 
     .slider-btn{

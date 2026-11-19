@@ -126,19 +126,24 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (!wrapper || !prevBtn || !nextBtn) return;
 
-    const scrollAmount = 350;
+    const getScrollAmount = () => {
+        const card = wrapper.querySelector(".biblioteca-card");
+        const cardsContainer = wrapper.querySelector(".biblioteca-cards");
+        const gap = cardsContainer ? parseFloat(getComputedStyle(cardsContainer).gap) || 24 : 24;
+        return card ? card.offsetWidth + gap : 350;
+    };
 
     // BOTONES
     nextBtn.addEventListener("click", () => {
         wrapper.scrollBy({
-            left: scrollAmount,
+            left: getScrollAmount(),
             behavior: "smooth"
         });
     });
 
     prevBtn.addEventListener("click", () => {
         wrapper.scrollBy({
-            left: -scrollAmount,
+            left: -getScrollAmount(),
             behavior: "smooth"
         });
     });
