@@ -54,7 +54,7 @@
 
 <script>
     // URL del backend: cambia esto según dónde estés probando
-    const API_URL = 'http://127.0.0.1:5000';
+    const API_URL = (window.location.hostname === '127.0.0.1' || window.location.hostname === 'localhost') ? 'http://127.0.0.1:5000' : 'https://neuropausa-backend.onrender.com';
     // const API_URL = 'https://neuropausa-backend.onrender.com'; // producción
 
     document.getElementById('formulario-login').addEventListener('submit', async function(event) {
