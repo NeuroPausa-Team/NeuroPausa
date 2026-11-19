@@ -3,40 +3,74 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Política de privacidad de NeuroPausa. Conoce cómo protegemos tus datos de salud y bienestar.">
-    <meta name="theme-color" content="#08551F">
+    <title>Política de Privacidad - NeuroPausa</title>
     <link rel="stylesheet" href="../assets/styles/styles.css">
     <link rel="stylesheet" href="../assets/styles/responsive.css">
-    <title>Política de Privacidad - NeuroPausa</title>
 </head>
 <body>
-<a href="#contenido-principal" class="skip-link">Saltar al contenido</a>
-<header>
-    <nav aria-label="Navegación principal">
-        <div class="logo">
-            <a href="index.html"><strong>NeuroPausa</strong></a>
-        </div>
-        <button type="button" class="menu-toggle" aria-label="Abrir menú" aria-expanded="false" aria-controls="menu-principal">☰</button>
-        <ul id="menu-principal">
-            <li><a href="index.html">Inicio</a></li>
-            <li><a href="proposito.html">Propósito</a></li>
-            <li><a href="funciones.html">Funciones</a></li>
-            <li><a href="recursos.html">Recursos</a></li>
-        </ul>
-        <button id="btnCita" type="button">Reserva una orientación</button>
-    </nav>
-</header>
 
-<main id="contenido-principal" style="max-width:850px; margin:clamp(2rem,5vw,4rem) auto; padding:0 1.25rem; line-height:1.7; color:#333;">
-    <h1 style="color:#08551F; margin-bottom:1rem;">Política de Privacidad</h1>
-    <p>En <strong>NeuroPausa</strong>, la privacidad de tus datos de salud es nuestra prioridad.</p>
-    <h2 style="color:#451313; margin-top:1.5rem;">1. Datos que recopilamos</h2>
-    <p>Solo recopilamos la información necesaria para brindarte seguimiento de síntomas, bienestar y agendamiento de citas (nombre, correo, etapa y registros del diario).</p>
-    <h2 style="color:#451313; margin-top:1.5rem;">2. Uso de la información</h2>
-    <p>Tus datos nunca se venden ni se comparten con terceros con fines comerciales. El acceso por parte de profesionales de la salud requiere tu autorización explícita.</p>
-    <h2 style="color:#451313; margin-top:1.5rem;">3. Tus derechos</h2>
-    <p>Puedes solicitar la actualización o eliminación de tus datos en cualquier momento escribiendo a <a href="mailto:equipo_n@neuropausa.com">equipo_n@neuropausa.com</a>.</p>
-    <!-- TODO: Revisar y validar texto legal definitivo con asesoría legal -->
+<nav>
+    <div class="logo">
+        <a href="index.html">
+            <h1><strong>NeuroPausa</strong></h1>
+        </a>
+    </div>
+    <div class="menu-toggle">☰</div>
+    <ul>
+        <li><a href="index.html">Inicio</a></li>
+        <li><a href="proposito.html">Propósito</a></li>
+        <li><a href="funciones.html">Funciones</a></li>
+        <li><a href="recursos.html">Recursos</a></li>
+    </ul>
+
+    <button id="btnCita">Agendar cita</button>
+</nav>
+
+<main class="pagina-info-wrapper">
+    <div class="pagina-info-top">
+        <a href="index.html" class="btn-volver-info">← Volver al inicio</a>
+        <span class="tag-calma">PROTECCIÓN Y CONFIDENCIALIDAD</span>
+        <h2>Política de Privacidad y Datos de Salud</h2>
+        <p>En NeuroPausa sabemos que tus síntomas, emociones y registros diarios son profundamente personales. Así cuidamos y resguardamos tu información.</p>
+    </div>
+
+    <div class="info-cards-grid">
+        <div class="info-legal-card">
+            <span class="numero-legal">01</span>
+            <h3>Qué información recopilamos</h3>
+            <p>Recopilamos únicamente los datos que tú decides registrar: nombre, correo electrónico, etapa de transición menopáusica, registros diarios de síntomas, calidad de sueño y citas médicas programadas.</p>
+        </div>
+
+        <div class="info-legal-card">
+            <span class="numero-legal">02</span>
+            <h3>Uso exclusivo para tu bienestar</h3>
+            <p>Tu información se utiliza exclusivamente para generar tus indicadores semanales de salud, mostrarte recursos adecuados a tu etapa y facilitar el agendamiento con nuestros especialistas.</p>
+        </div>
+
+        <div class="info-legal-card">
+            <span class="numero-legal">03</span>
+            <h3>Cero venta de datos a terceros</h3>
+            <p>En NeuroPausa nunca vendemos, alquilamos ni compartimos tu historial médico o emocional con anunciantes, aseguradoras ni terceros con fines comerciales.</p>
+        </div>
+
+        <div class="info-legal-card">
+            <span class="numero-legal">04</span>
+            <h3>Seguridad y cifrado</h3>
+            <p>Tus contraseñas se almacenan con algoritmos de hash criptográfico seguro y la conexión con nuestra base de datos en la nube viaja cifrada extremo a extremo.</p>
+        </div>
+
+        <div class="info-legal-card">
+            <span class="numero-legal">05</span>
+            <h3>Acceso médico autorizado</h3>
+            <p>Los profesionales de la salud afiliados a NeuroPausa solo pueden revisar tu reporte de evolución cuando agendas una consulta con ellos o decides compartirlo explícitamente.</p>
+        </div>
+
+        <div class="info-legal-card">
+            <span class="numero-legal">06</span>
+            <h3>Control total de tu cuenta</h3>
+            <p>En cualquier momento puedes editar tu perfil, exportar tu historial o solicitar la eliminación definitiva de tu cuenta escribiendo a <strong>equipo_n@neuropausa.com</strong>.</p>
+        </div>
+    </div>
 </main>
 
 <footer class="footer-neuro">
@@ -50,7 +84,16 @@
         <a href="contacto.html">Contacto</a>
         <a href="recursos.html">Recursos</a>
     </div>
+    <div class="footer-derecha">
+        <button class="btn-icon-footer" onclick="window.location.href='recursos.html'">
+            <img src="../assets/images/compartir.png" alt="compartir" class="img-icon-footer">
+        </button>
+        <button class="btn-icon-footer" onclick="window.location.href='contacto.html'">
+            <img src="../assets/images/Correo.png" alt="correo" class="img-icon-footer">
+        </button>
+    </div>
 </footer>
+
 <script src="../assets/scripts/main.js"></script>
 </body>
 </html>

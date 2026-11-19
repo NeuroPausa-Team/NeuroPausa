@@ -3,37 +3,92 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Contáctate con el equipo de NeuroPausa en Lima, Perú.">
-    <meta name="theme-color" content="#08551F">
+    <title>Contacto - NeuroPausa</title>
     <link rel="stylesheet" href="../assets/styles/styles.css">
     <link rel="stylesheet" href="../assets/styles/responsive.css">
-    <title>Contacto - NeuroPausa</title>
 </head>
 <body>
-<a href="#contenido-principal" class="skip-link">Saltar al contenido</a>
-<header>
-    <nav aria-label="Navegación principal">
-        <div class="logo">
-            <a href="index.html"><strong>NeuroPausa</strong></a>
-        </div>
-        <button type="button" class="menu-toggle" aria-label="Abrir menú" aria-expanded="false" aria-controls="menu-principal">☰</button>
-        <ul id="menu-principal">
-            <li><a href="index.html">Inicio</a></li>
-            <li><a href="proposito.html">Propósito</a></li>
-            <li><a href="funciones.html">Funciones</a></li>
-            <li><a href="recursos.html">Recursos</a></li>
-        </ul>
-        <button id="btnCita" type="button">Reserva una orientación</button>
-    </nav>
-</header>
 
-<main id="contenido-principal" style="max-width:850px; margin:clamp(2rem,5vw,4rem) auto; padding:0 1.25rem; line-height:1.7; color:#333;">
-    <h1 style="color:#08551F; margin-bottom:1rem;">Contacto</h1>
-    <p>¿Tienes dudas, sugerencias o deseas colaborar con NeuroPausa? Escríbenos:</p>
-    <div style="background:#fff; padding:1.5rem; border-radius:16px; margin-top:1.5rem; box-shadow:0 4px 16px rgba(0,0,0,0.06);">
-        <p><strong>Correo:</strong> <a href="mailto:equipo_n@neuropausa.com">equipo_n@neuropausa.com</a></p>
-        <p><strong>Teléfono:</strong> +51 999 999 999</p>
-        <p><strong>Ubicación:</strong> Lima, Perú (Universidad Peruana de Ciencias Aplicadas - UPC)</p>
+<nav>
+    <div class="logo">
+        <a href="index.html">
+            <h1><strong>NeuroPausa</strong></h1>
+        </a>
+    </div>
+    <div class="menu-toggle">☰</div>
+    <ul>
+        <li><a href="index.html">Inicio</a></li>
+        <li><a href="proposito.html">Propósito</a></li>
+        <li><a href="funciones.html">Funciones</a></li>
+        <li><a href="recursos.html">Recursos</a></li>
+    </ul>
+
+    <button id="btnCita">Agendar cita</button>
+</nav>
+
+<main class="pagina-info-wrapper">
+    <div class="pagina-info-top">
+        <a href="index.html" class="btn-volver-info">← Volver al inicio</a>
+        <span class="tag-calma">ATENCIÓN Y SOPORTE</span>
+        <h2>Estamos aquí para escucharte</h2>
+        <p>Si tienes preguntas sobre la plataforma, deseas orientación sobre nuestras sedes en Lima o quieres comunicarte con el equipo de NeuroPausa, escríbenos.</p>
+    </div>
+
+    <div class="contacto-layout-grid">
+        <div class="contacto-canales">
+            <div class="info-legal-card">
+                <span class="numero-legal">Correo directo</span>
+                <h3>Atención a usuarias</h3>
+                <p>Escríbenos a <strong>equipo_n@neuropausa.com</strong> o a <strong>soporte@neuropausa.com</strong>. Respondemos en menos de 24 horas hábiles.</p>
+            </div>
+
+            <div class="info-legal-card">
+                <span class="numero-legal">Teléfono y orientación</span>
+                <h3>Línea de acompañamiento</h3>
+                <p>Central Lima: <strong>+51 999 999 999</strong><br>Horario: Lunes a Sábado de 8:00 a.m. a 8:00 p.m.</p>
+            </div>
+
+            <div class="info-legal-card">
+                <span class="numero-legal">Sedes presenciales</span>
+                <h3>Clínicas aliadas en Lima</h3>
+                <p>
+                    • <strong>Miraflores:</strong> Av. Larco 345<br>
+                    • <strong>San Isidro:</strong> Av. Javier Prado 1120<br>
+                    • <strong>Surco:</strong> Av. Caminos del Inca 220
+                </p>
+            </div>
+        </div>
+
+        <div class="contacto-form-card">
+            <h3>Envíanos un mensaje</h3>
+            <p>Completa tus datos y nos pondremos en contacto contigo.</p>
+
+            <form id="form-contacto-directo" onsubmit="event.preventDefault(); document.getElementById('msg-contacto-ok').style.display='block'; this.reset();">
+                <label>Nombre completo</label>
+                <input type="text" placeholder="Tu nombre" required>
+
+                <label>Correo electrónico</label>
+                <input type="email" placeholder="tucorreo@ejemplo.com" required>
+
+                <label>Motivo de tu consulta</label>
+                <select required>
+                    <option value="">Selecciona una opción</option>
+                    <option>Orientación sobre el uso de NeuroPausa</option>
+                    <option>Consulta sobre citas y especialistas</option>
+                    <option>Sugerencia o comentario</option>
+                    <option>Soporte técnico con mi cuenta</option>
+                </select>
+
+                <label>Mensaje</label>
+                <textarea rows="4" placeholder="Cuéntanos cómo podemos ayudarte..." required></textarea>
+
+                <p id="msg-contacto-ok" style="display:none; color:#08551F; background:#e8f5e9; padding:10px 14px; border-radius:10px; font-weight:600; margin-bottom:12px;">
+                    ¡Mensaje enviado! Nuestro equipo te responderá pronto a tu correo.
+                </p>
+
+                <button type="submit" class="btn-enviar-contacto">Enviar mensaje</button>
+            </form>
+        </div>
     </div>
 </main>
 
@@ -48,7 +103,16 @@
         <a href="contacto.html">Contacto</a>
         <a href="recursos.html">Recursos</a>
     </div>
+    <div class="footer-derecha">
+        <button class="btn-icon-footer" onclick="window.location.href='recursos.html'">
+            <img src="../assets/images/compartir.png" alt="compartir" class="img-icon-footer">
+        </button>
+        <button class="btn-icon-footer" onclick="window.location.href='contacto.html'">
+            <img src="../assets/images/Correo.png" alt="correo" class="img-icon-footer">
+        </button>
+    </div>
 </footer>
+
 <script src="../assets/scripts/main.js"></script>
 </body>
 </html>

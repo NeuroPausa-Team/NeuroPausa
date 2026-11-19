@@ -3,38 +3,74 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Términos y condiciones de uso de la plataforma NeuroPausa.">
-    <meta name="theme-color" content="#08551F">
+    <title>Términos de Uso - NeuroPausa</title>
     <link rel="stylesheet" href="../assets/styles/styles.css">
     <link rel="stylesheet" href="../assets/styles/responsive.css">
-    <title>Términos de Uso - NeuroPausa</title>
 </head>
 <body>
-<a href="#contenido-principal" class="skip-link">Saltar al contenido</a>
-<header>
-    <nav aria-label="Navegación principal">
-        <div class="logo">
-            <a href="index.html"><strong>NeuroPausa</strong></a>
-        </div>
-        <button type="button" class="menu-toggle" aria-label="Abrir menú" aria-expanded="false" aria-controls="menu-principal">☰</button>
-        <ul id="menu-principal">
-            <li><a href="index.html">Inicio</a></li>
-            <li><a href="proposito.html">Propósito</a></li>
-            <li><a href="funciones.html">Funciones</a></li>
-            <li><a href="recursos.html">Recursos</a></li>
-        </ul>
-        <button id="btnCita" type="button">Reserva una orientación</button>
-    </nav>
-</header>
 
-<main id="contenido-principal" style="max-width:850px; margin:clamp(2rem,5vw,4rem) auto; padding:0 1.25rem; line-height:1.7; color:#333;">
-    <h1 style="color:#08551F; margin-bottom:1rem;">Términos y Condiciones de Uso</h1>
-    <p>Al utilizar <strong>NeuroPausa</strong>, aceptas las siguientes condiciones:</p>
-    <h2 style="color:#451313; margin-top:1.5rem;">1. Propósito informativo y de seguimiento</h2>
-    <p>NeuroPausa brinda información educativa y herramientas de seguimiento diario; no reemplaza la consulta médica ni el diagnóstico de un profesional de la salud.</p>
-    <h2 style="color:#451313; margin-top:1.5rem;">2. Uso responsable</h2>
-    <p>Te comprometes a proporcionar información veraz en tu perfil y a utilizar la plataforma de manera respetuosa.</p>
-    <!-- TODO: Completar términos legales definitivos -->
+<nav>
+    <div class="logo">
+        <a href="index.html">
+            <h1><strong>NeuroPausa</strong></h1>
+        </a>
+    </div>
+    <div class="menu-toggle">☰</div>
+    <ul>
+        <li><a href="index.html">Inicio</a></li>
+        <li><a href="proposito.html">Propósito</a></li>
+        <li><a href="funciones.html">Funciones</a></li>
+        <li><a href="recursos.html">Recursos</a></li>
+    </ul>
+
+    <button id="btnCita">Agendar cita</button>
+</nav>
+
+<main class="pagina-info-wrapper">
+    <div class="pagina-info-top">
+        <a href="index.html" class="btn-volver-info">← Volver al inicio</a>
+        <span class="tag-calma">CONDICIONES DEL SERVICIO</span>
+        <h2>Términos y Condiciones de Uso</h2>
+        <p>Lineamientos claros y transparentes sobre el alcance de las herramientas digitales y médicas de NeuroPausa.</p>
+    </div>
+
+    <div class="info-cards-grid">
+        <div class="info-legal-card">
+            <span class="numero-legal">01</span>
+            <h3>Alcance médico y educativo</h3>
+            <p>NeuroPausa ofrece un diario de síntomas, indicadores de bienestar y artículos de psicoeducación. Estas herramientas acompañan tu día a día, pero no sustituyen un diagnóstico ni una consulta médica presencial o virtual.</p>
+        </div>
+
+        <div class="info-legal-card">
+            <span class="numero-legal">02</span>
+            <h3>Registro y seguridad de la cuenta</h3>
+            <p>Para acceder al panel personalizado debes crear una cuenta personal con una contraseña segura. Eres responsable de resguardar tus credenciales de acceso.</p>
+        </div>
+
+        <div class="info-legal-card">
+            <span class="numero-legal">03</span>
+            <h3>Agendamiento de citas con especialistas</h3>
+            <p>Las citas programadas a través de nuestro módulo de Especialistas se realizan en modalidad Presencial (sedes en Lima) o Virtual en la fecha y hora seleccionadas por la usuaria.</p>
+        </div>
+
+        <div class="info-legal-card">
+            <span class="numero-legal">04</span>
+            <h3>Planes Free y NeuroPausa+</h3>
+            <p>El plan gratuito incluye el diario de síntomas, indicadores semanales y agendamiento de citas. Las funciones avanzadas de análisis pueden actualizarse desde tu panel cuando lo desees.</p>
+        </div>
+
+        <div class="info-legal-card">
+            <span class="numero-legal">05</span>
+            <h3>Propiedad intelectual</h3>
+            <p>Las guías clínicas, diseños de interfaz y herramientas de NeuroPausa son propiedad del equipo desarrollador (Universidad Peruana de Ciencias Aplicadas - UPC) para uso personal de las usuarias.</p>
+        </div>
+
+        <div class="info-legal-card">
+            <span class="numero-legal">06</span>
+            <h3>Atención ante emergencias</h3>
+            <p>Si experimentas un síntoma agudo o una urgencia médica, acude inmediatamente al centro de salud más cercano en lugar de esperar una respuesta digital.</p>
+        </div>
+    </div>
 </main>
 
 <footer class="footer-neuro">
@@ -48,7 +84,16 @@
         <a href="contacto.html">Contacto</a>
         <a href="recursos.html">Recursos</a>
     </div>
+    <div class="footer-derecha">
+        <button class="btn-icon-footer" onclick="window.location.href='recursos.html'">
+            <img src="../assets/images/compartir.png" alt="compartir" class="img-icon-footer">
+        </button>
+        <button class="btn-icon-footer" onclick="window.location.href='contacto.html'">
+            <img src="../assets/images/Correo.png" alt="correo" class="img-icon-footer">
+        </button>
+    </div>
 </footer>
+
 <script src="../assets/scripts/main.js"></script>
 </body>
 </html>

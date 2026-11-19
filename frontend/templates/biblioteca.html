@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Biblioteca Clínica - NeuroPausa</title>
+    <link rel="stylesheet" href="../assets/styles/styles.css">
+    <link rel="stylesheet" href="../assets/styles/responsive.css">
+</head>
+<body>
+
+<nav>
+    <div class="logo">
+        <a href="index.html">
+            <h1><strong>NeuroPausa</strong></h1>
+        </a>
+    </div>
+    <div class="menu-toggle">☰</div>
+    <ul>
+        <li><a href="index.html">Inicio</a></li>
+        <li><a href="proposito.html">Propósito</a></li>
+        <li><a href="funciones.html">Funciones</a></li>
+        <li><a href="recursos.html" class="activo">Recursos</a></li>
+    </ul>
+
+    <button id="btnCita">Agendar cita</button>
+</nav>
+
+<main class="pagina-info-wrapper">
+    <div class="pagina-info-top">
+        <a href="index.html" class="btn-volver-info">← Volver al inicio</a>
+        <span class="tag-calma">BIBLIOTECA DE PSICOEDUCACIÓN</span>
+        <h2>Guías clínicas y bienestar integral</h2>
+        <p>Lecturas claras, validadas por especialistas en ginecología, neuropsicología y nutrición para acompañarte en cada etapa sin tecnicismos confusos.</p>
+    </div>
+
+    <div class="biblioteca-detalle-lista">
+        <article id="perimenopausia" class="guia-detalle-card">
+            <img src="../assets/images/perimenopausia.jpg.png" alt="Perimenopausia">
+            <div class="guia-detalle-contenido">
+                <span class="categoria-pill">Salud Hormonal · 4 min de lectura</span>
+                <h3>¿Qué es la perimenopausia y cómo reconocerla?</h3>
+                <p>La perimenopausia es la etapa de transición natural que precede a la menopausia y suele durar entre 4 y 8 años. Durante este periodo, los niveles de estrógeno y progesterona fluctúan de manera irregular.</p>
+                <ul class="lista-puntos-clave">
+                    <li><strong>Señales tempranas:</strong> Variaciones en la duración de tu ciclo menstrual (ciclos más cortos o más espaciados).</li>
+                    <li><strong>Síntomas vasomotores:</strong> Aparición ocasional de sofocos o sensibilidad térmica nocturna.</li>
+                    <li><strong>Qué hacer:</strong> Registrar tus síntomas diariamente durante al menos 3 semanas te dará un panorama objetivo para tu consulta ginecológica.</li>
+                </ul>
+            </div>
+        </article>
+
+        <article id="sueno" class="guia-detalle-card">
+            <img src="../assets/images/buensuenio.jpeg" alt="Higiene del sueño">
+            <div class="guia-detalle-contenido">
+                <span class="categoria-pill">Descanso · 5 min de lectura</span>
+                <h3>Cómo mejorar tu sueño y reducir los despertares nocturnos</h3>
+                <p>El descenso progresivo de progesterona disminuye su efecto relajante natural sobre el sistema nervioso, mientras que los cambios térmicos pueden fragmentar el sueño profundo.</p>
+                <ul class="lista-puntos-clave">
+                    <li><strong>Ambiente térmico:</strong> Mantén tu habitación fresca y ventilada, utilizando ropa de cama de fibras naturales (algodón o lino).</li>
+                    <li><strong>Pausa digital:</strong> Reduce el brillo de las pantallas 45 minutos antes de dormir para favorecer la secreción de melatonina.</li>
+                    <li><strong>Cena ligera:</strong> Evita comidas muy condimentadas o cafeína después de las 17:00 h, ya que pueden intensificar los sofocos nocturnos.</li>
+                </ul>
+            </div>
+        </article>
+
+        <article id="nutricion" class="guia-detalle-card">
+            <img src="../assets/images/bienestar.jpg" alt="Nutrición y bienestar">
+            <div class="guia-detalle-contenido">
+                <span class="categoria-pill">Nutrición · 4 min de lectura</span>
+                <h3>Nutrición consciente para tu salud hormonal y ósea</h3>
+                <p>Durante la transición menopáusica el metabolismo basal cambia y la densidad mineral ósea requiere un aporte constante de micronutrientes esenciales.</p>
+                <ul class="lista-puntos-clave">
+                    <li><strong>Calcio y Vitamina D:</strong> Incorpora lácteos fermentados, semillas de sésamo, almendras y exposición solar segura de 15 minutos diarios.</li>
+                    <li><strong>Omega-3 y neuroprotección:</strong> Pescados azules, nueces y semillas de chía apoyan la salud cardiovascular y la función cerebral.</li>
+                    <li><strong>Hidratación constante:</strong> Beber entre 1.8 y 2 litros de agua al día ayuda a regular la temperatura corporal y reduce la fatiga.</li>
+                </ul>
+            </div>
+        </article>
+
+        <article id="niebla" class="guia-detalle-card">
+            <img src="../assets/images/nieblamental.jpg" alt="Niebla mental">
+            <div class="guia-detalle-contenido">
+                <span class="categoria-pill">Neuropsicología · 5 min de lectura</span>
+                <h3>Niebla mental y concentración: por qué ocurre y cómo cuidarte</h3>
+                <p>El cerebro femenino cuenta con numerosos receptores de estrógeno en el hipocampo y la corteza prefrontal, áreas encargadas de la memoria verbal y la atención ejecutiva.</p>
+                <ul class="lista-puntos-clave">
+                    <li><strong>Es transitoria:</strong> Los estudios demuestran que estos olvidos leves son parte de la adaptación neuroendocrina y no indican deterioro permanente.</li>
+                    <li><strong>Descarga tu memoria:</strong> Utiliza listas visuales simples y evita la multitarea forzada en días de cansancio.</li>
+                    <li><strong>Pausas activas:</strong> Descansos de 5 minutos cada hora reducen la sobrecarga cognitiva y mejoran el enfoque.</li>
+                </ul>
+            </div>
+        </article>
+
+        <article id="estres" class="guia-detalle-card">
+            <img src="../assets/images/manejoestres.jpg" alt="Manejo del estrés">
+            <div class="guia-detalle-contenido">
+                <span class="categoria-pill">Salud Emocional · 4 min de lectura</span>
+                <h3>Manejo del estrés, ansiedad y regulación del sistema nervioso</h3>
+                <p>Un nivel elevado de cortisol (la hormona del estrés) puede acentuar tanto la fatiga física como la frecuencia de los sofocos y la irritabilidad.</p>
+                <ul class="lista-puntos-clave">
+                    <li><strong>Respiración diafragmática 4-6:</strong> Inhala en 4 segundos y exhala suavemente en 6 segundos durante 3 minutos para activar el nervio vago.</li>
+                    <li><strong>Identifica disparadores:</strong> Anotar en tu Diario de Síntomas qué momentos del día generan mayor tensión te permite anticiparlos.</li>
+                </ul>
+            </div>
+        </article>
+
+        <article id="ejercicio" class="guia-detalle-card">
+            <img src="../assets/images/ejercicioysalud.jpg" alt="Ejercicio y salud">
+            <div class="guia-detalle-contenido">
+                <span class="categoria-pill">Movimiento · 4 min de lectura</span>
+                <h3>Ejercicio de fuerza y movilidad para tu vitalidad</h3>
+                <p>El movimiento regular preserva la masa muscular, protege las articulaciones y libera endorfinas que estabilizan el estado de ánimo.</p>
+                <ul class="lista-puntos-clave">
+                    <li><strong>Fuerza progresiva:</strong> 2 a 3 sesiones semanales de ejercicios de resistencia estimulan la formación ósea.</li>
+                    <li><strong>Caminatas conscientes:</strong> 30 minutos diarios al aire libre mejoran la sensibilidad metabólica y la calidad del sueño nocturno.</li>
+                </ul>
+            </div>
+        </article>
+
+        <article id="emociones" class="guia-detalle-card">
+            <img src="../assets/images/cambioemocion.jpg" alt="Cambios emocionales">
+            <div class="guia-detalle-contenido">
+                <span class="categoria-pill">Psicología · 4 min de lectura</span>
+                <h3>Cambios emocionales y fortalecimiento de la autoestima</h3>
+                <p>Validar lo que sientes sin juzgarte es el primer paso para atravesar esta etapa con autocompasión y seguridad personal.</p>
+                <ul class="lista-puntos-clave">
+                    <li><strong>Comunicación abierta:</strong> Compartir con tu entorno o con un especialista cómo te sientes disminuye la sensación de aislamiento.</li>
+                    <li><strong>Acompañamiento profesional:</strong> La terapia psicológica focalizada en el climaterio brinda herramientas efectivas para esta nueva etapa vital.</li>
+                </ul>
+            </div>
+        </article>
+    </div>
+</main>
+
+<footer class="footer-neuro">
+    <div class="footer-izquierda">
+        <h4 class="footer-logo">NeuroPausa</h4>
+        <p class="footer-p">© 2026 NeuroPausa. Startup Peruana (Universidad Peruana de Ciencias Aplicadas).</p>
+    </div>
+    <div class="footer-centro">
+        <a href="privacidad.html">Privacidad</a>
+        <a href="terminos.html">Términos</a>
+        <a href="contacto.html">Contacto</a>
+        <a href="recursos.html">Recursos</a>
+    </div>
+    <div class="footer-derecha">
+        <button class="btn-icon-footer" onclick="window.location.href='recursos.html'">
+            <img src="../assets/images/compartir.png" alt="compartir" class="img-icon-footer">
+        </button>
+        <button class="btn-icon-footer" onclick="window.location.href='contacto.html'">
+            <img src="../assets/images/Correo.png" alt="correo" class="img-icon-footer">
+        </button>
+    </div>
+</footer>
+
+<script src="../assets/scripts/main.js"></script>
+</body>
+</html>

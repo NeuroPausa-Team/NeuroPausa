@@ -1469,7 +1469,7 @@ nav{
 /* SEGUNDA HOJA */
 
 .biblioteca-recursos{
-    padding:90px 70px;
+    padding: clamp(3rem, 5vw, 5.5rem) clamp(1rem, 3vw, 2.5rem);
     background:#e8e1dc;
 }
 
@@ -1480,36 +1480,39 @@ nav{
 }
 
 .biblioteca-recursos h2{
-    font-size:82px;
+    font-size: clamp(2.2rem, 4.5vw, 3.8rem);
     margin-top:10px;
     margin-bottom:20px;
 }
 
 .biblioteca-recursos > p{
-    font-size:30px;
+    font-size: clamp(1.05rem, 1.8vw, 1.4rem);
     line-height:1.6;
     max-width:900px;
-    margin-bottom:60px;
+    margin-bottom:40px;
 }
 
 
 /* Slider Biblioteca */
 .slider-container{
-    width:100%;
+    width: 100%;
+    max-width: 1380px;
+    margin: 30px auto 0 auto;
     position:relative;
     display:flex;
     align-items:center;
     justify-content:center;
-    margin-top:40px;
+    padding: 0 40px;
 }
 
 .biblioteca-wrapper{
     width: 100%;
-    max-width: 1120px;
+    max-width: 1300px;
     overflow-x: auto;
+    overflow-y: hidden !important;
     scroll-behavior: smooth;
     scrollbar-width: none;
-    padding: 12px 4px;
+    padding: 20px 12px;
 }
 .biblioteca-wrapper::-webkit-scrollbar{
     display: none;
@@ -1517,18 +1520,25 @@ nav{
 
 .biblioteca-cards{
     display:flex;
-    gap: clamp(1rem, 2.5vw, 1.875rem);
-    transition:transform 0.5s ease;
+    justify-content: flex-start !important;
+    align-items: stretch;
+    gap: 28px;
 }
 .biblioteca-card{
-    min-width: clamp(260px, 75vw, 340px);
-    max-width: clamp(260px, 75vw, 340px);
+    min-width: clamp(290px, 30vw, 370px);
+    max-width: clamp(290px, 30vw, 370px);
+    flex-shrink: 0;
     background:white;
     border-radius:28px;
     overflow:hidden;
-    box-shadow:0 12px 30px rgba(0,0,0,0.08);
+    box-shadow:0 10px 26px rgba(0,0,0,0.08);
     display:flex;
     flex-direction:column;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.biblioteca-card:hover{
+    transform: translateY(-6px);
+    box-shadow: 0 16px 34px rgba(8,85,31,0.14);
 }
 
 .biblioteca-card img{
@@ -1856,4 +1866,462 @@ nav{
 .slide-up.show{
     opacity: 1;
     transform: translateY(0);
+}
+
+/* ===========================================================
+   INTERFACES DE BIBLIOTECA, RESPALDO CLÍNICO Y PÁGINAS LEGALES
+   =========================================================== */
+
+.tag-calma{
+    display: inline-block;
+    background: #dff0e2;
+    color: #08551F;
+    font-size: 0.82rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    padding: 6px 14px;
+    border-radius: 20px;
+    margin-bottom: 12px;
+}
+
+.seccion-biblioteca-landing{
+    width: 92%;
+    max-width: 1260px;
+    margin: clamp(2.5rem, 5vw, 4.5rem) auto;
+    padding: clamp(1.8rem, 4vw, 3rem);
+    background: #f7f4ef;
+    border-radius: 32px;
+    box-shadow: 0 12px 32px rgba(0,0,0,0.06);
+}
+
+.biblioteca-landing-header{
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.biblioteca-landing-header h2{
+    color: #08551F;
+    font-size: clamp(1.7rem, 3vw, 2.5rem);
+    margin-bottom: 8px;
+}
+
+.biblioteca-landing-header p{
+    color: #5f5a55;
+    font-size: clamp(1rem, 1.4vw, 1.15rem);
+    max-width: 680px;
+}
+
+.btn-ver-biblioteca{
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: #08551F;
+    color: #ffffff;
+    text-decoration: none;
+    padding: 12px 24px;
+    border-radius: 28px;
+    font-weight: 600;
+    font-size: 0.98rem;
+    transition: transform 0.3s ease, background 0.3s ease;
+}
+
+.btn-ver-biblioteca:hover{
+    transform: translateY(-2px);
+    background: #0b6e29;
+}
+
+.biblioteca-landing-grid{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: clamp(1.2rem, 2.5vw, 2rem);
+}
+
+.card-biblioteca-landing{
+    background: #ffffff;
+    border-radius: 24px;
+    overflow: hidden;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.3s ease;
+}
+
+.card-biblioteca-landing:hover{
+    transform: translateY(-5px);
+}
+
+.card-biblioteca-landing img{
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.card-biblioteca-body{
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.categoria-pill{
+    display: inline-block;
+    align-self: flex-start;
+    background: #eef6f0;
+    color: #08551F;
+    font-size: 0.78rem;
+    font-weight: 700;
+    padding: 4px 12px;
+    border-radius: 14px;
+    margin-bottom: 10px;
+}
+
+.card-biblioteca-body h3{
+    color: #2b2623;
+    font-size: 1.25rem;
+    margin-bottom: 10px;
+}
+
+.card-biblioteca-body p{
+    color: #5f5a55;
+    font-size: 0.96rem;
+    line-height: 1.55;
+    margin-bottom: 16px;
+    flex: 1;
+}
+
+.link-lectura{
+    display: inline-block;
+    color: #08551F;
+    font-weight: 700;
+    text-decoration: none;
+    margin-top: 12px;
+    font-size: 0.95rem;
+}
+
+.link-lectura:hover{
+    text-decoration: underline;
+}
+
+/* Respaldo clínico en Propósito */
+.seccion-respaldo-clinico{
+    width: 92%;
+    max-width: 1200px;
+    margin: clamp(2.5rem, 5vw, 4.5rem) auto;
+    padding: clamp(2rem, 4vw, 3.5rem);
+    background: #f7f4ef;
+    border-radius: 32px;
+}
+
+.respaldo-header{
+    text-align: center;
+    margin-bottom: 2.2rem;
+}
+
+.respaldo-header h2{
+    color: #08551F;
+    font-size: clamp(1.8rem, 3.2vw, 2.6rem);
+    margin-bottom: 8px;
+}
+
+.respaldo-header p{
+    color: #5f5a55;
+    font-size: 1.08rem;
+    max-width: 680px;
+    margin: 0 auto;
+}
+
+.respaldo-grid{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2.2rem;
+}
+
+.respaldo-card{
+    background: #ffffff;
+    padding: 1.8rem;
+    border-radius: 22px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.05);
+}
+
+.respaldo-area{
+    display: inline-block;
+    background: #e8f5e9;
+    color: #08551F;
+    font-size: 0.8rem;
+    font-weight: 700;
+    padding: 4px 12px;
+    border-radius: 14px;
+    margin-bottom: 10px;
+}
+
+.respaldo-card h3{
+    color: #451313;
+    font-size: 1.3rem;
+    margin-bottom: 8px;
+}
+
+.respaldo-card p{
+    color: #555;
+    font-size: 0.96rem;
+    line-height: 1.55;
+}
+
+.testimonio-codiseno{
+    background: #ffffff;
+    border-left: 5px solid #08551F;
+    padding: 1.6rem 2rem;
+    border-radius: 18px;
+    margin: 2rem auto;
+    max-width: 860px;
+}
+
+.testimonio-codiseno blockquote{
+    font-style: italic;
+    color: #333;
+    font-size: 1.08rem;
+    margin-bottom: 8px;
+}
+
+.testimonio-codiseno p{
+    color: #08551F;
+    font-weight: 700;
+    font-size: 0.95rem;
+}
+
+.cta-proposito-box{
+    text-align: center;
+    background: #eaf2e4;
+    padding: 2rem;
+    border-radius: 24px;
+    margin: 2rem auto 1.5rem auto;
+    max-width: 780px;
+}
+
+.cta-proposito-box h3{
+    color: #08551F;
+    font-size: 1.5rem;
+    margin-bottom: 8px;
+}
+
+.cta-proposito-box p{
+    color: #4f4a45;
+    margin-bottom: 1.2rem;
+}
+
+.aviso-medico-nota{
+    text-align: center;
+    font-size: 0.88rem;
+    color: #666;
+    max-width: 820px;
+    margin: 1rem auto 0 auto;
+}
+
+/* Páginas completas: Biblioteca, Privacidad, Términos y Contacto */
+.pagina-info-wrapper{
+    width: 92%;
+    max-width: 1200px;
+    margin: clamp(2rem, 4vw, 3.5rem) auto;
+}
+
+.pagina-info-top{
+    background: #f7f4ef;
+    padding: clamp(1.8rem, 4vw, 3rem);
+    border-radius: 28px;
+    margin-bottom: 2.2rem;
+}
+
+.btn-volver-info{
+    display: inline-block;
+    color: #08551F;
+    font-weight: 700;
+    text-decoration: none;
+    margin-bottom: 1rem;
+    font-size: 0.95rem;
+}
+
+.btn-volver-info:hover{
+    text-decoration: underline;
+}
+
+.pagina-info-top h2{
+    color: #08551F;
+    font-size: clamp(1.8rem, 3.5vw, 2.7rem);
+    margin-bottom: 10px;
+}
+
+.pagina-info-top p{
+    color: #555;
+    font-size: clamp(1rem, 1.4vw, 1.15rem);
+    max-width: 780px;
+}
+
+.biblioteca-detalle-lista{
+    display: flex;
+    flex-direction: column;
+    gap: 1.8rem;
+}
+
+.guia-detalle-card{
+    background: #ffffff;
+    border-radius: 26px;
+    overflow: hidden;
+    box-shadow: 0 8px 26px rgba(0,0,0,0.06);
+    display: grid;
+    grid-template-columns: 320px 1fr;
+}
+
+.guia-detalle-card img{
+    width: 100%;
+    height: 100%;
+    min-height: 240px;
+    object-fit: cover;
+}
+
+.guia-detalle-contenido{
+    padding: clamp(1.5rem, 3vw, 2.2rem);
+}
+
+.guia-detalle-contenido h3{
+    color: #451313;
+    font-size: clamp(1.3rem, 2.2vw, 1.65rem);
+    margin-bottom: 10px;
+}
+
+.guia-detalle-contenido p{
+    color: #4f4a45;
+    margin-bottom: 14px;
+    line-height: 1.6;
+}
+
+.lista-puntos-clave{
+    padding-left: 1.2rem;
+    color: #3d3834;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.info-cards-grid{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+}
+
+.info-legal-card{
+    background: #ffffff;
+    padding: 1.8rem;
+    border-radius: 24px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.05);
+}
+
+.numero-legal{
+    display: inline-block;
+    background: #e8f5e9;
+    color: #08551F;
+    font-weight: 700;
+    font-size: 0.85rem;
+    padding: 4px 12px;
+    border-radius: 14px;
+    margin-bottom: 10px;
+}
+
+.info-legal-card h3{
+    color: #08551F;
+    font-size: 1.25rem;
+    margin-bottom: 8px;
+}
+
+.info-legal-card p{
+    color: #555;
+    font-size: 0.96rem;
+    line-height: 1.6;
+}
+
+.contacto-layout-grid{
+    display: grid;
+    grid-template-columns: 1fr 1.1fr;
+    gap: 2rem;
+    align-items: start;
+}
+
+.contacto-canales{
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+}
+
+.contacto-form-card{
+    background: #ffffff;
+    padding: clamp(1.6rem, 3vw, 2.4rem);
+    border-radius: 26px;
+    box-shadow: 0 10px 28px rgba(0,0,0,0.06);
+}
+
+.contacto-form-card h3{
+    color: #08551F;
+    font-size: 1.45rem;
+    margin-bottom: 6px;
+}
+
+.contacto-form-card p{
+    color: #666;
+    margin-bottom: 1.2rem;
+}
+
+.contacto-form-card form{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.contacto-form-card label{
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: #3d3834;
+}
+
+.contacto-form-card input,
+.contacto-form-card select,
+.contacto-form-card textarea{
+    width: 100%;
+    padding: 12px 14px;
+    border: 1px solid #d6cfc7;
+    border-radius: 12px;
+    font-size: 0.95rem;
+    font-family: inherit;
+    background: #faf8f5;
+}
+
+.btn-enviar-contacto{
+    margin-top: 8px;
+    background: #08551F;
+    color: #ffffff;
+    border: none;
+    padding: 14px 24px;
+    border-radius: 26px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.btn-enviar-contacto:hover{
+    background: #0b6e29;
+}
+
+@media (max-width: 820px){
+    .guia-detalle-card{
+        grid-template-columns: 1fr;
+    }
+    .contacto-layout-grid{
+        grid-template-columns: 1fr;
+    }
+    .slider-container{
+        padding: 0 10px;
+    }
 }

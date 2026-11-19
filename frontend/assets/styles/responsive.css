@@ -80,7 +80,6 @@ LAPTOP (1200px)
     }
 
     .contenedor-pilares,
-    .biblioteca-cards,
     .funciones-grid{
         justify-content:center;
         gap:25px;
@@ -233,7 +232,7 @@ TABLET (992px)
     }
 
     .biblioteca-cards{
-        justify-content:center;
+        justify-content:flex-start !important;
     }
 
     .biblioteca-card{
